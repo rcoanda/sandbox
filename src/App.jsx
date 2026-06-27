@@ -16,9 +16,7 @@ function App() {
         <button className="border border-white hover:bg-white hover:text-primary">
           Cliquez ici
         </button>
-        <button className="btn-primary">
-          Mon Bouton
-        </button>
+
       </div>
     </>
   )
