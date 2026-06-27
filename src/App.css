@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  /* Couleurs personnalisées */
+  --color-primary: #3b82f6;
+  --color-secondary: #f472b6;
+
+  /* Polices personnalisées */
+  --font-sans: "Inter", sans-serif;
+
+  /* Espacements personnalisés */
+  --spacing-128: 32rem;
+
+  /* Ombres personnalisées */
+  --shadow-custom: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.btn-primary {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
