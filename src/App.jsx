@@ -8,7 +8,7 @@ import Grid from './pages/Grid'
 import Satelite from './pages/Satelite'
 import Cosmos from './pages/Cosmos'
 import Metropolitan from './pages/Metropolitan'
-import ArtInstitute from './pages/ArtInstitute'
+import Chicago from './pages/Chicago'
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
         <NavLink to="/metropolitan" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           The Metropolitan Museum of Art
         </NavLink>
-        <NavLink to="/artinstitute" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+        <NavLink to="/chicago" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Art Institute of Chicago
         </NavLink>
       </nav>
@@ -55,7 +55,7 @@ function App() {
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
-        <Route path="/artinstitute" element={<ArtInstitute />} />
+        <Route path="/chicago" element={<Chicago />} />
       </Routes>
     </div>
   )

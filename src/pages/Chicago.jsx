@@ -1,7 +1,7 @@
 import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
-import '../styles/ArtInstitute.css'
+import '../styles/Chicago.css'
 
 const COUNT = 60
 const A = 4.5
@@ -81,9 +81,9 @@ function Scene() {
   )
 }
 
-function ArtInstitute() {
+function Chicago() {
   return (
-    <div className="artinstitute-page">
+    <div className="chicago-page">
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
@@ -91,4 +91,4 @@ function ArtInstitute() {
   )
 }
 
-export default ArtInstitute
+export default Chicago
