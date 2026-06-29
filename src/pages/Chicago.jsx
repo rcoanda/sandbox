@@ -3,10 +3,10 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import '../styles/Chicago.css'
 
-const COUNT = 60
-const A = 4.5
-const B = 3.0
-const SPEED = 0.3
+const COUNT = 40
+const TRAJ_LARGEUR = 12
+const TRAJ_HAUTEUR = 7
+const SPEED = 0.03
 
 function Rect({ index, total }) {
   const meshRef = useRef()
@@ -31,19 +31,19 @@ function Rect({ index, total }) {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * SPEED + phase
-    const x = Math.cos(t) * A
-    const z = Math.sin(t * 2) * (B / 2)
+    const x = Math.cos(t) * TRAJ_LARGEUR / 2
+    const z = Math.sin(t * 2) * TRAJ_HAUTEUR / 2
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -Math.sin(t) * A
-    const dz = Math.cos(t * 2) * B
+    const dx = -Math.sin(t) * TRAJ_LARGEUR / 2
+    const dz = Math.cos(t * 2) * TRAJ_HAUTEUR
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.65, 0.45]} />
+      <planeGeometry args={[1, 1]} />
       <meshBasicMaterial color={color} side={2} />
     </mesh>
   )
