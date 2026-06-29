@@ -1,103 +1,92 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useMemo, useEffect } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import './Animation.css'
 
-const ROWS = 8
-const COLS = 14
+const COUNT = 60
+const A = 4.5
+const B = 2.2
+const SPEED = 0.25
 
-function Animation() {
-  const gridRef = useRef(null)
-  const mouseRef = useRef({ x: 0, y: 0 })
-  const posRef = useRef([])
+function Rect({ index, total }) {
+  const meshRef = useRef()
+  const phase = (index / total) * Math.PI * 2
 
-  const [rects] = useState(() =>
-    Array.from({ length: ROWS * COLS }, () => ({
-      hue: Math.random() * 360,
-    }))
-  )
+  const color = useMemo(() => {
+    const hue = (index / total) * 360
+    return `hsl(${hue}, 75%, 55%)`
+  }, [index, total])
 
   useEffect(() => {
-    const els = gridRef.current.querySelectorAll('.rect')
-    const n = els.length
-    const setX = []
-    const setY = []
-    const setRot = []
-    const target = []
-    const current = []
-
-    for (let i = 0; i < n; i++) {
-      setX[i] = gsap.quickSetter(els[i], 'x', 'px')
-      setY[i] = gsap.quickSetter(els[i], 'y', 'px')
-      setRot[i] = gsap.quickSetter(els[i], 'rotation', 'deg')
-      target[i] = { x: 0, y: 0, rot: 0 }
-      current[i] = { x: 0, y: 0, rot: 0 }
-    }
-
-    const compute = () => {
-      els.forEach((el, i) => {
-        const b = el.getBoundingClientRect()
-        posRef.current[i] = {
-          cx: b.left + b.width / 2,
-          cy: b.top + b.height / 2,
-        }
-      })
-    }
-
-    compute()
-
-    const onMove = (e) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
-
-    const tick = () => {
-      const { x: mx, y: my } = mouseRef.current
-      for (let i = 0; i < n; i++) {
-        const p = posRef.current[i]
-        if (!p) continue
-
-        const dx = mx - p.cx
-        const dy = my - p.cy
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        const strength = Math.max(0, 1 - dist / 600)
-
-        target[i].x = dx * 0.04
-        target[i].y = dy * 0.04
-        target[i].rot = dx * 0.015 * strength
-
-        current[i].x += (target[i].x - current[i].x) * 0.08
-        current[i].y += (target[i].y - current[i].y) * 0.08
-        current[i].rot += (target[i].rot - current[i].rot) * 0.08
-
-        setX[i](current[i].x)
-        setY[i](current[i].y)
-        setRot[i](current[i].rot)
-      }
-    }
-
-    const onResize = () => { compute() }
-
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('resize', onResize)
-    gsap.ticker.add(tick)
-
-    return () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('resize', onResize)
-      gsap.ticker.remove(tick)
-    }
+    gsap.to(meshRef.current.scale, {
+      x: 1.15 + Math.random() * 0.2,
+      y: 1.15 + Math.random() * 0.2,
+      duration: 0.6 + Math.random() * 0.4,
+      yoyo: true,
+      repeat: -1,
+      ease: 'sine.inOut',
+      delay: Math.random(),
+    })
   }, [])
 
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime() * SPEED + phase
+    const x = Math.cos(t) * A
+    const z = Math.sin(t) * B
+
+    meshRef.current.position.set(x, 0, z)
+
+    const dx = -Math.sin(t) * A
+    const dz = Math.cos(t) * B
+    meshRef.current.rotation.y = Math.atan2(dx, dz)
+  })
+
+  return (
+    <mesh ref={meshRef}>
+      <planeGeometry args={[0.65, 0.45]} />
+      <meshBasicMaterial color={color} side={2} />
+    </mesh>
+  )
+}
+
+function Scene() {
+  const groupRef = useRef()
+  const mouse = useRef({ x: 0, y: 0 })
+  const current = useRef({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const onMove = (e) => {
+      mouse.current = {
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2,
+      }
+    }
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [])
+
+  useFrame(() => {
+    current.current.x += (mouse.current.x - current.current.x) * 0.04
+    current.current.y += (mouse.current.y - current.current.y) * 0.04
+    groupRef.current.rotation.x = current.current.y * 0.15
+    groupRef.current.rotation.y = current.current.x * 0.15
+  })
+
+  return (
+    <group ref={groupRef}>
+      {Array.from({ length: COUNT }, (_, i) => (
+        <Rect key={i} index={i} total={COUNT} />
+      ))}
+    </group>
+  )
+}
+
+function Animation() {
   return (
     <div className="animation-page">
-      <div className="animation-grid" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
-        {rects.map((r, i) => (
-          <div
-            key={i}
-            className="rect"
-            style={{ backgroundColor: `hsl(${r.hue}, 70%, 60%)` }}
-          />
-        ))}
-      </div>
+      <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
+        <Scene />
+      </Canvas>
     </div>
   )
 }
