@@ -68,8 +68,6 @@ function Metropolitan() {
         }
 
         if (!cancelled) {
-          cachedArtworks = items
-          cachedReady = true
           setArtworks(items)
           setReady(true)
         }
