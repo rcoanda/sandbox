@@ -1,4 +1,5 @@
 import '../App.css'
+import Sphere from '../COMPOSANTS/Sphere'
 
 function Home() {
   return (
@@ -14,6 +15,8 @@ function Home() {
           Cliquez ici
         </button>
       </div>
+
+      <Sphere />
     </>
   )
 }

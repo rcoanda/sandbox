@@ -1,0 +1,16 @@
+{
+  "provider": {
+    "gpt4all": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "GPT4All",
+      "options": {
+        "baseURL": "http://localhost:4891/v1"
+      },
+      "models": {
+        "reasoner-v1": {
+          "name": "Reasoner v1"
+        }
+      }
+    }
+  }
+}
