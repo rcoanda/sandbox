@@ -1,5 +1,6 @@
-import { useRef, useMemo, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 import gsap from 'gsap'
 import './Animation.css'
 
@@ -8,14 +9,56 @@ const A = 4.5
 const B = 2.2
 const SPEED = 0.25
 
-function Rect({ index, total }) {
+function generateCosmicTexture() {
+  const canvas = document.createElement('canvas')
+  canvas.width = 512
+  canvas.height = 512
+  const ctx = canvas.getContext('2d')
+
+  const hue = Math.random() * 360
+  const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256)
+  grad.addColorStop(0, `hsla(${hue + Math.random() * 60}, 80%, 35%, 1)`)
+  grad.addColorStop(0.3, `hsla(${hue + 30 + Math.random() * 60}, 60%, 15%, 0.9)`)
+  grad.addColorStop(0.7, `hsla(${hue + 60}, 40%, 8%, 0.8)`)
+  grad.addColorStop(1, `hsla(0, 0%, 3%, 1)`)
+  ctx.fillStyle = grad
+  ctx.fillRect(0, 0, 512, 512)
+
+  for (let i = 0; i < 400; i++) {
+    const x = Math.random() * 512
+    const y = Math.random() * 512
+    const r = Math.random() * 2.5
+    const a = 0.3 + Math.random() * 0.7
+    ctx.beginPath()
+    ctx.arc(x, y, r, 0, Math.PI * 2)
+    ctx.fillStyle = `rgba(255, 255, 255, ${a})`
+    ctx.fill()
+  }
+
+  for (let i = 0; i < 15; i++) {
+    const x = Math.random() * 512
+    const y = Math.random() * 512
+    const r = 2 + Math.random() * 4
+    const glow = ctx.createRadialGradient(x, y, 0, x, y, r * 3)
+    glow.addColorStop(0, 'rgba(255, 255, 255, 0.8)')
+    glow.addColorStop(0.3, 'rgba(255, 255, 255, 0.2)')
+    glow.addColorStop(1, 'rgba(255, 255, 255, 0)')
+    ctx.fillStyle = glow
+    ctx.fillRect(x - r * 3, y - r * 3, r * 6, r * 6)
+    ctx.beginPath()
+    ctx.arc(x, y, r * 0.5, 0, Math.PI * 2)
+    ctx.fillStyle = 'white'
+    ctx.fill()
+  }
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = 'srgb'
+  return texture
+}
+
+function Rect({ index, total, texture }) {
   const meshRef = useRef()
   const phase = (index / total) * Math.PI * 2
-
-  const color = useMemo(() => {
-    const hue = (index / total) * 360
-    return `hsl(${hue}, 75%, 55%)`
-  }, [index, total])
 
   useEffect(() => {
     gsap.to(meshRef.current.scale, {
@@ -44,12 +87,12 @@ function Rect({ index, total }) {
   return (
     <mesh ref={meshRef}>
       <planeGeometry args={[0.65, 0.45]} />
-      <meshBasicMaterial color={color} side={2} />
+      <meshBasicMaterial map={texture} side={2} />
     </mesh>
   )
 }
 
-function Scene() {
+function Scene({ textures }) {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
@@ -74,18 +117,66 @@ function Scene() {
 
   return (
     <group ref={groupRef}>
-      {Array.from({ length: COUNT }, (_, i) => (
-        <Rect key={i} index={i} total={COUNT} />
+      {textures.map((tex, i) => (
+        <Rect key={i} index={i} total={textures.length} texture={tex} />
       ))}
     </group>
   )
 }
 
 function Animation() {
+  const [textures, setTextures] = useState([])
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    const loader = new THREE.TextureLoader()
+
+    const loadProcedural = () => {
+      const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
+      setTextures(tex)
+      setReady(true)
+    }
+
+    fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=60')
+      .then((res) => res.json())
+      .then((data) => {
+        const urls = data
+          .map((item) => item.url)
+          .filter((url) => /\.(jpg|jpeg|png)$/i.test(url))
+
+        if (urls.length < 10) {
+          loadProcedural()
+          return
+        }
+
+        let loaded = 0
+        const tex = []
+        const onLoad = () => {
+          loaded++
+          if (loaded >= urls.length) {
+            setTextures(tex)
+            setReady(true)
+          }
+        }
+
+        urls.forEach((url, i) => {
+          loader.load(
+            url,
+            (t) => { tex[i] = t; onLoad() },
+            undefined,
+            () => onLoad()
+          )
+        })
+      })
+      .catch(() => loadProcedural())
+  }, [])
+
+  if (!ready) return <div className="animation-page" />
+
   return (
     <div className="animation-page">
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
-        <Scene />
+        <Scene textures={textures} />
       </Canvas>
     </div>
   )

@@ -1,17 +1,37 @@
-.sphere-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  cursor: grab;
+.sphere-page {
+  width: 100%;
+  height: calc(100vh - 56px);
+  position: relative;
+  overflow: hidden;
   user-select: none;
 }
 
-.sphere-container--dragging {
+.sphere-content {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sphere-content--dragging {
+  transition: none;
+}
+
+.sphere-canvas-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.sphere-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.sphere-handle--dragging {
   cursor: grabbing;
 }

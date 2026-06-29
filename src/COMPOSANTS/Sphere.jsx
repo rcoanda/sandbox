@@ -65,6 +65,7 @@ function Scene() {
 }
 
 function Sphere() {
+  const containerRef = useRef(null)
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const isDragging = useRef(false)
   const dragStart = useRef({ x: 0, y: 0 })
@@ -101,16 +102,22 @@ function Sphere() {
   }
 
   return (
-    <div
-      className={`sphere-container${dragging ? ' sphere-container--dragging' : ''}`}
-      style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
-      onMouseDown={handleMouseDown}
-    >
-      <div style={{ pointerEvents: 'none', width: '100vw', height: '100vh' }}>
-        <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
-          <Scene />
-        </Canvas>
+    <div className="sphere-page" ref={containerRef}>
+      <div
+        className={`sphere-content${dragging ? ' sphere-content--dragging' : ''}`}
+        style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
+      >
+        <div className="sphere-canvas-wrap">
+          <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
+            <Scene />
+          </Canvas>
+        </div>
       </div>
+      <div
+        className={`sphere-handle${dragging ? ' sphere-handle--dragging' : ''}`}
+        style={{ transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))` }}
+        onMouseDown={handleMouseDown}
+      />
     </div>
   )
 }

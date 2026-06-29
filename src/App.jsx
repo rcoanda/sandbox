@@ -3,6 +3,9 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Animation from './pages/Animation'
+import Infini from './pages/Infini'
+import Grid from './pages/Grid'
+import Satelite from './pages/Satelite'
 
 function App() {
   return (
@@ -17,15 +20,27 @@ function App() {
         <NavLink to="/contact" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Contact
         </NavLink>
+        <NavLink to="/satelite" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Satelite
+        </NavLink>
         <NavLink to="/animation" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Animation
+        </NavLink>
+        <NavLink to="/infini" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Infini
+        </NavLink>
+        <NavLink to="/grid" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Grid
         </NavLink>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/satelite" element={<Satelite />} />
         <Route path="/animation" element={<Animation />} />
+        <Route path="/infini" element={<Infini />} />
+        <Route path="/grid" element={<Grid />} />
       </Routes>
     </div>
   )
