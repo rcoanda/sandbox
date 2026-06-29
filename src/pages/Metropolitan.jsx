@@ -24,6 +24,7 @@ function Metropolitan() {
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [flipped, setFlipped] = useState(false)
+  const flipTimerRef = useRef(null)
 
   useEffect(() => {
     let cancelled = false
@@ -211,6 +212,13 @@ function Metropolitan() {
     })
   }, [expandedIndex, artworks])
 
+  useEffect(() => {
+    if (expandedIndex === null) {
+      setFlipped(false)
+    }
+    return () => clearTimeout(flipTimerRef.current)
+  }, [expandedIndex])
+
   return (
     <div className="metropolitan-page">
       <div className="metropolitan-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
@@ -250,8 +258,18 @@ function Metropolitan() {
         <div ref={expandedRef} className="expanded-rect">
           <div
             className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => setFlipped(true)}
-            onMouseLeave={() => setFlipped(false)}
+            onMouseEnter={() => {
+              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
+            }}
+            onMouseMove={() => {
+              if (flipped) return
+              clearTimeout(flipTimerRef.current)
+              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
+            }}
+            onMouseLeave={() => {
+              clearTimeout(flipTimerRef.current)
+              setFlipped(false)
+            }}
           >
             <div className="expanded-front">
               <img src={artworks[expandedIndex].imageUrl} alt={artworks[expandedIndex].title} />
