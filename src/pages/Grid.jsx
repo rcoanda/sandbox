@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import './Grid.css'
 
@@ -9,6 +9,13 @@ function Grid() {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
+  const parallaxActive = useRef([])
+  const expandedRef = useRef(null)
+  const setXRef = useRef([])
+  const setYRef = useRef([])
+  const setRotRef = useRef([])
+  const targetRef = useRef([])
+  const currentRef = useRef([])
 
   const [rects] = useState(() =>
     Array.from({ length: ROWS * COLS }, () => ({
@@ -16,21 +23,20 @@ function Grid() {
     }))
   )
 
+  const [expandedIndex, setExpandedIndex] = useState(null)
+
   useEffect(() => {
+    parallaxActive.current = new Array(ROWS * COLS).fill(true)
+
     const els = gridRef.current.querySelectorAll('.rect')
     const n = els.length
-    const setX = []
-    const setY = []
-    const setRot = []
-    const target = []
-    const current = []
 
     for (let i = 0; i < n; i++) {
-      setX[i] = gsap.quickSetter(els[i], 'x', 'px')
-      setY[i] = gsap.quickSetter(els[i], 'y', 'px')
-      setRot[i] = gsap.quickSetter(els[i], 'rotation', 'deg')
-      target[i] = { x: 0, y: 0, rot: 0 }
-      current[i] = { x: 0, y: 0, rot: 0 }
+      setXRef.current[i] = gsap.quickSetter(els[i], 'x', 'px')
+      setYRef.current[i] = gsap.quickSetter(els[i], 'y', 'px')
+      setRotRef.current[i] = gsap.quickSetter(els[i], 'rotation', 'deg')
+      targetRef.current[i] = { x: 0, y: 0, rot: 0 }
+      currentRef.current[i] = { x: 0, y: 0, rot: 0 }
     }
 
     const compute = () => {
@@ -52,6 +58,7 @@ function Grid() {
     const tick = () => {
       const { x: mx, y: my } = mouseRef.current
       for (let i = 0; i < n; i++) {
+        if (!parallaxActive.current[i]) continue
         const p = posRef.current[i]
         if (!p) continue
 
@@ -60,17 +67,17 @@ function Grid() {
         const dist = Math.sqrt(dx * dx + dy * dy)
         const strength = Math.max(0, 1 - dist / 600)
 
-        target[i].x = dx * 0.04
-        target[i].y = dy * 0.04
-        target[i].rot = dx * 0.015 * strength
+        targetRef.current[i].x = dx * 0.04
+        targetRef.current[i].y = dy * 0.04
+        targetRef.current[i].rot = dx * 0.015 * strength
 
-        current[i].x += (target[i].x - current[i].x) * 0.08
-        current[i].y += (target[i].y - current[i].y) * 0.08
-        current[i].rot += (target[i].rot - current[i].rot) * 0.08
+        currentRef.current[i].x += (targetRef.current[i].x - currentRef.current[i].x) * 0.08
+        currentRef.current[i].y += (targetRef.current[i].y - currentRef.current[i].y) * 0.08
+        currentRef.current[i].rot += (targetRef.current[i].rot - currentRef.current[i].rot) * 0.08
 
-        setX[i](current[i].x)
-        setY[i](current[i].y)
-        setRot[i](current[i].rot)
+        setXRef.current[i](currentRef.current[i].x)
+        setYRef.current[i](currentRef.current[i].y)
+        setRotRef.current[i](currentRef.current[i].rot)
       }
     }
 
@@ -87,17 +94,99 @@ function Grid() {
     }
   }, [])
 
+  const handleRectClick = useCallback((e, index) => {
+    if (expandedIndex !== null) return
+
+    parallaxActive.current[index] = false
+    targetRef.current[index] = { x: 0, y: 0, rot: 0 }
+    currentRef.current[index] = { x: 0, y: 0, rot: 0 }
+    setXRef.current[index](0)
+    setYRef.current[index](0)
+    setRotRef.current[index](0)
+
+    setExpandedIndex(index)
+  }, [expandedIndex])
+
+  const handleClose = useCallback(() => {
+    const index = expandedIndex
+    const originEl = gridRef.current.querySelectorAll('.rect')[index]
+    const originRect = originEl.getBoundingClientRect()
+    const targetEl = expandedRef.current
+
+    gsap.to(targetEl, {
+      top: originRect.top,
+      left: originRect.left,
+      width: originRect.width,
+      height: originRect.height,
+      borderRadius: '6px',
+      duration: 0.5,
+      ease: 'power3.out',
+      onComplete: () => {
+        targetRef.current[index] = { x: 0, y: 0, rot: 0 }
+        currentRef.current[index] = { x: 0, y: 0, rot: 0 }
+        parallaxActive.current[index] = true
+        setExpandedIndex(null)
+      },
+    })
+  }, [expandedIndex])
+
+  useEffect(() => {
+    if (expandedIndex === null) return
+
+    const originEl = gridRef.current.querySelectorAll('.rect')[expandedIndex]
+    const originRect = originEl.getBoundingClientRect()
+    const targetEl = expandedRef.current
+    if (!targetEl) return
+
+    const hue = rects[expandedIndex].hue
+    const bgColor = `hsl(${hue}, 70%, 60%)`
+
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const targetW = vw * 0.8
+    const targetH = vh * 0.8
+
+    gsap.set(targetEl, {
+      position: 'fixed',
+      top: originRect.top,
+      left: originRect.left,
+      width: originRect.width,
+      height: originRect.height,
+      margin: 0,
+      borderRadius: '6px',
+      zIndex: 100,
+      backgroundColor: bgColor,
+    })
+
+    gsap.to(targetEl, {
+      top: (vh - targetH) / 2,
+      left: (vw - targetW) / 2,
+      width: targetW,
+      height: targetH,
+      borderRadius: 0,
+      backgroundColor: bgColor,
+      duration: 0.6,
+      ease: 'power3.out',
+    })
+  }, [expandedIndex, rects])
+
   return (
     <div className="grid-page">
       <div className="grid-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
         {rects.map((r, i) => (
           <div
             key={i}
-            className="rect"
+            className={`rect${expandedIndex === i ? ' rect--hidden' : ''}`}
             style={{ backgroundColor: `hsl(${r.hue}, 70%, 60%)` }}
+            onClick={(e) => handleRectClick(e, i)}
           />
         ))}
       </div>
+      {expandedIndex !== null && (
+        <div ref={expandedRef} className="expanded-rect">
+          <button className="close-btn" onClick={handleClose}>✕</button>
+        </div>
+      )}
     </div>
   )
 }
