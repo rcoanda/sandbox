@@ -8,6 +8,9 @@ const TOTAL = ROWS * COLS
 const API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1'
 const FETCH_LIMIT = 30
 
+let cachedArtworks = null
+let cachedReady = false
+
 function Metropolitan() {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -27,6 +30,12 @@ function Metropolitan() {
   const flipTimerRef = useRef(null)
 
   useEffect(() => {
+    if (cachedArtworks) {
+      setArtworks(cachedArtworks)
+      setReady(cachedReady)
+      return
+    }
+
     let cancelled = false
 
     const fetchArtworks = async () => {
@@ -59,6 +68,8 @@ function Metropolitan() {
         }
 
         if (!cancelled) {
+          cachedArtworks = items
+          cachedReady = true
           setArtworks(items)
           setReady(true)
         }
