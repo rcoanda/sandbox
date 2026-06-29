@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
-import './Grid.css'
+import '../styles/Grid.css'
 
 const ROWS = 8
 const COLS = 14

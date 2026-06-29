@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import './Sphere.css'
+import '../styles/Sphere.css'
 
 function SphereMesh({ position, size, color, emissive }) {
   return (

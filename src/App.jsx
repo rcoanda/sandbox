@@ -6,6 +6,7 @@ import Animation from './pages/Animation'
 import Infini from './pages/Infini'
 import Grid from './pages/Grid'
 import Satelite from './pages/Satelite'
+import Cosmos from './pages/Cosmos'
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         <NavLink to="/grid" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Grid
         </NavLink>
+        <NavLink to="/cosmos" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Cosmos
+        </NavLink>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -41,6 +45,7 @@ function App() {
         <Route path="/animation" element={<Animation />} />
         <Route path="/infini" element={<Infini />} />
         <Route path="/grid" element={<Grid />} />
+        <Route path="/cosmos" element={<Cosmos />} />
       </Routes>
     </div>
   )

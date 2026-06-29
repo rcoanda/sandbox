@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
-import './Animation.css'
+import '../styles/Animation.css'
 
 const COUNT = 60
 const A = 4.5

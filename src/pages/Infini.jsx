@@ -1,7 +1,7 @@
 import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
-import './Infini.css'
+import '../styles/Infini.css'
 
 const COUNT = 60
 const A = 4.5
