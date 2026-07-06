@@ -18,7 +18,7 @@ function Model() {
         })
       }
       if (child.name === 'Cosmonaut') {
-        child.position.y = 2.1
+        child.position.y = -0.35
         cosmoRef.current = child
       }
     })
@@ -26,9 +26,10 @@ function Model() {
 
   useFrame(({ clock }) => {
     if (!cosmoRef.current) return
-    const t = clock.getElapsedTime() * 0.3
-    cosmoRef.current.position.x = Math.cos(t) * 1.5
-    cosmoRef.current.position.z = Math.sin(t) * 1.5
+    const t = clock.getElapsedTime()
+    const radius = 3.5
+    cosmoRef.current.position.x = Math.cos(t * 0.8) * radius
+    cosmoRef.current.position.z = Math.sin(t * 0.8) * radius
   })
 
   return <primitive ref={ref} object={scene} />
