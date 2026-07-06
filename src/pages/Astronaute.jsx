@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
 function Model() {
   const { scene, animations } = useGLTF('/moon_walk.gltf')
   const { ref, mixer } = useAnimations(animations)
+  const cosmoRef = useRef()
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -18,9 +19,17 @@ function Model() {
       }
       if (child.name === 'Cosmonaut') {
         child.position.y = 2.1
+        cosmoRef.current = child
       }
     })
   }, [scene])
+
+  useFrame(({ clock }) => {
+    if (!cosmoRef.current) return
+    const t = clock.getElapsedTime() * 0.3
+    cosmoRef.current.position.x = Math.cos(t) * 1.5
+    cosmoRef.current.position.z = Math.sin(t) * 1.5
+  })
 
   return <primitive ref={ref} object={scene} />
 }
