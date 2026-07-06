@@ -169,7 +169,7 @@ cosmonaut.name = 'Cosmonaut'
 
 scene.userData = { animatedNodes: ['Cosmonaut'] }
 
-// --- Export to GLB ---
+// --- Export to GLTF ---
 const exporter = new GLTFExporter()
 
 // Export as text GLTF JSON

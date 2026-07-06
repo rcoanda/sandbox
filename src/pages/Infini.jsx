@@ -4,8 +4,8 @@ import gsap from 'gsap'
 import '../styles/Infini.css'
 
 const COUNT = 60
-const A = 4.5
-const B = 3.0
+const A = 4.5//6
+const B = 3.0//4
 const SPEED = 0.3
 
 function Rect({ index, total }) {

@@ -2,6 +2,9 @@ import { Canvas } from '@react-three/fiber'
 import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
 
 function Model() {
+  //const { scene, animations } = useGLTF('/animation1.glb')
+  //const { scene, animations } = useGLTF('/personage.glb')
+  //const { scene, animations } = useGLTF('/knot.gltf')
   const { scene, animations } = useGLTF('/moon_walk.gltf')
   const { ref, mixer } = useAnimations(animations)
 

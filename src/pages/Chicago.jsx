@@ -4,11 +4,13 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import '../styles/Chicago.css'
 
-const COUNT = 40
-const TRAJ_LARGEUR = 12
-const TRAJ_HAUTEUR = 7
-const SPEED = 0.03
+const COUNT = 30
+const TRAJ_LARGEUR = 13
+const TRAJ_HAUTEUR = 3
+const SPEED = 0.1
 const API_BASE = 'https://api.artic.edu/api/v1'
+//pro.europeana.eu/page/apis
+//https://corentinbernadou.com/work/ruby-campbell
 const IIIF_URL = 'https://www.artic.edu/iiif/2'
 const FETCH_LIMIT = 20
 
@@ -69,8 +71,12 @@ function Rect({ index, total, artwork, onArtworkClick }) {
   const phase = (index / total) * Math.PI * 2
   const flipTarget = useRef(0)
   const [imageTexture, setImageTexture] = useState(null)
+  const [aspect, setAspect] = useState(1)
 
   const color = useMemo(() => `hsl(${(index / total) * 360}, 70%, 60%)`, [index, total])
+  const planeSize = useMemo(() => {
+    return aspect >= 1 ? [aspect, 1] : [1, 1 / aspect]
+  }, [aspect])
 
   useEffect(() => {
     if (!artwork) return
@@ -79,18 +85,22 @@ function Rect({ index, total, artwork, onArtworkClick }) {
     loader.load(
       artwork.imageUrl,
       (tex) => {
-        if (!cancelled) setImageTexture(tex)
+        if (cancelled) return
+        setImageTexture(tex)
+        setAspect(tex.image.width / tex.image.height)
       },
       undefined,
-      () => {}
+      () => { }
     )
     return () => { cancelled = true }
   }, [artwork])
 
   const backTexture = useMemo(() => {
     if (!artwork) return null
-    return createTextCanvas(artwork, 512, 512)
-  }, [artwork])
+    const w = 512
+    const h = Math.round(512 / aspect)
+    return createTextCanvas(artwork, w, h)
+  }, [artwork, aspect])
 
   useEffect(() => {
     if (!outerRef.current) return
@@ -128,14 +138,14 @@ function Rect({ index, total, artwork, onArtworkClick }) {
     <group ref={outerRef}>
       <group ref={flipRef} onPointerOver={handleOver} onPointerOut={handleOut} onClick={handleClick}>
         <mesh>
-          <planeGeometry args={[1, 1]} />
+          <planeGeometry args={planeSize} />
           <meshBasicMaterial
             color={imageTexture ? 'white' : color}
             map={imageTexture}
           />
         </mesh>
         <mesh rotation-y={Math.PI}>
-          <planeGeometry args={[1, 1]} />
+          <planeGeometry args={planeSize} />
           <meshBasicMaterial
             map={backTexture || undefined}
             transparent={!backTexture}
