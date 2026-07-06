@@ -9,7 +9,8 @@ import Satelite from './pages/Satelite'
 import Cosmos from './pages/Cosmos'
 import Metropolitan from './pages/Metropolitan'
 import Chicago from './pages/Chicago'
-import GLB from './pages/GLB'
+import Moon from './pages/Moon'
+import Astronaute from './pages/Astronaute'
 
 function App() {
   return (
@@ -45,8 +46,11 @@ function App() {
         <NavLink to="/chicago" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Art Institute of Chicago
         </NavLink>
-        <NavLink to="/glb" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          GLB
+        <NavLink to="/moon" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Moon
+        </NavLink>
+        <NavLink to="/astronaute" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Astronaute
         </NavLink>
       </nav>
       <Routes>
@@ -60,7 +64,8 @@ function App() {
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
         <Route path="/chicago" element={<Chicago />} />
-        <Route path="/glb" element={<GLB />} />
+        <Route path="/moon" element={<Moon />} />
+        <Route path="/astronaute" element={<Astronaute />} />
       </Routes>
     </div>
   )

@@ -1,17 +1,31 @@
+import { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import * as THREE from 'three'
 
 function Model() {
-  //const { scene, animations } = useGLTF('/animation1.glb')
-  //const { scene, animations } = useGLTF('/personage.glb')
-  //const { scene, animations } = useGLTF('/knot.gltf')
   const { scene, animations } = useGLTF('/moon_walk.gltf')
   const { ref, mixer } = useAnimations(animations)
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        child.material = new THREE.MeshStandardMaterial({
+          color: child.name === 'Moon' ? 0x888888 : 0xffffff,
+          metalness: 0.1,
+          roughness: 0.6,
+        })
+      }
+      if (child.name === 'Cosmonaut') {
+        child.position.y = 2.1
+      }
+    })
+  }, [scene])
 
   return <primitive ref={ref} object={scene} />
 }
 
-function GLB() {
+function Astronaute() {
   return (
     <div className="w-screen h-screen bg-black">
       <Canvas camera={{ position: [6, 4, 8], fov: 45 }} dpr={[1, 2]} style={{ background: '#000' }}>
@@ -24,4 +38,4 @@ function GLB() {
   )
 }
 
-export default GLB
+export default Astronaute
