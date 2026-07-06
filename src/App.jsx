@@ -25,9 +25,7 @@ function App() {
         <NavLink to="/contact" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Contact
         </NavLink>
-        <NavLink to="/satelite" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Satelite
-        </NavLink>
+
         <NavLink to="/animation" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Animation
         </NavLink>
@@ -37,14 +35,18 @@ function App() {
         <NavLink to="/grid" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Grid
         </NavLink>
-        <NavLink to="/cosmos" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Cosmos
-        </NavLink>
+
         <NavLink to="/metropolitan" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           The Metropolitan Museum of Art
         </NavLink>
         <NavLink to="/chicago" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Art Institute of Chicago
+        </NavLink>
+        <NavLink to="/satelite" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Satelite
+        </NavLink>
+        <NavLink to="/cosmos" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
+          Cosmos
         </NavLink>
         <NavLink to="/moon" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
           Moon
