@@ -23,18 +23,14 @@ function Metropolitan() {
   const targetRef = useRef([])
   const currentRef = useRef([])
 
-  const [artworks, setArtworks] = useState([])
-  const [ready, setReady] = useState(false)
+  const [artworks, setArtworks] = useState(() => cachedArtworks || [])
+  const [ready, setReady] = useState(() => cachedReady || false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
 
   useEffect(() => {
-    if (cachedArtworks) {
-      setArtworks(cachedArtworks)
-      setReady(cachedReady)
-      return
-    }
+    if (cachedArtworks) return
 
     let cancelled = false
 
@@ -68,6 +64,8 @@ function Metropolitan() {
         }
 
         if (!cancelled) {
+          cachedArtworks = items
+          cachedReady = true
           setArtworks(items)
           setReady(true)
         }

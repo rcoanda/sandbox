@@ -7,7 +7,7 @@ import '../styles/Chicago.css'
 const COUNT = 30
 const TRAJ_LARGEUR = 13
 const TRAJ_HAUTEUR = 3
-const SPEED = 0.1
+const SPEED = 0.01
 const API_BASE = 'https://api.artic.edu/api/v1'
 //pro.europeana.eu/page/apis
 //https://corentinbernadou.com/work/ruby-campbell
@@ -70,6 +70,7 @@ function Rect({ index, total, artwork, onArtworkClick }) {
   const flipRef = useRef()
   const phase = (index / total) * Math.PI * 2
   const flipTarget = useRef(0)
+  const flipTimerRef = useRef(null)
   const [imageTexture, setImageTexture] = useState(null)
   const [aspect, setAspect] = useState(1)
 
@@ -127,8 +128,18 @@ function Rect({ index, total, artwork, onArtworkClick }) {
     flipRef.current.rotation.y += (flipTarget.current - flipRef.current.rotation.y) * 0.08
   })
 
-  const handleOver = () => { flipTarget.current = Math.PI }
-  const handleOut = () => { flipTarget.current = 0 }
+  useEffect(() => {
+    return () => clearTimeout(flipTimerRef.current)
+  }, [])
+
+  const handleOver = () => {
+    clearTimeout(flipTimerRef.current)
+    flipTimerRef.current = setTimeout(() => { flipTarget.current = Math.PI }, 2000)
+  }
+  const handleOut = () => {
+    clearTimeout(flipTimerRef.current)
+    flipTarget.current = 0
+  }
   const handleClick = (e) => {
     e.stopPropagation()
     if (artwork) onArtworkClick(index)

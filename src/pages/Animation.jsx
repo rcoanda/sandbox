@@ -137,7 +137,7 @@ function Animation() {
       setReady(true)
     }
 
-    fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=60')
+    fetch('https://api.nasdans la page "metropolitan"a.gov/planetary/apod?api_key=DEMO_KEY&count=60')
       .then((res) => res.json())
       .then((data) => {
         const urls = data
