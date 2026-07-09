@@ -145,6 +145,7 @@ function Cleveland() {
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [imageUrls, setImageUrls] = useState([])
+  const [artworkMetas, setArtworkMetas] = useState([])
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
 
@@ -158,6 +159,12 @@ function Cleveland() {
     fetch('https://openaccess-api.clevelandart.org/api/artworks?has_image=1&limit=60')
       .then((res) => res.json())
       .then(async (data) => {
+        const metas = (data.data || []).map((item) => ({
+          title: item.title || 'Untitled',
+          artist: item.creators?.[0]?.description || 'Unknown Artist',
+          year: item.creation_date || 'Unknown Year',
+        }))
+
         const urls = (data.data || [])
           .map((item) => {
             const web = item.images?.web?.url
@@ -173,6 +180,7 @@ function Cleveland() {
           return
         }
 
+        setArtworkMetas(metas.slice(0, urls.length))
         setImageUrls(urls)
 
         const loadImage = (url) =>
@@ -252,8 +260,9 @@ function Cleveland() {
               <img src={imageUrls[expandedIndex]} alt="" />
             </div>
             <div className="expanded-back">
-              <span className="rect-back-title">Cleveland Museum of Art</span>
-              <span className="rect-back-artist">Open Access</span>
+              <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
+              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Artist'}</span>
+              <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
             </div>
           </div>
           <button className="close-btn" onClick={handleClose}>✕</button>
