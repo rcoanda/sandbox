@@ -161,7 +161,10 @@ function Nasa() {
     fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=60')
       .then((res) => res.json())
       .then((data) => {
-        const urls = data
+        const items = (Array.isArray(data) ? data : [])
+          .filter((item) => !item.copyright)
+
+        const urls = items
           .map((item) => item.url)
           .filter((url) => /\.(jpg|jpeg|png)$/i.test(url))
 
