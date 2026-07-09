@@ -12,7 +12,6 @@ import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
 import Cosmos from './pages/Cosmos/Cosmos'
 import Metropolitan from './pages/Collections/Metropolitan'
-import Chicago from './pages/Collections/Chicago'
 import Europe from './pages/Collections/Europe'
 import Moon from './pages/Cosmos/Moon'
 import Astronaute from './pages/Cosmos/Astronaute'
@@ -37,7 +36,6 @@ function App() {
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
-        <Route path="/chicago" element={<Chicago />} />
         <Route path="/europe" element={<Europe />} />
         <Route path="/moon" element={<Moon />} />
         <Route path="/astronaute" element={<Astronaute />} />

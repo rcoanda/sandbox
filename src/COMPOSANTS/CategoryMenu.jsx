@@ -28,7 +28,6 @@ const categoryLinks = {
   collections: [
     { label: 'Nasa', path: '/nasa' },
     { label: 'Metropolitan', path: '/metropolitan' },
-    { label: 'Chicago', path: '/chicago' },
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },
   ],
