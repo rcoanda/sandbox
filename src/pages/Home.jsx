@@ -8,10 +8,10 @@ import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene },
-  { id: 'cosmos', title: 'Cosmos', label: '02', Scene: CosmosScene },
-  { id: 'abstrait', title: 'Abstrait', label: '03', Scene: AbstraitScene },
-  { id: 'collections', title: 'Collections & Défilés', label: '04', Scene: CollectionsScene },
+  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene, bgClass: 'home-cell--geometrie' },
+  { id: 'cosmos', title: 'Cosmos', label: '02', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
+  { id: 'abstrait', title: 'Abstrait', label: '03', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
+  { id: 'collections', title: 'Collections & Défilés', label: '04', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
 ]
 
 function Home() {
@@ -93,7 +93,7 @@ function Home() {
     <div className="home-page">
       <div className="home-grid" ref={gridRef}>
         <div className="home-col">
-          <div className="home-cell" onClick={() => handleCellClick(categories[0].id)}>
+          <div className={`home-cell ${categories[0].bgClass}`} onClick={() => handleCellClick(categories[0].id)}>
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
               <GeometrieScene />
             </Canvas>
@@ -103,7 +103,7 @@ function Home() {
               <span>{categories[0].label}</span>
             </div>
           </div>
-          <div className="home-cell" onClick={() => handleCellClick(categories[2].id)}>
+          <div className={`home-cell ${categories[2].bgClass}`} onClick={() => handleCellClick(categories[2].id)}>
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
               <AbstraitScene />
             </Canvas>
@@ -116,7 +116,7 @@ function Home() {
           <div className="home-diagonal" />
         </div>
         <div className="home-col">
-          <div className="home-cell" onClick={() => handleCellClick(categories[1].id)}>
+          <div className={`home-cell ${categories[1].bgClass}`} onClick={() => handleCellClick(categories[1].id)}>
             <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
               <CosmosScene />
             </Canvas>
@@ -126,7 +126,7 @@ function Home() {
               <span>{categories[1].label}</span>
             </div>
           </div>
-          <div className="home-cell" onClick={() => handleCellClick(categories[3].id)}>
+          <div className={`home-cell ${categories[3].bgClass}`} onClick={() => handleCellClick(categories[3].id)}>
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
               <CollectionsScene />
             </Canvas>

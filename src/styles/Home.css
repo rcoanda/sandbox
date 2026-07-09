@@ -33,11 +33,21 @@
   border: 1px solid #d8d8d8;
   border-width: 0 1px 1px 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-.home-cell:hover {
-  background-color: #e8e8e8;
+.home-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+  transition: background 0.3s ease;
+  pointer-events: none;
+}
+
+.home-cell:hover::before {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .home-cell canvas {
@@ -47,6 +57,12 @@
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
+  z-index: 0;
+  transition: filter 0.3s ease;
+}
+
+.home-cell:hover canvas {
+  filter: brightness(1.2) contrast(1.1);
 }
 
 .home-cell-title {
@@ -132,6 +148,36 @@
     bottom: 35px;
     right: 35px;
   }
+}
+
+.home-cell--geometrie {
+  background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a5b4fc 100%);
+}
+
+.home-cell--cosmos {
+  background: linear-gradient(135deg, #020617 0%, #1e3a5f 50%, #38bdf8 100%);
+}
+
+.home-cell--abstrait {
+  background: linear-gradient(135deg, #831843 0%, #db2777 50%, #f9a8d4 100%);
+}
+
+.home-cell--collections {
+  background: linear-gradient(135deg, #78350f 0%, #d97706 50%, #fde68a 100%);
+}
+
+.home-cell--geometrie .home-cell-title,
+.home-cell--cosmos .home-cell-title,
+.home-cell--abstrait .home-cell-title,
+.home-cell--collections .home-cell-title {
+  color: #fff;
+}
+
+.home-cell--geometrie .home-cell-footer,
+.home-cell--cosmos .home-cell-footer,
+.home-cell--abstrait .home-cell-footer,
+.home-cell--collections .home-cell-footer {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 768px) {
