@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { useNavigate } from 'react-router-dom'
 import GeometrieScene from '../composants/GeometrieScene'
 import SceneMotion from '../composants/SceneMotion'
 import CosmosScene from '../composants/CosmosScene'
@@ -36,6 +37,7 @@ function Preview({ activeCat }) {
 }
 
 function Home() {
+  const navigate = useNavigate()
   const [activeId, setActiveId] = useState('geometrie')
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -121,6 +123,10 @@ function Home() {
 
   return (
     <div className="home-page">
+      <nav className="home-nav">
+        <button onClick={() => navigate('/about')} className="home-nav-link">About</button>
+        <button onClick={() => navigate('/contact')} className="home-nav-link">Contact</button>
+      </nav>
       <div className="home-preview">
         <Preview activeCat={activeCat} />
       </div>

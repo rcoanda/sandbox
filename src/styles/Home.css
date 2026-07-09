@@ -6,6 +6,39 @@
   position: relative;
 }
 
+.home-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: 20px 40px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.home-nav-link {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.2s;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.home-nav-link:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
 
 
 .home-preview {
