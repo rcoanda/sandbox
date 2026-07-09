@@ -29,6 +29,7 @@ const categoryLinks = {
     { label: 'Animation', path: '/animation' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Chicago', path: '/chicago' },
+    { label: 'Europe', path: '/europe' },
   ],
 }
 

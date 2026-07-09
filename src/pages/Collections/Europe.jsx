@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Animation.css'
+import '../../styles/Europe.css'
 
 const COUNT = 60
 const A = 4.5
@@ -126,7 +126,7 @@ function Scene({ textures }) {
   )
 }
 
-function Animation() {
+function Europe() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
 
@@ -139,12 +139,17 @@ function Animation() {
       setReady(true)
     }
 
-    fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=60')
+    fetch('https://api.europeana.eu/record/v2/search.json?wskey=api2demo&query=*:*&media=true&thumbnail=true&rows=60')
       .then((res) => res.json())
       .then((data) => {
-        const urls = data
-          .map((item) => item.url)
-          .filter((url) => /\.(jpg|jpeg|png)$/i.test(url))
+        const urls = (data.items || [])
+          .map((item) => {
+            const preview = Array.isArray(item.edmPreview) ? item.edmPreview[0] : item.edmPreview
+            const shownBy = Array.isArray(item.edmIsShownBy) ? item.edmIsShownBy[0] : item.edmIsShownBy
+            const obj = Array.isArray(item.edmObject) ? item.edmObject[0] : item.edmObject
+            return preview || shownBy || obj
+          })
+          .filter(Boolean)
 
         if (urls.length < 10) {
           loadProcedural()
@@ -164,19 +169,25 @@ function Animation() {
         urls.forEach((url, i) => {
           loader.load(
             url,
-            (t) => { tex[i] = t; onLoad() },
+            (t) => {
+              tex[i] = t
+              onLoad()
+            },
             undefined,
-            () => onLoad()
+            () => {
+              tex[i] = generateCosmicTexture()
+              onLoad()
+            }
           )
         })
       })
       .catch(() => loadProcedural())
   }, [])
 
-  if (!ready) return <div className="animation-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="europe-page"><BackArrow /><CategoryMenu category="collections" /></div>
 
   return (
-    <div className="animation-page">
+    <div className="europe-page">
       <BackArrow />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
@@ -186,4 +197,4 @@ function Animation() {
   )
 }
 
-export default Animation
+export default Europe
