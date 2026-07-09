@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Geometric Kinetic | SVG Atlas</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0b1522;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', monospace;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 300px);
+            gap: 20px;
+        }
+
+        .card {
+            width: 300px;
+            height: 300px;
+            background: #152233;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid-container">
+        <div class="card">
+            <div class="label">Project 1 | Square</div><svg viewBox="0 0 100 100">
+                <rect x="25" y="25" width="50" height="50" fill="#e63946" class="shape" />
+            </svg>
+        </div>
+        <div class="card">
+            <div class="label">Project 2 | Triangle</div><svg viewBox="0 0 100 100">
+                <polygon points="50,20 80,80 20,80" fill="#ffb703" class="shape" />
+            </svg>
+        </div>
+        <div class="card">
+            <div class="label">Project 3 | Circle</div><svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="25" fill="#4cc9f0" class="shape" />
+            </svg>
+        </div>
+        <div class="card">
+            <div class="label">Project 4 | Line</div><svg viewBox="0 0 100 100">
+                <line x1="20" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="4" class="shape" />
+            </svg>
+        </div>
+        <div class="card">
+            <div class="label">Project 5 | Diamond</div><svg viewBox="0 0 100 100">
+                <polygon points="50,10 90,50 50,90 10,50" fill="#a0710b" class="shape" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Animation cinétique type "Moving Portraits"
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const shape = card.querySelector('.shape');
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                // Position relative de la souris dans la carte (-1 à 1)
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                // Application de la transformation avec inertie simulée via CSS
+                shape.style.transition = "transform 0.1s ease-out";
+                shape.style.transform = `translate(${x * 30}px, ${y * 30}px) scale(1.1)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                shape.style.transition = "transform 0.5s ease-out";
+                shape.style.transform = `translate(0px, 0px) scale(1)`;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ruban Cinétique Kandinsky</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0b1522;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+    <!-- Chargement de Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <script>
+        // 1. SCÈNE
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 2. LE CHEMIN "RUBAN TORDU" (Courbe 3D)
+        const curve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(-10, 0, 10),
+            new THREE.Vector3(-5, 5, 0),
+            new THREE.Vector3(0, 0, -10),
+            new THREE.Vector3(5, -5, 0),
+            new THREE.Vector3(10, 0, 10)
+        ], true); // true = boucle fermée
+
+        // 3. CRÉATION DES 5 FORMES SVG (Converties en 3D)
+        const colors = [0xe63946, 0xffb703, 0x4cc9f0, 0xffffff, 0xa0710b];
+        const shapes = [];
+
+        for (let i = 0; i < 5; i++) {
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const material = new THREE.MeshBasicMaterial({ color: colors[i], side: THREE.DoubleSide });
+            const mesh = new THREE.Mesh(geometry, material);
+            shapes.push(mesh);
+            scene.add(mesh);
+        }
+
+        camera.position.z = 20;
+
+        // 4. ANIMATION EN CONTINU
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.002; // Vitesse du défilement
+
+            shapes.forEach((mesh, index) => {
+                // Décalage pour répartir les formes sur le ruban
+                const t = (time + (index * 0.2)) % 1;
+                const position = curve.getPointAt(t);
+                mesh.position.copy(position);
+
+                // Fait regarder la forme vers l'avant du chemin
+                mesh.lookAt(curve.getPointAt((t + 0.01) % 1));
+                mesh.rotation.z += Math.PI / 2; // Ajustement orientation
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>

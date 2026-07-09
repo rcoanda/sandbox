@@ -7,8 +7,8 @@ function BackArrow() {
   return (
     <button className="back-arrow" onClick={() => navigate('/')}>
       <svg width="32" height="12" viewBox="0 0 32 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M-2.62268e-07 6L5.53846 -2.42094e-07L5.53846 12L-2.62268e-07 6Z" fill="black" />
-        <path d="M6 6H32" stroke="black" strokeWidth="2" />
+        <path d="M-2.62268e-07 6L5.53846 -2.42094e-07L5.53846 12L-2.62268e-07 6Z" fill="#fff" />
+        <path d="M6 6H32" stroke="#fff" strokeWidth="2" />
       </svg>
     </button>
   )

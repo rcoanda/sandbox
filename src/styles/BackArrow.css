@@ -15,15 +15,15 @@
   overflow: visible;
   transition: transform 0.125s;
   transform-origin: left center;
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+  mix-blend-mode: difference;
 }
 
 .back-arrow svg path:first-child {
-  fill: #000;
+  fill: #fff;
 }
 
 .back-arrow svg path:last-child {
-  stroke: #000;
+  stroke: #fff;
   stroke-width: 2;
 }
 

@@ -2,8 +2,9 @@ import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
-import BackArrow from '../composants/BackArrow'
-import '../styles/Chicago.css'
+import BackArrow from '../../composants/BackArrow'
+import CategoryMenu from '../../composants/CategoryMenu'
+import '../../styles/Chicago.css'
 
 const COUNT = 30
 const TRAJ_LARGEUR = 13
@@ -259,6 +260,7 @@ function Chicago() {
   return (
     <div className="chicago-page">
       <BackArrow />
+      <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene artworks={artworks} onArtworkClick={handleArtworkClick} />
       </Canvas>

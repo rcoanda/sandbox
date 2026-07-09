@@ -1,26 +1,48 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import GeometrieScene from '../composants/GeometrieScene'
+import SceneMotion from '../composants/SceneMotion'
 import CosmosScene from '../composants/CosmosScene'
 import AbstraitScene from '../composants/AbstraitScene'
 import CollectionsScene from '../composants/CollectionsScene'
+import Scene2D from '../composants/Scene2D'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene, bgClass: 'home-cell--geometrie' },
-  { id: 'cosmos', title: 'Cosmos', label: '02', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
-  { id: 'abstrait', title: 'Abstrait', label: '03', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
-  { id: 'collections', title: 'Collections & Défilés', label: '04', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
+  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: Scene2D, bgClass: 'home-cell--geometrie', is2D: true },
+  { id: '3d', title: '3D', label: '02', Scene: GeometrieScene, bgClass: 'home-cell--3d' },
+  { id: 'motion', title: 'Motion', label: '03', Scene: SceneMotion, bgClass: 'home-cell--motion' },
+  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
+  { id: 'abstrait', title: 'Abstrait', label: '05', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
+  { id: 'collections', title: 'Collections & Défilés', label: '06', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
 ]
 
+function Preview({ activeCat }) {
+  if (!activeCat) return null
+  const { Scene, is2D, id } = activeCat
+
+  if (is2D) {
+    return <Scene />
+  }
+
+  return (
+    <Canvas camera={{ position: [0, 0, id === 'cosmos' ? 5 : 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
+      <Scene />
+    </Canvas>
+  )
+}
+
 function Home() {
+  const [activeId, setActiveId] = useState('geometrie')
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const targetsRef = useRef([])
   const currentsRef = useRef([])
   const setterXRef = useRef([])
   const setterYRef = useRef([])
+
+  const activeCat = categories.find((c) => c.id === activeId)
 
   useEffect(() => {
     const cells = gridRef.current.querySelectorAll('.home-cell')
@@ -81,61 +103,47 @@ function Home() {
 
   const handleCellClick = useCallback((id) => {
     const routes = {
-      geometrie: '/grid',
+      geometrie: '/f1',
+      '3d': '/satelite',
+      motion: '/infini',
       cosmos: '/cosmos',
-      abstrait: '/animation',
-      collections: '/metropolitan',
+      abstrait: '/k2d',
+      collections: '/animation',
     }
     window.location.href = routes[id] || '/'
   }, [])
 
+  const col1 = categories.filter((_, i) => i % 2 === 0)
+  const col2 = categories.filter((_, i) => i % 2 === 1)
+
   return (
     <div className="home-page">
+      <div className="home-preview">
+        <Preview activeCat={activeCat} />
+      </div>
       <div className="home-grid" ref={gridRef}>
         <div className="home-col">
-          <div className={`home-cell ${categories[0].bgClass}`} onClick={() => handleCellClick(categories[0].id)}>
-            <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-              <GeometrieScene />
-            </Canvas>
-            <h2 className="home-cell-title">{categories[0].title}</h2>
-            <div className="home-cell-footer">
-              <span>Explorer</span>
-              <span>{categories[0].label}</span>
+          {col1.map((cat) => (
+            <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
+              <h2 className="home-cell-title">{cat.title}</h2>
+              <div className="home-cell-footer">
+                <span>Explorer</span>
+                <span>{cat.label}</span>
+              </div>
             </div>
-          </div>
-          <div className={`home-cell ${categories[2].bgClass}`} onClick={() => handleCellClick(categories[2].id)}>
-            <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-              <AbstraitScene />
-            </Canvas>
-            <h2 className="home-cell-title">{categories[2].title}</h2>
-            <div className="home-cell-footer">
-              <span>Explorer</span>
-              <span>{categories[2].label}</span>
-            </div>
-          </div>
+          ))}
           <div className="home-diagonal" />
         </div>
         <div className="home-col">
-          <div className={`home-cell ${categories[1].bgClass}`} onClick={() => handleCellClick(categories[1].id)}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-              <CosmosScene />
-            </Canvas>
-            <h2 className="home-cell-title">{categories[1].title}</h2>
-            <div className="home-cell-footer">
-              <span>Explorer</span>
-              <span>{categories[1].label}</span>
+          {col2.map((cat) => (
+            <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
+              <h2 className="home-cell-title">{cat.title}</h2>
+              <div className="home-cell-footer">
+                <span>Explorer</span>
+                <span>{cat.label}</span>
+              </div>
             </div>
-          </div>
-          <div className={`home-cell ${categories[3].bgClass}`} onClick={() => handleCellClick(categories[3].id)}>
-            <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-              <CollectionsScene />
-            </Canvas>
-            <h2 className="home-cell-title">{categories[3].title}</h2>
-            <div className="home-cell-footer">
-              <span>Explorer</span>
-              <span>{categories[3].label}</span>
-            </div>
-          </div>
+          ))}
           <div className="home-diagonal" />
         </div>
       </div>

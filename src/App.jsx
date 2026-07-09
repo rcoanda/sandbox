@@ -1,65 +1,35 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Animation from './pages/Animation'
-import Infini from './pages/Infini'
-import Grid from './pages/Grid'
-import Satelite from './pages/Satelite'
-import Cosmos from './pages/Cosmos'
-import Metropolitan from './pages/Metropolitan'
-import Chicago from './pages/Chicago'
-import Moon from './pages/Moon'
-import Astronaute from './pages/Astronaute'
+import Animation from './pages/Collections/Animation'
+import Infini from './pages/Motion/Infini'
+import Grid from './pages/Structure/Grid'
+import Satelite from './pages/3D/Satelite'
+import Random from './pages/Motion/Random'
+import F1 from './pages/Geometrie/F1'
+import F2 from './pages/Geometrie/F2'
+import F3 from './pages/Geometrie/F3'
+import Cosmos from './pages/Cosmos/Cosmos'
+import Metropolitan from './pages/Collections/Metropolitan'
+import Chicago from './pages/Collections/Chicago'
+import Moon from './pages/Cosmos/Moon'
+import Astronaute from './pages/Cosmos/Astronaute'
+import K2D from './pages/Abstrait/K2D'
+import K3D from './pages/Abstrait/K3D'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="flex gap-4 bg-white shadow p-4 mb-6">
-        <NavLink to="/" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Accueil
-        </NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          À propos
-        </NavLink>
-        <NavLink to="/contact" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Contact
-        </NavLink>
-
-        <NavLink to="/animation" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Animation
-        </NavLink>
-        <NavLink to="/infini" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Infini
-        </NavLink>
-        <NavLink to="/grid" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Grid
-        </NavLink>
-
-        <NavLink to="/metropolitan" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          The Metropolitan Museum of Art
-        </NavLink>
-        <NavLink to="/chicago" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Art Institute of Chicago
-        </NavLink>
-        <NavLink to="/satelite" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Satelite
-        </NavLink>
-        <NavLink to="/cosmos" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Cosmos
-        </NavLink>
-        <NavLink to="/moon" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Moon
-        </NavLink>
-        <NavLink to="/astronaute" className={({ isActive }) => isActive ? 'font-bold text-blue-600' : 'text-gray-600'}>
-          Astronaute
-        </NavLink>
-      </nav>
+    <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/satelite" element={<Satelite />} />
+        <Route path="/random" element={<Random />} />
+        <Route path="/f1" element={<F1 />} />
+        <Route path="/f2" element={<F2 />} />
+        <Route path="/f3" element={<F3 />} />
         <Route path="/animation" element={<Animation />} />
         <Route path="/infini" element={<Infini />} />
         <Route path="/grid" element={<Grid />} />
@@ -68,6 +38,8 @@ function App() {
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/moon" element={<Moon />} />
         <Route path="/astronaute" element={<Astronaute />} />
+        <Route path="/k2d" element={<K2D />} />
+        <Route path="/k3d" element={<K3D />} />
       </Routes>
     </div>
   )

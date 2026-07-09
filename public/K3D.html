@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kandinsky en 3D - Hommage au Tableau Bleu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #07111e;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Cadre style galerie d'art */
+        canvas {
+            border: 12px solid #111;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            pointer-events: none;
+            text-align: center;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <div id="canvas-container"></div>
+    <div class="instructions">Bougez la souris pour explorer la profondeur • Cliquez sur le triangle</div>
+
+    <script>
+        // ==========================================
+        // 1. CONFIGURATION DE LA SCÈNE ET DU RENDU
+        // ==========================================
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        // Ajout d'un brouillard pour donner de la profondeur atmosphérique (Bleu nuit de Kandinsky)
+        scene.background = new THREE.Color(0x07111e);
+        scene.fog = new THREE.FogExp2(0x07111e, 0.015);
+
+        // Caméra Perspective pour ressentir la 3D
+        const camera = new THREE.PerspectiveCamera(60, 4 / 3, 0.1, 1000);
+        camera.position.z = 45;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        // On garde le ratio 4:3 du tableau d'origine pour le rendu
+        const width = Math.min(window.innerWidth * 0.85, 1000);
+        const height = width * (3 / 4);
+        renderer.setSize(width, height);
+        container.appendChild(renderer.domElement);
+
+        // ==========================================
+        // 2. LES LUMIÈRES (Le secret du relief)
+        // ==========================================
+        const ambientLight = new THREE.AmbientLight(0x1e3d59, 1.5);
+        scene.add(ambientLight);
+
+        const pointLightYellow = new THREE.PointLight(0xffb703, 2, 50);
+        pointLightYellow.position.set(-10, 10, 20);
+        scene.add(pointLightYellow);
+
+        const pointLightBlue = new THREE.PointLight(0x4cc9f0, 3, 50);
+        pointLightBlue.position.set(15, -10, 15);
+        scene.add(pointLightBlue);
+
+        // ==========================================
+        // 3. CRÉATION DES FORMES (LE TABLEAU)
+        // ==========================================
+
+        // --- LE TRIANGLE JAUNE (Cône à 3 facettes, placé à l'avant-plan Z=5) ---
+        const triangleGeo = new THREE.ConeGeometry(7, 14, 3);
+        const triangleMat = new THREE.MeshStandardMaterial({
+            color: 0xffb703,
+            roughness: 0.2,
+            metalness: 0.1,
+            emissive: 0xffb703,
+            emissiveIntensity: 0.2
+        });
+        const triangle = new THREE.Mesh(triangleGeo, triangleMat);
+        triangle.position.set(-6, -2, 5);
+        scene.add(triangle);
+
+        // --- LE GRAND ANNEAU BLEU (Placé au centre Z=0) ---
+        const ringGeo = new THREE.RingGeometry(11, 11.4, 64);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x4361ee, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.position.set(2, 1, 0);
+        scene.add(ring);
+
+        // --- DISQUE BLEU TRANSLUCIDE (Placé légèrement derrière l'anneau Z=-2) ---
+        const diskGeo = new THREE.CircleGeometry(9, 64);
+        const diskMat = new THREE.MeshStandardMaterial({ color: 0x4cc9f0, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
+        const disk = new THREE.Mesh(diskGeo, diskMat);
+        disk.position.set(1, 0, -2);
+        scene.add(disk);
+
+        // --- LA GRILLE / DAMIER (Composée de lignes en Z=2) ---
+        const gridGroup = new THREE.Group();
+        const lineMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.6 });
+        const gridSize = 6;
+        const divisions = 4;
+        const step = gridSize / divisions;
+
+        for (let i = 0; i <= divisions; i++) {
+            // Lignes verticales
+            const vGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i * step, 0, 0), new THREE.Vector3(i * step, gridSize, 0)]);
+            gridGroup.add(new THREE.Line(vGeo, lineMat));
+            // Lignes horizontales
+            const hGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, i * step, 0), new THREE.Vector3(gridSize, i * step, 0)]);
+            gridGroup.add(new THREE.Line(hGeo, lineMat));
+        }
+        // Petits carrés colorés dans la grille
+        const boxGeo = new THREE.PlaneGeometry(step, step);
+        const redMat = new THREE.MeshBasicMaterial({ color: 0xe63946, side: THREE.DoubleSide });
+        const square = new THREE.Mesh(boxGeo, redMat);
+        square.position.set(step + step / 2, step + step / 2, 0.01);
+        gridGroup.add(square);
+
+        gridGroup.position.set(10, 5, 2);
+        gridGroup.rotation.z = 0.2; // Légère inclinaison style Kandinsky
+        scene.add(gridGroup);
+
+        // --- LES GRANDES DIAGONALES NOIRES (Tension de la toile) ---
+        const createLine = (x1, y1, z1, x2, y2, z2, widthColor) => {
+            const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1, y1, z1), new THREE.Vector3(x2, y2, z2)]);
+            const mat = new THREE.LineBasicMaterial({ color: widthColor });
+            return new THREE.Line(geo, mat);
+        };
+        const line1 = createLine(-25, 10, -5, 20, -15, 8, 0x000000);
+        const line2 = createLine(-20, -12, 6, 25, 5, -3, 0x000000);
+        scene.add(line1);
+        scene.add(line2);
+
+        // --- LE "COSMOS" (Sphères concentriques et satellites en Z=4) ---
+        const cosmosGroup = new THREE.Group();
+        const centerSphereGeo = new THREE.SphereGeometry(2, 32, 32);
+        const centerSphereMat = new THREE.MeshStandardMaterial({ color: 0xe63946, roughness: 0.5 });
+        const centerSphere = new THREE.Mesh(centerSphereGeo, centerSphereMat);
+        cosmosGroup.add(centerSphere);
+
+        // Satellite bleu
+        const satGeo = new THREE.SphereGeometry(0.6, 16, 16);
+        const satMat = new THREE.MeshStandardMaterial({ color: 0x4cc9f0 });
+        const sat1 = new THREE.Mesh(satGeo, satMat);
+        sat1.position.set(-4, 2, 1);
+        cosmosGroup.add(sat1);
+
+        cosmosGroup.position.set(-8, 6, 3);
+        scene.add(cosmosGroup);
+
+        // --- ARRIÈRE-PLAN : GRANDES SPHÈRES DE COULEUR DIFFUSES (Effet taches de peinture en Z=-15) ---
+        const bgSphereGeo = new THREE.SphereGeometry(12, 32, 32);
+        const bgSphereMat1 = new THREE.MeshBasicMaterial({ color: 0x0a2540, transparent: true, opacity: 0.5 });
+        const bgBlob1 = new THREE.Mesh(bgSphereGeo, bgSphereMat1);
+        bgBlob1.position.set(-15, 5, -15);
+        scene.add(bgBlob1);
+
+        const bgBlob2 = new THREE.Mesh(bgSphereGeo, new THREE.MeshBasicMaterial({ color: 0x051c33, transparent: true, opacity: 0.6 }));
+        bgBlob2.position.set(15, -8, -15);
+        scene.add(bgBlob2);
+
+
+        // ==========================================
+        // 4. INTERACTIONS (SOURIS ET CLIC)
+        // ==========================================
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+
+        // Gestion de la parallaxe au mouvement de la souris
+        window.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - window.innerWidth / 2) / 100;
+            mouseY = (event.clientY - window.innerHeight / 2) / 100;
+        });
+
+        // Gestion du clic pour la rotation du triangle (Raycasting)
+        const raycaster = new THREE.Raycaster();
+        const mouseVector = new THREE.Vector2();
+        let isRotating = false;
+        let rotationProgress = 0;
+
+        window.addEventListener('click', (event) => {
+            // Calcul de la position de la souris par rapport au canvas Three.js
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouseVector.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseVector.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            raycaster.setFromCamera(mouseVector, camera);
+            const intersects = raycaster.intersectObject(triangle);
+
+            if (intersects.length > 0 && !isRotating) {
+                isRotating = true;
+                rotationProgress = 0;
+            }
+        });
+
+        // Redimensionnement propre si la fenêtre change
+        window.addEventListener('resize', () => {
+            const w = Math.min(window.innerWidth * 0.85, 1000);
+            const h = w * (3 / 4);
+            renderer.setSize(w, h);
+            camera.aspect = 4 / 3;
+            camera.updateProjectionMatrix();
+        });
+
+
+        // ==========================================
+        // 5. BOUCLE D'ANIMATION (Le mouvement par défaut)
+        // ==========================================
+        const clock = new THREE.Clock();
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            const elapsedTime = clock.getElapsedTime();
+
+            // Mouvement de parallaxe fluide pour la caméra
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (-mouseY - targetY) * 0.05;
+            camera.position.x = targetX * 1.5;
+            camera.position.y = targetY * 1.5;
+            camera.lookAt(0, 0, 0);
+
+            // 1. Animation par défaut du Triangle (Flottaison mystique)
+            if (!isRotating) {
+                triangle.position.y = -2 + Math.sin(elapsedTime * 1.5) * 0.4;
+                triangle.rotation.y = elapsedTime * 0.2;
+            } else {
+                // Animation de rotation complète à 360° si on a cliqué dessus
+                rotationProgress += 0.05;
+                triangle.rotation.y += 0.2;
+                triangle.position.y = -2 + Math.sin(elapsedTime * 1.5) * 0.4;
+                if (rotationProgress >= Math.PI * 2) {
+                    isRotating = false;
+                }
+            }
+
+            // 2. Rotations lentes des éléments de structure
+            ring.rotation.z = elapsedTime * 0.02;
+            disk.rotation.z = -elapsedTime * 0.015;
+
+            // 3. Balancier de la Grille / Damier
+            gridGroup.rotation.z = 0.2 + Math.sin(elapsedTime * 0.5) * 0.05;
+
+            // 4. Flottaison du groupe Cosmos
+            cosmosGroup.position.x = -8 + Math.cos(elapsedTime * 0.8) * 0.3;
+            cosmosGroup.position.y = 6 + Math.sin(elapsedTime * 0.6) * 0.3;
+            cosmosGroup.rotation.y = elapsedTime * 0.1;
+
+            // Rendu de la scène
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+
+</html>

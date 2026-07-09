@@ -1,8 +1,9 @@
 .sphere-page {
   width: 100%;
-  height: calc(100vh - 56px);
+  height: 100vh;
   position: relative;
   overflow: hidden;
+  background: #0f172a;
 }
 
 .sphere-canvas-wrap {

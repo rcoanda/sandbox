@@ -1,8 +1,9 @@
 import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
-import BackArrow from '../composants/BackArrow'
-import '../styles/Infini.css'
+import BackArrow from '../../composants/BackArrow'
+import CategoryMenu from '../../composants/CategoryMenu'
+import '../../styles/Infini.css'
 
 const COUNT = 60
 const A = 4.5//6
@@ -86,6 +87,7 @@ function Infini() {
   return (
     <div className="infini-page">
       <BackArrow />
+      <CategoryMenu category="motion" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
