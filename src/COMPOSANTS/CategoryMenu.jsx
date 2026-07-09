@@ -26,7 +26,7 @@ const categoryLinks = {
     { label: 'K3D', path: '/k3d' },
   ],
   collections: [
-    { label: 'Animation', path: '/animation' },
+    { label: 'Nasa', path: '/nasa' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Chicago', path: '/chicago' },
     { label: 'Europe', path: '/europe' },

@@ -1,15 +1,17 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Animation.css'
+import '../../styles/Nasa.css'
 
 const COUNT = 60
 const A = 4.5
 const B = 2.2
 const SPEED = 0.25
+
+let paused = false
 
 function generateCosmicTexture() {
   const canvas = document.createElement('canvas')
@@ -58,7 +60,7 @@ function generateCosmicTexture() {
   return texture
 }
 
-function Rect({ index, total, texture }) {
+function Rect({ index, total, texture, onClick }) {
   const meshRef = useRef()
   const phase = (index / total) * Math.PI * 2
 
@@ -75,6 +77,7 @@ function Rect({ index, total, texture }) {
   }, [])
 
   useFrame(({ clock }) => {
+    if (paused) return
     const t = clock.getElapsedTime() * SPEED + phase
     const x = Math.cos(t) * A
     const z = Math.sin(t) * B
@@ -87,14 +90,18 @@ function Rect({ index, total, texture }) {
   })
 
   return (
-    <mesh ref={meshRef}>
+    <mesh
+      ref={meshRef}
+      onPointerOver={() => { paused = true }}
+      onClick={(e) => { e.stopPropagation(); onClick() }}
+    >
       <planeGeometry args={[0.65, 0.45]} />
       <meshBasicMaterial map={texture} side={2} />
     </mesh>
   )
 }
 
-function Scene({ textures }) {
+function Scene({ textures, onImageClick }) {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
@@ -106,11 +113,18 @@ function Scene({ textures }) {
         y: (e.clientY / window.innerHeight - 0.5) * 2,
       }
     }
+    const onMouseLeaveCanvas = () => { paused = false }
+    const canvas = document.querySelector('canvas')
+    if (canvas) canvas.addEventListener('mouseleave', onMouseLeaveCanvas)
     window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      if (canvas) canvas.removeEventListener('mouseleave', onMouseLeaveCanvas)
+    }
   }, [])
 
   useFrame(() => {
+    if (paused) return
     current.current.x += (mouse.current.x - current.current.x) * 0.04
     current.current.y += (mouse.current.y - current.current.y) * 0.04
     groupRef.current.rotation.x = current.current.y * 0.15
@@ -120,15 +134,19 @@ function Scene({ textures }) {
   return (
     <group ref={groupRef}>
       {textures.map((tex, i) => (
-        <Rect key={i} index={i} total={textures.length} texture={tex} />
+        <Rect key={i} index={i} total={textures.length} texture={tex} onClick={() => onImageClick(i)} />
       ))}
     </group>
   )
 }
 
-function Animation() {
+function Nasa() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
+  const [expandedIndex, setExpandedIndex] = useState(null)
+  const [imageUrls, setImageUrls] = useState([])
+  const [flipped, setFlipped] = useState(false)
+  const flipTimerRef = useRef(null)
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
@@ -136,6 +154,7 @@ function Animation() {
     const loadProcedural = () => {
       const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
       setTextures(tex)
+      setImageUrls(tex.map((t) => t.image.toDataURL()))
       setReady(true)
     }
 
@@ -150,6 +169,9 @@ function Animation() {
           loadProcedural()
           return
         }
+
+        setImageUrls(urls)
+        console.log('Animation imageUrls:', urls.length)
 
         let loaded = 0
         const tex = []
@@ -173,17 +195,63 @@ function Animation() {
       .catch(() => loadProcedural())
   }, [])
 
-  if (!ready) return <div className="animation-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  const handleImageClick = useCallback((index) => {
+    paused = true
+    setExpandedIndex(index)
+  }, [])
+
+  const handleClose = useCallback(() => {
+    setExpandedIndex(null)
+    setFlipped(false)
+    paused = false
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(flipTimerRef.current)
+      setFlipped(false)
+    }
+  }, [expandedIndex])
+
+  if (!ready) return <div className="nasa-page"><BackArrow /><CategoryMenu category="collections" /></div>
 
   return (
-    <div className="animation-page">
+    <div className="nasa-page">
       <BackArrow />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
-        <Scene textures={textures} />
+        <Scene textures={textures} onImageClick={handleImageClick} />
       </Canvas>
+      {expandedIndex !== null && imageUrls[expandedIndex] && (
+        <div className="expanded-rect">
+          <div
+            className={'expanded-inner' + (flipped ? ' flipped' : '')}
+            onMouseEnter={() => {
+              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
+            }}
+            onMouseMove={() => {
+              if (flipped) return
+              clearTimeout(flipTimerRef.current)
+              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
+            }}
+            onMouseLeave={() => {
+              clearTimeout(flipTimerRef.current)
+              setFlipped(false)
+            }}
+          >
+            <div className="expanded-front">
+              <img src={imageUrls[expandedIndex]} alt="" />
+            </div>
+            <div className="expanded-back">
+              <span className="rect-back-title">NASA</span>
+              <span className="rect-back-artist">Astronomy Picture of the Day</span>
+            </div>
+          </div>
+          <button className="close-btn" onClick={handleClose}>✕</button>
+        </div>
+      )}
     </div>
   )
 }
 
-export default Animation
+export default Nasa

@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Animation from './pages/Collections/Animation'
+import Nasa from './pages/Collections/Nasa'
 import Infini from './pages/Motion/Infini'
 import Grid from './pages/Structure/Grid'
 import Satelite from './pages/3D/Satelite'
@@ -32,7 +32,7 @@ function App() {
         <Route path="/f1" element={<F1 />} />
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
-        <Route path="/animation" element={<Animation />} />
+        <Route path="/nasa" element={<Nasa />} />
         <Route path="/infini" element={<Infini />} />
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />

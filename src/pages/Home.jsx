@@ -108,7 +108,7 @@ function Home() {
       motion: '/infini',
       cosmos: '/cosmos',
       abstrait: '/k2d',
-      collections: '/animation',
+      collections: '/nasa',
     }
     window.location.href = routes[id] || '/'
   }, [])

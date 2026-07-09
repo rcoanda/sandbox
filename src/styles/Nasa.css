@@ -1,11 +1,11 @@
-.cleveland-page {
+.nasa-page {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background: #0f0f0f;
 }
 
-.cleveland-page .expanded-rect {
+.nasa-page .expanded-rect {
   position: fixed;
   z-index: 100;
   display: flex;
@@ -35,7 +35,7 @@
   height: 80vh;
 }
 
-.cleveland-page .expanded-inner {
+.nasa-page .expanded-inner {
   position: relative;
   display: inline-flex;
   max-width: 100%;
@@ -45,18 +45,18 @@
   perspective: 1200px;
 }
 
-.cleveland-page .expanded-inner.flipped {
+.nasa-page .expanded-inner.flipped {
   transform: rotateY(180deg);
 }
 
-.cleveland-page .expanded-front {
+.nasa-page .expanded-front {
   display: flex;
   align-items: center;
   justify-content: center;
   backface-visibility: hidden;
 }
 
-.cleveland-page .expanded-front img {
+.nasa-page .expanded-front img {
   display: block;
   max-width: 80vw;
   max-height: 80vh;
@@ -68,7 +68,7 @@
   pointer-events: none;
 }
 
-.cleveland-page .expanded-back {
+.nasa-page .expanded-back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
@@ -84,7 +84,7 @@
   pointer-events: none;
 }
 
-.cleveland-page .rect-back-title {
+.nasa-page .rect-back-title {
   color: #e0d8c8;
   font-size: 24px;
   font-weight: 700;
@@ -92,14 +92,14 @@
   line-height: 1.2;
 }
 
-.cleveland-page .rect-back-artist {
+.nasa-page .rect-back-artist {
   color: #b8a88a;
   font-size: 18px;
   text-align: center;
   line-height: 1.2;
 }
 
-.cleveland-page .close-btn {
+.nasa-page .close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -119,7 +119,7 @@
   z-index: 10;
 }
 
-.cleveland-page .close-btn:hover {
+.nasa-page .close-btn:hover {
   background: rgba(0, 0, 0, 0.6);
   color: white;
 }
