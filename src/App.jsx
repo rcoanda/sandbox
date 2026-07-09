@@ -18,6 +18,7 @@ import Moon from './pages/Cosmos/Moon'
 import Astronaute from './pages/Cosmos/Astronaute'
 import K2D from './pages/Abstrait/K2D'
 import K3D from './pages/Abstrait/K3D'
+import Cleveland from './pages/Collections/Cleveland'
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/astronaute" element={<Astronaute />} />
         <Route path="/k2d" element={<K2D />} />
         <Route path="/k3d" element={<K3D />} />
+        <Route path="/cleveland" element={<Cleveland />} />
       </Routes>
     </div>
   )
