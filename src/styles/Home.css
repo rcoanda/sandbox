@@ -61,26 +61,34 @@
 }
 
 .home-col:first-child .home-cell:nth-child(1) {
-  height: 85vh;
-}
-
-.home-col:first-child .home-cell:nth-child(2) {
-  height: 45vh;
-}
-
-.home-col:first-child .home-cell:nth-child(3) {
   height: 60vh;
 }
 
+.home-col:first-child .home-cell:nth-child(2) {
+  height: 40vh;
+}
+
+.home-col:first-child .home-cell:nth-child(3) {
+  height: 50vh;
+}
+
+.home-col:first-child .home-cell:nth-child(4) {
+  height: 40vh;
+}
+
 .home-col:last-child .home-cell:nth-child(1) {
-  height: 55vh;
+  height: 50vh;
 }
 
 .home-col:last-child .home-cell:nth-child(2) {
-  height: 80vh;
+  height: 55vh;
 }
 
 .home-col:last-child .home-cell:nth-child(3) {
+  height: 40vh;
+}
+
+.home-col:last-child .home-cell:nth-child(4) {
   height: 45vh;
 }
 
@@ -188,6 +196,11 @@
   background: linear-gradient(135deg, rgba(254, 243, 199, 0.75) 0%, rgba(253, 230, 138, 0.75) 50%, rgba(254, 249, 195, 0.75) 100%);
 }
 
+.home-cell--structures:hover,
+.home-cell--structures.home-cell--active {
+  background: linear-gradient(135deg, rgba(204, 251, 241, 0.75) 0%, rgba(153, 246, 228, 0.75) 50%, rgba(167, 243, 224, 0.75) 100%);
+}
+
 .home-cell--3d:hover,
 .home-cell--3d.home-cell--active {
   background: linear-gradient(135deg, rgba(207, 250, 254, 0.75) 0%, rgba(165, 243, 252, 0.75) 50%, rgba(192, 245, 253, 0.75) 100%);
@@ -208,6 +221,8 @@
 .home-cell--cosmos.home-cell--active .home-cell-title,
 .home-cell--abstrait:hover .home-cell-title,
 .home-cell--abstrait.home-cell--active .home-cell-title,
+.home-cell--structures:hover .home-cell-title,
+.home-cell--structures.home-cell--active .home-cell-title,
 .home-cell--collections:hover .home-cell-title,
 .home-cell--collections.home-cell--active .home-cell-title {
   color: #1a1a1a;
@@ -223,6 +238,8 @@
 .home-cell--cosmos.home-cell--active .home-cell-footer,
 .home-cell--abstrait:hover .home-cell-footer,
 .home-cell--abstrait.home-cell--active .home-cell-footer,
+.home-cell--structures:hover .home-cell-footer,
+.home-cell--structures.home-cell--active .home-cell-footer,
 .home-cell--collections:hover .home-cell-footer,
 .home-cell--collections.home-cell--active .home-cell-footer {
   color: rgba(0, 0, 0, 0.5);

@@ -5,6 +5,7 @@ import SceneMotion from '../composants/SceneMotion'
 import CosmosScene from '../composants/CosmosScene'
 import AbstraitScene from '../composants/AbstraitScene'
 import CollectionsScene from '../composants/CollectionsScene'
+import StructuresScene from '../composants/StructuresScene'
 import Scene2D from '../composants/Scene2D'
 import gsap from 'gsap'
 import '../styles/Home.css'
@@ -15,7 +16,8 @@ const categories = [
   { id: 'motion', title: 'Motion', label: '03', Scene: SceneMotion, bgClass: 'home-cell--motion' },
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
-  { id: 'collections', title: 'Collections & Défilés', label: '06', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
+  { id: 'structures', title: 'Structures', label: '06', Scene: StructuresScene, bgClass: 'home-cell--structures' },
+  { id: 'collections', title: 'Collections & Défilés', label: '07', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
 ]
 
 function Preview({ activeCat }) {
@@ -108,6 +110,7 @@ function Home() {
       motion: '/infini',
       cosmos: '/cosmos',
       abstrait: '/k2d',
+      structures: '/grid',
       collections: '/nasa',
     }
     window.location.href = routes[id] || '/'
