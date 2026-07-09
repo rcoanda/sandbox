@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
+import BackArrow from '../composants/BackArrow'
 import '../styles/Metropolitan.css'
 
 const ROWS = 8
@@ -228,6 +229,7 @@ function Metropolitan() {
 
   return (
     <div className="metropolitan-page">
+      <BackArrow />
       <div className="metropolitan-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
         {Array.from({ length: TOTAL }, (_, i) => {
           const art = artworks[i]

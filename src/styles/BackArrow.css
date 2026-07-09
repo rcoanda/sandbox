@@ -1,0 +1,50 @@
+.back-arrow {
+  position: fixed;
+  top: 45px;
+  left: 45px;
+  z-index: 1000;
+  padding: 18px 10px;
+  margin: -13px 0 0 -10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  overflow: visible;
+}
+
+.back-arrow svg {
+  overflow: visible;
+  transition: transform 0.125s;
+  transform-origin: left center;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.back-arrow svg path:first-child {
+  fill: #000;
+}
+
+.back-arrow svg path:last-child {
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.back-arrow:hover svg {
+  transform: translateX(6px) scaleX(1.1);
+}
+
+.back-arrow:active svg {
+  transform: translateX(-12px) scaleX(1.2);
+}
+
+@media (max-width: 1280px) {
+  .back-arrow {
+    top: 35px;
+    left: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-arrow {
+    top: 25px;
+    left: 25px;
+  }
+}

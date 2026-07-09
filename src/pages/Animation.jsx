@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
+import BackArrow from '../composants/BackArrow'
 import '../styles/Animation.css'
 
 const COUNT = 60
@@ -171,10 +172,11 @@ function Animation() {
       .catch(() => loadProcedural())
   }, [])
 
-  if (!ready) return <div className="animation-page" />
+  if (!ready) return <div className="animation-page"><BackArrow /></div>
 
   return (
     <div className="animation-page">
+      <BackArrow />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} />
       </Canvas>

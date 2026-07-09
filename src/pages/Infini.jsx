@@ -1,6 +1,7 @@
 import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
+import BackArrow from '../composants/BackArrow'
 import '../styles/Infini.css'
 
 const COUNT = 60
@@ -84,6 +85,7 @@ function Scene() {
 function Infini() {
   return (
     <div className="infini-page">
+      <BackArrow />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>

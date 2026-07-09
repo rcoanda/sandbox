@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
+import BackArrow from '../composants/BackArrow'
 import '../styles/Grid.css'
 
 const ROWS = 8
@@ -172,6 +173,7 @@ function Grid() {
 
   return (
     <div className="grid-page">
+      <BackArrow />
       <div className="grid-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
         {rects.map((r, i) => (
           <div

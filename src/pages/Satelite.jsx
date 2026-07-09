@@ -1,7 +1,13 @@
 import Sphere from '../composants/Sphere'
+import BackArrow from '../composants/BackArrow'
 
 function Satelite() {
-  return <Sphere />
+  return (
+    <>
+      <BackArrow />
+      <Sphere />
+    </>
+  )
 }
 
 export default Satelite

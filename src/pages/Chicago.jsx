@@ -2,6 +2,7 @@ import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
+import BackArrow from '../composants/BackArrow'
 import '../styles/Chicago.css'
 
 const COUNT = 30
@@ -257,6 +258,7 @@ function Chicago() {
 
   return (
     <div className="chicago-page">
+      <BackArrow />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene artworks={artworks} onArtworkClick={handleArtworkClick} />
       </Canvas>
