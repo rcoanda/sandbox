@@ -41,14 +41,14 @@ function createShapeGeometry(type, size) {
 const COLORS = ['#f43f5e', '#8b5cf6', '#fbbf24', '#06b6d4', '#ec4899']
 const SIZES = [0.25, 0.2, 0.3, 0.22, 0.28]
 
-const POINTS = [
-  new THREE.Vector3(-1.5, -0.5, 0),
-  new THREE.Vector3(-0.5, 0.8, 0.4),
-  new THREE.Vector3(0.5, -0.3, -0.4),
-  new THREE.Vector3(1.5, 0.6, 0.2),
-  new THREE.Vector3(0, -0.8, 0.6),
-  new THREE.Vector3(-1.5, -0.5, 0),
-]
+const LEMNI_SCALE = 2.5
+const POINTS = Array.from({ length: 80 }, (_, i) => {
+  const t = (i / 80) * Math.PI * 2
+  const denom = 1 + Math.cos(t) * Math.cos(t)
+  const x = LEMNI_SCALE * Math.sin(t) / denom
+  const z = LEMNI_SCALE * Math.sin(t) * Math.cos(t) / denom
+  return new THREE.Vector3(x, 0, z)
+})
 
 function Ribbon() {
   const curve = useMemo(() => new THREE.CatmullRomCurve3(POINTS, true), [])
@@ -136,7 +136,7 @@ function FloatingShapes() {
 
 function CollectionsScene() {
   return (
-    <group>
+    <group rotation-x={-0.5} rotation-y={0.3}>
       <Ribbon />
       <FloatingShapes />
       <ambientLight intensity={0.6} />
