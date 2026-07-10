@@ -37,6 +37,7 @@ const categoryLinks = {
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },
+    { label: 'Chicago', path: '/chicago' },
   ],
 }
 
