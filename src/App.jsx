@@ -7,6 +7,7 @@ import Terre from './pages/Collections/Terre'
 import Archive from './pages/Archive'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid from './pages/Structures/Grid'
+import Grid3D from './pages/Structures/Grid3D'
 import Sfere from './pages/Structures/Sfere'
 import Satelite from './pages/3D/Satelite'
 import Random from './pages/Trajectoires/Random'
@@ -57,6 +58,7 @@ function App() {
         <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid" element={<Grid />} />
+        <Route path="/grid3d" element={<Grid3D />} />
         <Route path="/sfere" element={<Sfere />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />

@@ -4,6 +4,7 @@ export const categoryLinks = {
   structure: [
     { label: 'Réseaux', path: '/reseaux' },
     { label: 'Grid', path: '/grid' },
+    { label: 'Grid3D', path: '/grid3d' },
     { label: 'Cube', path: '/cube' },
     { label: 'Sfere', path: '/sfere' },
   ],
