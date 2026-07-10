@@ -15,6 +15,8 @@ const categoryLinks = {
     { label: 'Epicycloide', path: '/epicycloide' },
     { label: 'Sinusoide', path: '/sinusoide' },
     { label: 'Bezier', path: '/bezier' },
+    { label: 'Ruban', path: '/ruban' },
+    { label: 'Cube', path: '/cube' },
     { label: 'Random', path: '/random' },
   ],
   geometrie: [
@@ -36,6 +38,7 @@ const categoryLinks = {
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },
+    { label: 'Chicago', path: '/chicago' },
   ],
 }
 

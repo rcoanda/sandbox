@@ -13,6 +13,8 @@ import Hypocycloide from './pages/Motion/Hypocycloide'
 import Epicycloide from './pages/Motion/Epicycloide'
 import Sinusoide from './pages/Motion/Sinusoide'
 import Bezier from './pages/Motion/Bezier'
+import Ruban from './pages/Motion/Ruban'
+import Cube from './pages/Motion/Cube'
 import F1 from './pages/Geometrie/F1'
 import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
@@ -24,6 +26,7 @@ import Astronaute from './pages/Cosmos/Astronaute'
 import K2D from './pages/Abstrait/K2D'
 import K3D from './pages/Abstrait/K3D'
 import Cleveland from './pages/Collections/Cleveland'
+import Chicago from './pages/Collections/Chicago'
 
 function App() {
   return (
@@ -45,6 +48,8 @@ function App() {
         <Route path="/epicycloide" element={<Epicycloide />} />
         <Route path="/sinusoide" element={<Sinusoide />} />
         <Route path="/bezier" element={<Bezier />} />
+        <Route path="/ruban" element={<Ruban />} />
+        <Route path="/cube" element={<Cube />} />
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
@@ -54,6 +59,7 @@ function App() {
         <Route path="/k2d" element={<K2D />} />
         <Route path="/k3d" element={<K3D />} />
         <Route path="/cleveland" element={<Cleveland />} />
+        <Route path="/chicago" element={<Chicago />} />
       </Routes>
     </div>
   )
