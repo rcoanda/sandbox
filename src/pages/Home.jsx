@@ -126,6 +126,7 @@ function Home() {
       <nav className="home-nav">
         <button onClick={() => navigate('/about')} className="home-nav-link">A propos</button>
         <button onClick={() => navigate('/contact')} className="home-nav-link">Contact</button>
+        <button onClick={() => navigate('/archive')} className="home-nav-link">Archive</button>
       </nav>
       <div className="home-preview">
         <Preview activeCat={activeCat} />

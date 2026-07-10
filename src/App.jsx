@@ -4,6 +4,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Nasa from './pages/Collections/Nasa'
 import Terre from './pages/Collections/Terre'
+import Archive from './pages/Archive'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid from './pages/Structures/Grid'
 import Sfere from './pages/Structures/Sfere'
@@ -38,6 +39,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/archive" element={<Archive />} />
         <Route path="/satelite" element={<Satelite />} />
         <Route path="/random" element={<Random />} />
         <Route path="/f1" element={<F1 />} />
