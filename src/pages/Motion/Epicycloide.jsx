@@ -3,11 +3,11 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Infini.css'
+import '../../styles/Epicycloide.css'
 
 const COUNT = 60
-const A = 4.5//6
-const B = 3.0//4
+const R = 3
+const r = 1
 const SPEED = 0.3
 
 function Rect({ index, total }) {
@@ -33,13 +33,14 @@ function Rect({ index, total }) {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * SPEED + phase
-    const x = Math.cos(t) * A
-    const z = Math.sin(t * 2) * (B / 2)
+    const ratio = (R + r) / r
+    const x = (R + r) * Math.cos(t) - r * Math.cos(ratio * t)
+    const z = (R + r) * Math.sin(t) - r * Math.sin(ratio * t)
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -Math.sin(t) * A
-    const dz = Math.cos(t * 2) * B
+    const dx = -(R + r) * Math.sin(t) + r * ratio * Math.sin(ratio * t)
+    const dz = (R + r) * Math.cos(t) - r * ratio * Math.cos(ratio * t)
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
@@ -83,9 +84,9 @@ function Scene() {
   )
 }
 
-function Infini() {
+function Epicycloide() {
   return (
-    <div className="infini-page">
+    <div className="epicycloide-page">
       <BackArrow />
       <CategoryMenu category="motion" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
@@ -95,4 +96,4 @@ function Infini() {
   )
 }
 
-export default Infini
+export default Epicycloide

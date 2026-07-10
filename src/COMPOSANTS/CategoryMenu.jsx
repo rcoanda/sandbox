@@ -8,7 +8,13 @@ const categoryLinks = {
     { label: 'Satelite', path: '/satelite' },
   ],
   motion: [
-    { label: 'Infini', path: '/infini' },
+    { label: 'Lemniscate', path: '/lemniscate' },
+    { label: 'Lissajous', path: '/lissajous' },
+    { label: 'Spirale', path: '/spirale' },
+    { label: 'Hypocycloide', path: '/hypocycloide' },
+    { label: 'Epicycloide', path: '/epicycloide' },
+    { label: 'Sinusoide', path: '/sinusoide' },
+    { label: 'Bezier', path: '/bezier' },
     { label: 'Random', path: '/random' },
   ],
   geometrie: [

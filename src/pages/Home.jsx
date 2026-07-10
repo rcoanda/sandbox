@@ -109,7 +109,7 @@ function Home() {
     const routes = {
       geometrie: '/f1',
       '3d': '/satelite',
-      motion: '/infini',
+      motion: '/lemniscate',
       cosmos: '/cosmos',
       abstrait: '/k2d',
       structures: '/grid',

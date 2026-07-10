@@ -3,10 +3,16 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Nasa from './pages/Collections/Nasa'
-import Infini from './pages/Motion/Infini'
+import Lemniscate from './pages/Motion/Lemniscate'
 import Grid from './pages/Structures/Grid'
 import Satelite from './pages/3D/Satelite'
 import Random from './pages/Motion/Random'
+import Lissajous from './pages/Motion/Lissajous'
+import Spirale from './pages/Motion/Spirale'
+import Hypocycloide from './pages/Motion/Hypocycloide'
+import Epicycloide from './pages/Motion/Epicycloide'
+import Sinusoide from './pages/Motion/Sinusoide'
+import Bezier from './pages/Motion/Bezier'
 import F1 from './pages/Geometrie/F1'
 import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
@@ -32,7 +38,13 @@ function App() {
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
         <Route path="/nasa" element={<Nasa />} />
-        <Route path="/infini" element={<Infini />} />
+        <Route path="/lemniscate" element={<Lemniscate />} />
+        <Route path="/lissajous" element={<Lissajous />} />
+        <Route path="/spirale" element={<Spirale />} />
+        <Route path="/hypocycloide" element={<Hypocycloide />} />
+        <Route path="/epicycloide" element={<Epicycloide />} />
+        <Route path="/sinusoide" element={<Sinusoide />} />
+        <Route path="/bezier" element={<Bezier />} />
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
