@@ -10,6 +10,7 @@ const N = 3
 const SIZE = 0.6
 const SPACING = 2 / N
 const OFFSET = (N - 1) * SPACING / 2
+const RENEWAL_INTERVAL = 4000
 
 function PetitCube({ pos, imageUrl }) {
   const texture = useTexture(imageUrl)
@@ -113,7 +114,7 @@ function Chicago() {
     const interval = setInterval(() => {
       const next = Math.floor(Math.random() * 1000) + 1
       fetchArtworks(next)
-    }, 4000)
+    }, RENEWAL_INTERVAL)
     return () => clearInterval(interval)
   }, [])
 
