@@ -4,6 +4,7 @@ const categoryLinks = {
   structure: [
     { label: 'Grid', path: '/grid' },
     { label: 'Cube', path: '/cube' },
+    { label: 'Sfere', path: '/sfere' },
   ],
   '3d': [
     { label: 'Satelite', path: '/satelite' },
@@ -38,6 +39,7 @@ const categoryLinks = {
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },
     { label: 'Chicago', path: '/chicago' },
+    { label: 'Cooper', path: '/cooper' },
   ],
 }
 

@@ -5,6 +5,7 @@ import Contact from './pages/Contact'
 import Nasa from './pages/Collections/Nasa'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid from './pages/Structures/Grid'
+import Sfere from './pages/Structures/Sfere'
 import Satelite from './pages/3D/Satelite'
 import Random from './pages/Trajectoires/Random'
 import Lissajous from './pages/Trajectoires/Lissajous'
@@ -26,6 +27,7 @@ import K2D from './pages/Abstrait/K2D'
 import K3D from './pages/Abstrait/K3D'
 import Cleveland from './pages/Collections/Cleveland'
 import Chicago from './pages/Collections/Chicago'
+import Cooper from './pages/Collections/Cooper'
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
         <Route path="/bezier" element={<Bezier />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid" element={<Grid />} />
+        <Route path="/sfere" element={<Sfere />} />
         <Route path="/cosmos" element={<Cosmos />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
         <Route path="/europe" element={<Europe />} />
@@ -58,6 +61,7 @@ function App() {
         <Route path="/k3d" element={<K3D />} />
         <Route path="/cleveland" element={<Cleveland />} />
         <Route path="/chicago" element={<Chicago />} />
+        <Route path="/cooper" element={<Cooper />} />
       </Routes>
     </div>
   )

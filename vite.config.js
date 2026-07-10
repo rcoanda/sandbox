@@ -12,6 +12,16 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/cma/, ''),
       },
+      '/cooper-api': {
+        target: 'https://apidocs.cooperhewitt.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/cooper-api/, '/graphql-api'),
+      },
+      '/cooper-img': {
+        target: 'https://ciim-static-media.s3.us-east-1.amazonaws.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/cooper-img/, ''),
+      },
     },
   },
 })
