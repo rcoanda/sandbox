@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const categoryLinks = {
+export const categoryLinks = {
   structure: [
+    { label: 'Réseaux', path: '/reseaux' },
     { label: 'Grid', path: '/grid' },
     { label: 'Cube', path: '/cube' },
     { label: 'Sfere', path: '/sfere' },
@@ -35,6 +36,7 @@ const categoryLinks = {
   ],
   collections: [
     { label: 'Nasa', path: '/nasa' },
+    { label: 'Terre', path: '/terre' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },

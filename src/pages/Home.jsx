@@ -112,7 +112,7 @@ function Home() {
       trajectoires: '/lemniscate',
       cosmos: '/cosmos',
       abstrait: '/k2d',
-      structures: '/grid',
+      structures: '/reseaux',
       collections: '/nasa',
     }
     window.location.href = routes[id] || '/'

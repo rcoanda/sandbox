@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Nasa from './pages/Collections/Nasa'
+import Terre from './pages/Collections/Terre'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid from './pages/Structures/Grid'
 import Sfere from './pages/Structures/Sfere'
@@ -14,6 +15,7 @@ import Hypocycloide from './pages/Trajectoires/Hypocycloide'
 import Epicycloide from './pages/Trajectoires/Epicycloide'
 import Sinusoide from './pages/Trajectoires/Sinusoide'
 import Bezier from './pages/Trajectoires/Bezier'
+import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
 import F1 from './pages/Geometrie/F1'
 import F2 from './pages/Geometrie/F2'
@@ -41,6 +43,7 @@ function App() {
         <Route path="/f1" element={<F1 />} />
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
+        <Route path="/terre" element={<Terre />} />
         <Route path="/nasa" element={<Nasa />} />
         <Route path="/lemniscate" element={<Lemniscate />} />
         <Route path="/lissajous" element={<Lissajous />} />
@@ -49,6 +52,7 @@ function App() {
         <Route path="/epicycloide" element={<Epicycloide />} />
         <Route path="/sinusoide" element={<Sinusoide />} />
         <Route path="/bezier" element={<Bezier />} />
+        <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid" element={<Grid />} />
         <Route path="/sfere" element={<Sfere />} />
