@@ -3,40 +3,16 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Bezier.css'
+import '../../styles/Epicycloide.css'
 
-const COUNT = 20
-const RAYON = 0.10
-const SPEED = 0.1
+const COUNT = 60
+const R = 3
+const r = 1
+const SPEED = 0.3
 
-const P0 = [-5, 0, 3]
-const P1 = [-5, 0, -5]
-const P2 = [5, 0, 5]
-const P3 = [5, 0, -3]
-
-function bezier(t) {
-  const u = 1 - t
-  const u2 = u * u
-  const t2 = t * t
-  return [
-    u2 * u * P0[0] + 3 * u2 * t * P1[0] + 3 * u * t2 * P2[0] + t2 * t * P3[0],
-    0,
-    u2 * u * P0[2] + 3 * u2 * t * P1[2] + 3 * u * t2 * P2[2] + t2 * t * P3[2],
-  ]
-}
-
-function dbezier(t) {
-  const u = 1 - t
-  return [
-    -3 * u * u * P0[0] + 3 * u * (1 - 3 * t) * P1[0] + 3 * t * (2 - 3 * t) * P2[0] + 3 * t * t * P3[0],
-    0,
-    -3 * u * u * P0[2] + 3 * u * (1 - 3 * t) * P1[2] + 3 * t * (2 - 3 * t) * P2[2] + 3 * t * t * P3[2],
-  ]
-}
-
-function Bille({ index, total }) {
+function Rect({ index, total }) {
   const meshRef = useRef()
-  const phase = index / total
+  const phase = (index / total) * Math.PI * 2
 
   const color = useMemo(() => {
     const hue = (index / total) * 360
@@ -56,17 +32,22 @@ function Bille({ index, total }) {
   }, [])
 
   useFrame(({ clock }) => {
-    const raw = clock.getElapsedTime() * SPEED + phase
-    const t = raw - Math.floor(raw)
+    const t = clock.getElapsedTime() * SPEED + phase
+    const ratio = (R + r) / r
+    const x = (R + r) * Math.cos(t) - r * Math.cos(ratio * t)
+    const z = (R + r) * Math.sin(t) - r * Math.sin(ratio * t)
 
-    const pos = bezier(t)
-    meshRef.current.position.set(pos[0], 0, pos[2])
+    meshRef.current.position.set(x, 0, z)
+
+    const dx = -(R + r) * Math.sin(t) + r * ratio * Math.sin(ratio * t)
+    const dz = (R + r) * Math.cos(t) - r * ratio * Math.cos(ratio * t)
+    meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[RAYON, 24, 24]} />
-      <meshBasicMaterial color={color} />
+      <planeGeometry args={[0.65, 0.45]} />
+      <meshBasicMaterial color={color} side={2} />
     </mesh>
   )
 }
@@ -97,17 +78,17 @@ function Scene() {
   return (
     <group ref={groupRef}>
       {Array.from({ length: COUNT }, (_, i) => (
-        <Bille key={i} index={i} total={COUNT} />
+        <Rect key={i} index={i} total={COUNT} />
       ))}
     </group>
   )
 }
 
-function Bezier() {
+function Epicycloide() {
   return (
-    <div className="bezier-page">
+    <div className="epicycloide-page">
       <BackArrow />
-      <CategoryMenu category="motion" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
@@ -115,4 +96,4 @@ function Bezier() {
   )
 }
 
-export default Bezier
+export default Epicycloide

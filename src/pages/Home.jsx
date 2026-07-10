@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
 import GeometrieScene from '../composants/GeometrieScene'
-import SceneMotion from '../composants/SceneMotion'
+import SceneTrajectoires from '../composants/SceneTrajectoires'
 import CosmosScene from '../composants/CosmosScene'
 import AbstraitScene from '../composants/AbstraitScene'
 import CollectionsScene from '../composants/CollectionsScene'
@@ -14,7 +14,7 @@ import '../styles/Home.css'
 const categories = [
   { id: 'geometrie', title: 'Géométrie', label: '01', Scene: Scene2D, bgClass: 'home-cell--geometrie', is2D: true },
   { id: '3d', title: '3D', label: '02', Scene: GeometrieScene, bgClass: 'home-cell--3d' },
-  { id: 'motion', title: 'Motion', label: '03', Scene: SceneMotion, bgClass: 'home-cell--motion' },
+  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: SceneTrajectoires, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
   { id: 'structures', title: 'Structures', label: '06', Scene: StructuresScene, bgClass: 'home-cell--structures' },
@@ -109,7 +109,7 @@ function Home() {
     const routes = {
       geometrie: '/f1',
       '3d': '/satelite',
-      motion: '/lemniscate',
+      trajectoires: '/lemniscate',
       cosmos: '/cosmos',
       abstrait: '/k2d',
       structures: '/grid',
@@ -124,7 +124,7 @@ function Home() {
   return (
     <div className="home-page">
       <nav className="home-nav">
-        <button onClick={() => navigate('/about')} className="home-nav-link">About</button>
+        <button onClick={() => navigate('/about')} className="home-nav-link">A propos</button>
         <button onClick={() => navigate('/contact')} className="home-nav-link">Contact</button>
       </nav>
       <div className="home-preview">

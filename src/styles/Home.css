@@ -239,8 +239,8 @@
   background: linear-gradient(135deg, rgba(207, 250, 254, 0.75) 0%, rgba(165, 243, 252, 0.75) 50%, rgba(192, 245, 253, 0.75) 100%);
 }
 
-.home-cell--motion:hover,
-.home-cell--motion.home-cell--active {
+.home-cell--trajectoires:hover,
+.home-cell--trajectoires.home-cell--active {
   background: linear-gradient(135deg, rgba(255, 228, 230, 0.75) 0%, rgba(254, 205, 211, 0.75) 50%, rgba(255, 214, 219, 0.75) 100%);
 }
 
@@ -248,8 +248,8 @@
 .home-cell--geometrie.home-cell--active .home-cell-title,
 .home-cell--3d:hover .home-cell-title,
 .home-cell--3d.home-cell--active .home-cell-title,
-.home-cell--motion:hover .home-cell-title,
-.home-cell--motion.home-cell--active .home-cell-title,
+.home-cell--trajectoires:hover .home-cell-title,
+.home-cell--trajectoires.home-cell--active .home-cell-title,
 .home-cell--cosmos:hover .home-cell-title,
 .home-cell--cosmos.home-cell--active .home-cell-title,
 .home-cell--abstrait:hover .home-cell-title,
@@ -265,8 +265,8 @@
 .home-cell--geometrie.home-cell--active .home-cell-footer,
 .home-cell--3d:hover .home-cell-footer,
 .home-cell--3d.home-cell--active .home-cell-footer,
-.home-cell--motion:hover .home-cell-footer,
-.home-cell--motion.home-cell--active .home-cell-footer,
+.home-cell--trajectoires:hover .home-cell-footer,
+.home-cell--trajectoires.home-cell--active .home-cell-footer,
 .home-cell--cosmos:hover .home-cell-footer,
 .home-cell--cosmos.home-cell--active .home-cell-footer,
 .home-cell--abstrait:hover .home-cell-footer,

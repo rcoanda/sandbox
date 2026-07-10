@@ -87,7 +87,7 @@ function Lemniscate() {
   return (
     <div className="lemniscate-page">
       <BackArrow />
-      <CategoryMenu category="motion" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>

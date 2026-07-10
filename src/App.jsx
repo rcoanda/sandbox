@@ -3,18 +3,17 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Nasa from './pages/Collections/Nasa'
-import Lemniscate from './pages/Motion/Lemniscate'
+import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid from './pages/Structures/Grid'
 import Satelite from './pages/3D/Satelite'
-import Random from './pages/Motion/Random'
-import Lissajous from './pages/Motion/Lissajous'
-import Spirale from './pages/Motion/Spirale'
-import Hypocycloide from './pages/Motion/Hypocycloide'
-import Epicycloide from './pages/Motion/Epicycloide'
-import Sinusoide from './pages/Motion/Sinusoide'
-import Bezier from './pages/Motion/Bezier'
-import Ruban from './pages/Motion/Ruban'
-import Cube from './pages/Motion/Cube'
+import Random from './pages/Trajectoires/Random'
+import Lissajous from './pages/Trajectoires/Lissajous'
+import Spirale from './pages/Trajectoires/Spirale'
+import Hypocycloide from './pages/Trajectoires/Hypocycloide'
+import Epicycloide from './pages/Trajectoires/Epicycloide'
+import Sinusoide from './pages/Trajectoires/Sinusoide'
+import Bezier from './pages/Trajectoires/Bezier'
+import Cube from './pages/Structures/Cube'
 import F1 from './pages/Geometrie/F1'
 import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
@@ -48,7 +47,6 @@ function App() {
         <Route path="/epicycloide" element={<Epicycloide />} />
         <Route path="/sinusoide" element={<Sinusoide />} />
         <Route path="/bezier" element={<Bezier />} />
-        <Route path="/ruban" element={<Ruban />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid" element={<Grid />} />
         <Route path="/cosmos" element={<Cosmos />} />

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-function SceneMotion() {
+function SceneTrajectoires() {
   const sphereRef = useRef()
   const ringRef = useRef()
 
@@ -34,4 +34,4 @@ function SceneMotion() {
   )
 }
 
-export default SceneMotion
+export default SceneTrajectoires

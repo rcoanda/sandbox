@@ -3,12 +3,15 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Epicycloide.css'
+import '../../styles/Lissajous.css'
 
 const COUNT = 60
-const R = 3
-const r = 1
-const SPEED = 0.3
+const A = 4.5
+const B = 3.0
+const SPEED = 0.1// 0.3
+const aFreq = 3
+const bFreq = 2
+const DELTA = Math.PI / 2
 
 function Rect({ index, total }) {
   const meshRef = useRef()
@@ -33,20 +36,19 @@ function Rect({ index, total }) {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * SPEED + phase
-    const ratio = (R + r) / r
-    const x = (R + r) * Math.cos(t) - r * Math.cos(ratio * t)
-    const z = (R + r) * Math.sin(t) - r * Math.sin(ratio * t)
+    const x = A * Math.sin(aFreq * t + DELTA)
+    const z = B * Math.sin(bFreq * t)
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -(R + r) * Math.sin(t) + r * ratio * Math.sin(ratio * t)
-    const dz = (R + r) * Math.cos(t) - r * ratio * Math.cos(ratio * t)
+    const dx = A * aFreq * Math.cos(aFreq * t + DELTA)
+    const dz = B * bFreq * Math.cos(bFreq * t)
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.65, 0.45]} />
+      <planeGeometry args={[0.15, 0.15]} />
       <meshBasicMaterial color={color} side={2} />
     </mesh>
   )
@@ -84,11 +86,11 @@ function Scene() {
   )
 }
 
-function Epicycloide() {
+function Lissajous() {
   return (
-    <div className="epicycloide-page">
+    <div className="lissajous-page">
       <BackArrow />
-      <CategoryMenu category="motion" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
@@ -96,4 +98,4 @@ function Epicycloide() {
   )
 }
 
-export default Epicycloide
+export default Lissajous

@@ -3,19 +3,40 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Lissajous.css'
+import '../../styles/Bezier.css'
 
-const COUNT = 60
-const A = 4.5
-const B = 3.0
-const SPEED = 0.1// 0.3
-const aFreq = 3
-const bFreq = 2
-const DELTA = Math.PI / 2
+const COUNT = 20
+const RAYON = 0.10
+const SPEED = 0.1
 
-function Rect({ index, total }) {
+const P0 = [-5, 0, 3]
+const P1 = [-5, 0, -5]
+const P2 = [5, 0, 5]
+const P3 = [5, 0, -3]
+
+function bezier(t) {
+  const u = 1 - t
+  const u2 = u * u
+  const t2 = t * t
+  return [
+    u2 * u * P0[0] + 3 * u2 * t * P1[0] + 3 * u * t2 * P2[0] + t2 * t * P3[0],
+    0,
+    u2 * u * P0[2] + 3 * u2 * t * P1[2] + 3 * u * t2 * P2[2] + t2 * t * P3[2],
+  ]
+}
+
+function dbezier(t) {
+  const u = 1 - t
+  return [
+    -3 * u * u * P0[0] + 3 * u * (1 - 3 * t) * P1[0] + 3 * t * (2 - 3 * t) * P2[0] + 3 * t * t * P3[0],
+    0,
+    -3 * u * u * P0[2] + 3 * u * (1 - 3 * t) * P1[2] + 3 * t * (2 - 3 * t) * P2[2] + 3 * t * t * P3[2],
+  ]
+}
+
+function Bille({ index, total }) {
   const meshRef = useRef()
-  const phase = (index / total) * Math.PI * 2
+  const phase = index / total
 
   const color = useMemo(() => {
     const hue = (index / total) * 360
@@ -35,21 +56,17 @@ function Rect({ index, total }) {
   }, [])
 
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * SPEED + phase
-    const x = A * Math.sin(aFreq * t + DELTA)
-    const z = B * Math.sin(bFreq * t)
+    const raw = clock.getElapsedTime() * SPEED + phase
+    const t = raw - Math.floor(raw)
 
-    meshRef.current.position.set(x, 0, z)
-
-    const dx = A * aFreq * Math.cos(aFreq * t + DELTA)
-    const dz = B * bFreq * Math.cos(bFreq * t)
-    meshRef.current.rotation.y = Math.atan2(dx, dz)
+    const pos = bezier(t)
+    meshRef.current.position.set(pos[0], 0, pos[2])
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.15, 0.15]} />
-      <meshBasicMaterial color={color} side={2} />
+      <sphereGeometry args={[RAYON, 24, 24]} />
+      <meshBasicMaterial color={color} />
     </mesh>
   )
 }
@@ -80,17 +97,17 @@ function Scene() {
   return (
     <group ref={groupRef}>
       {Array.from({ length: COUNT }, (_, i) => (
-        <Rect key={i} index={i} total={COUNT} />
+        <Bille key={i} index={i} total={COUNT} />
       ))}
     </group>
   )
 }
 
-function Lissajous() {
+function Bezier() {
   return (
-    <div className="lissajous-page">
+    <div className="bezier-page">
       <BackArrow />
-      <CategoryMenu category="motion" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
@@ -98,4 +115,4 @@ function Lissajous() {
   )
 }
 
-export default Lissajous
+export default Bezier

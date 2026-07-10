@@ -3,11 +3,11 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Hypocycloide.css'
+import '../../styles/Spirale.css'
 
 const COUNT = 60
-const R = 4
-const r = 1
+const A = 0.8
+const B = 0.15
 const SPEED = 0.3
 
 function Rect({ index, total }) {
@@ -33,14 +33,14 @@ function Rect({ index, total }) {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * SPEED + phase
-    const ratio = (R - r) / r
-    const x = (R - r) * Math.cos(t) + r * Math.cos(ratio * t)
-    const z = (R - r) * Math.sin(t) - r * Math.sin(ratio * t)
+    const r = A * Math.exp(B * t)
+    const x = r * Math.cos(t)
+    const z = r * Math.sin(t)
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -(R - r) * Math.sin(t) - r * ratio * Math.sin(ratio * t)
-    const dz = (R - r) * Math.cos(t) - r * ratio * Math.cos(ratio * t)
+    const dx = r * (B * Math.cos(t) - Math.sin(t))
+    const dz = r * (B * Math.sin(t) + Math.cos(t))
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
@@ -84,11 +84,11 @@ function Scene() {
   )
 }
 
-function Hypocycloide() {
+function Spirale() {
   return (
-    <div className="hypocycloide-page">
+    <div className="spirale-page">
       <BackArrow />
-      <CategoryMenu category="motion" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
@@ -96,4 +96,4 @@ function Hypocycloide() {
   )
 }
 
-export default Hypocycloide
+export default Spirale

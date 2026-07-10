@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const categoryLinks = {
   structure: [
     { label: 'Grid', path: '/grid' },
+    { label: 'Cube', path: '/cube' },
   ],
   '3d': [
     { label: 'Satelite', path: '/satelite' },
   ],
-  motion: [
+  trajectoires: [
     { label: 'Lemniscate', path: '/lemniscate' },
     { label: 'Lissajous', path: '/lissajous' },
     { label: 'Spirale', path: '/spirale' },
@@ -15,8 +16,6 @@ const categoryLinks = {
     { label: 'Epicycloide', path: '/epicycloide' },
     { label: 'Sinusoide', path: '/sinusoide' },
     { label: 'Bezier', path: '/bezier' },
-    { label: 'Ruban', path: '/ruban' },
-    { label: 'Cube', path: '/cube' },
     { label: 'Random', path: '/random' },
   ],
   geometrie: [
