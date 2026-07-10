@@ -9,6 +9,7 @@ const N = 3
 const SIZE = 0.6
 const SPACING = 2 / N
 const OFFSET = (N - 1) * SPACING / 2
+const DELAY_BETWEEN_IMAGES = 1000
 
 function PetitCube({ pos, texture }) {
   return (
@@ -100,6 +101,7 @@ function preloadTexture(url) {
 
 function Chicago() {
   const [textures, setTextures] = useState([])
+  const swapCancelled = useRef(false)
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 1000) + 1
@@ -114,6 +116,42 @@ function Chicago() {
         }
       })
   }, [])
+
+  useEffect(() => {
+    if (textures.length < N * N * N) return
+    swapCancelled.current = false
+
+    const swapLoop = async () => {
+      while (!swapCancelled.current) {
+        const idx = Math.floor(Math.random() * N * N * N)
+        const page = Math.floor(Math.random() * 1000) + 1
+        try {
+          const res = await fetch(
+            `https://api.artic.edu/api/v1/artworks?limit=1&page=${page}&fields=id,image_id`
+          )
+          const d = await res.json()
+          const item = d.data.find((i) => i.image_id)
+          if (item && !swapCancelled.current) {
+            const url = `https://www.artic.edu/iiif/2/${item.image_id}/full/400,/0/default.jpg`
+            const tex = await preloadTexture(url)
+            if (!swapCancelled.current) {
+              setTextures((prev) => {
+                const next = [...prev]
+                if (next[idx]) next[idx].dispose()
+                next[idx] = tex
+                return next
+              })
+            }
+          }
+        } catch {}
+        if (swapCancelled.current) return
+        await new Promise((r) => setTimeout(r, DELAY_BETWEEN_IMAGES))
+      }
+    }
+
+    swapLoop()
+    return () => { swapCancelled.current = true }
+  }, [textures.length])
 
   if (textures.length < N * N * N) return null
 
