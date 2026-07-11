@@ -2,12 +2,12 @@ import { categoryLinks } from '../composants/CategoryMenu'
 import BackArrow from '../composants/BackArrow'
 
 const categoryTitles = {
-  structure: 'Structures',
+  geometrie: 'Géométrie',
   '3d': '3D',
   trajectoires: 'Trajectoires',
-  geometrie: 'Géométrie',
   cosmos: 'Cosmos',
   abstrait: 'Abstrait',
+  structure: 'Structures',
   collections: 'Collections & Défilés',
 }
 

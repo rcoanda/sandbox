@@ -6,6 +6,7 @@ import SceneLemniscate from '../composants/SceneLemniscate'
 import SceneCosmosSphere from '../composants/SceneCosmosSphere'
 import K2DScene from '../composants/K2DScene'
 import CollectionsScene from '../composants/CollectionsScene'
+import ApiScene from '../composants/ApiScene'
 import StructuresScene from '../composants/StructuresScene'
 import GeometrieScene from '../composants/GeometrieScene'
 import gsap from 'gsap'
@@ -18,7 +19,7 @@ const categories = [
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: SceneCosmosSphere, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
   { id: 'structures', title: 'Structures', label: '06', Scene: StructuresScene, bgClass: 'home-cell--structures' },
-  { id: 'collections', title: 'Galerie API', label: '07', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
+  { id: 'collections', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--collections', is2D: true },
 ]
 
 function Preview({ activeCat }) {
@@ -30,7 +31,7 @@ function Preview({ activeCat }) {
   }
 
   return (
-    <Canvas camera={{ position: [0, 0, id === 'cosmos' ? 5 : 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
+    <Canvas camera={{ position: [0, 0, id === 'cosmos' ? 6 : 4], fov: 50 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
       <Scene />
     </Canvas>
   )
@@ -113,13 +114,15 @@ function Home() {
       cosmos: '/terrelune',
       abstrait: '/k2d',
       structures: '/reseaux',
-      collections: '/cosmique',
+      collections: '/terre',
     }
     window.location.href = routes[id] || '/'
   }, [])
 
-  const col1 = categories.filter((_, i) => i % 2 === 0)
-  const col2 = categories.filter((_, i) => i % 2 === 1)
+  const gridCats = categories.filter((c) => c.id !== 'collections')
+  const col1 = gridCats.filter((_, i) => i % 2 === 0)
+  const col2 = gridCats.filter((_, i) => i % 2 === 1)
+  const collectionsCat = categories.find((c) => c.id === 'collections')
 
   return (
     <div className="home-page">
@@ -154,6 +157,16 @@ function Home() {
               </div>
             </div>
           ))}
+          <div className="home-diagonal" />
+        </div>
+        <div className="home-row-full">
+          <div key={collectionsCat.id} className={`home-cell home-cell--full ${collectionsCat.bgClass}${activeId === collectionsCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(collectionsCat.id)} onMouseEnter={() => setActiveId(collectionsCat.id)}>
+            <h2 className="home-cell-title">{collectionsCat.title}</h2>
+            <div className="home-cell-footer">
+              <span>Explorer</span>
+              <span>{collectionsCat.label}</span>
+            </div>
+          </div>
           <div className="home-diagonal" />
         </div>
       </div>

@@ -72,7 +72,7 @@ function SceneCosmosSphere() {
   })
 
   return (
-    <>
+    <group scale={0.6}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 5, 5]} intensity={1.2} />
       <directionalLight position={[-3, -2, -5]} intensity={0.3} color="#6ee7ff" />
@@ -82,7 +82,7 @@ function SceneCosmosSphere() {
       <group ref={satelliteRef}>
         <Moon size={0.7} />
       </group>
-    </>
+    </group>
   )
 }
 

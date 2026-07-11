@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie API</title>
+    <style>
+        body {
+            background-color: #0a0f14;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .svg-container {
+            width: 800px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="svg-container">
+        <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fond -->
+            <rect width="100%" height="100%" fill="#0a0f14" />
+
+            <!-- Simulation de lignes de code (Style terminal) -->
+            <text x="20" y="40" font-family="monospace" font-size="12" fill="#00ff41" opacity="0.6">
+                <tspan x="20" dy="1.2em">function initializeAPI() {</tspan>
+                <tspan x="20" dy="1.2em"> const client = new Connection();</tspan>
+                <tspan x="20" dy="1.2em"> return client.fetchData();</tspan>
+                <tspan x="20" dy="1.2em">}</tspan>
+            </text>
+
+            <!-- Icône API (Style abstrait) -->
+            <g transform="translate(450, 150)">
+                <rect x="0" y="0" width="160" height="100" rx="10" stroke="#00d4ff" stroke-width="2" fill="none" />
+                <path d="M40 50 L120 50 M80 50 L80 80" stroke="#00d4ff" stroke-width="3" />
+                <text x="80" y="40" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#00d4ff"
+                    text-anchor="middle">API</text>
+            </g>
+
+            <!-- Texte Titre -->
+            <text x="400" y="320" font-family="Arial, sans-serif" font-size="40" fill="#ffffff" text-anchor="middle"
+                letter-spacing="2">
+                GALERIE API
+            </text>
+        </svg>
+    </div>
+
+</body>
+
+</html>

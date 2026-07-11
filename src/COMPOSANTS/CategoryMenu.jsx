@@ -1,13 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export const categoryLinks = {
-  structure: [
-    { label: 'Réseaux', path: '/reseaux' },
-    { label: 'Grid2D', path: '/grid2d' },
-    { label: 'Grid3D', path: '/grid3d' },
-    { label: 'Matrice', path: '/matrice' },
-    { label: 'Cube', path: '/cube' },
-    { label: 'Sfere', path: '/sfere' },
+  geometrie: [
+    { label: 'F0', path: '/f0' },
+    { label: 'F2', path: '/f2' },
+    { label: 'F3', path: '/f3' },
   ],
   '3d': [
     { label: 'Levitation', path: '/levitation' },
@@ -17,6 +14,7 @@ export const categoryLinks = {
   ],
   trajectoires: [
     { label: 'Huit', path: '/huit' },
+    { label: 'Ellipse', path: '/ellipse' },
     { label: 'Lemniscate', path: '/lemniscate' },
     { label: 'Lissajous', path: '/lissajous' },
     { label: 'Spirale', path: '/spirale' },
@@ -26,11 +24,7 @@ export const categoryLinks = {
     { label: 'Bezier', path: '/bezier' },
     { label: 'Random', path: '/random' },
   ],
-  geometrie: [
-    { label: 'F0', path: '/f0' },
-    { label: 'F2', path: '/f2' },
-    { label: 'F3', path: '/f3' },
-  ],
+
   cosmos: [
     { label: 'TerreLune', path: '/terrelune' },
     { label: 'Moon', path: '/moon' },
@@ -40,8 +34,15 @@ export const categoryLinks = {
     { label: 'K2D', path: '/k2d' },
     { label: 'K3D', path: '/k3d' },
   ],
+  structure: [
+    { label: 'Réseaux', path: '/reseaux' },
+    { label: 'Grid2D', path: '/grid2d' },
+    { label: 'Grid3D', path: '/grid3d' },
+    { label: 'Matrice', path: '/matrice' },
+    { label: 'Cube', path: '/cube' },
+    { label: 'Sfere', path: '/sfere' },
+  ],
   collections: [
-    { label: 'Cosmique', path: '/cosmique' },
     { label: 'Terre', path: '/terre' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },

@@ -5,7 +5,7 @@ function About() {
     <div className="p-8 pt-20">
       <BackArrow color="#000" />
       <h1 className="text-3xl font-bold">À propos</h1>
-      <p className="mt-4 text-gray-600">Page à propos - contenu à venir.</p>
+      <p className="mt-4 text-gray-600">AI-Assisted Development</p>
     </div>
   )
 }

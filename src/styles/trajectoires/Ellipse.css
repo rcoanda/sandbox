@@ -1,11 +1,11 @@
-.cosmique-page {
+.ellipse-page {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background: #0f0f0f;
 }
 
-.cosmique-page .expanded-rect {
+.ellipse-page .expanded-rect {
   position: fixed;
   z-index: 100;
   display: flex;
@@ -31,7 +31,7 @@
   height: 80vh;
 }
 
-.cosmique-page .expanded-inner {
+.ellipse-page .expanded-inner {
   position: relative;
   display: inline-flex;
   max-width: 100%;
@@ -41,18 +41,18 @@
   perspective: 1200px;
 }
 
-.cosmique-page .expanded-inner.flipped {
+.ellipse-page .expanded-inner.flipped {
   transform: rotateY(180deg);
 }
 
-.cosmique-page .expanded-front {
+.ellipse-page .expanded-front {
   display: flex;
   align-items: center;
   justify-content: center;
   backface-visibility: hidden;
 }
 
-.cosmique-page .expanded-front img {
+.ellipse-page .expanded-front img {
   display: block;
   max-width: 80vw;
   max-height: 80vh;
@@ -64,7 +64,7 @@
   pointer-events: none;
 }
 
-.cosmique-page .expanded-back {
+.ellipse-page .expanded-back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
@@ -80,7 +80,7 @@
   pointer-events: none;
 }
 
-.cosmique-page .rect-back-title {
+.ellipse-page .rect-back-title {
   color: #e0d8c8;
   font-size: 24px;
   font-weight: 700;
@@ -88,14 +88,14 @@
   line-height: 1.2;
 }
 
-.cosmique-page .rect-back-artist {
+.ellipse-page .rect-back-artist {
   color: #b8a88a;
   font-size: 18px;
   text-align: center;
   line-height: 1.2;
 }
 
-.cosmique-page .close-btn {
+.ellipse-page .close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -115,7 +115,7 @@
   z-index: 10;
 }
 
-.cosmique-page .close-btn:hover {
+.ellipse-page .close-btn:hover {
   background: rgba(0, 0, 0, 0.6);
   color: white;
 }

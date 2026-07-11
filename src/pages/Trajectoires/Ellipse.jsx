@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/collections/Cosmique.css'
+import '../../styles/trajectoires/Ellipse.css'
 
 const COUNT = 60
 const A = 4.5
@@ -140,7 +140,7 @@ function Scene({ textures, onImageClick }) {
   )
 }
 
-function Cosmique() {
+function Ellipse() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
@@ -175,12 +175,12 @@ function Cosmique() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="cosmique-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="ellipse-page"><BackArrow /><CategoryMenu category="trajectoires" /></div>
 
   return (
-    <div className="cosmique-page">
+    <div className="ellipse-page">
       <BackArrow />
-      <CategoryMenu category="collections" />
+      <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />
       </Canvas>
@@ -216,4 +216,4 @@ function Cosmique() {
   )
 }
 
-export default Cosmique
+export default Ellipse

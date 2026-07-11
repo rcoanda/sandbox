@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Cosmique from './pages/Collections/Cosmique'
+import Ellipse from './pages/Trajectoires/Ellipse'
 import Terre from './pages/Collections/Terre'
 import Archive from './pages/Archive'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
@@ -57,7 +57,7 @@ function App() {
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
         <Route path="/terre" element={<Terre />} />
-        <Route path="/cosmique" element={<Cosmique />} />
+        <Route path="/ellipse" element={<Ellipse />} />
         <Route path="/lemniscate" element={<Lemniscate />} />
         <Route path="/lissajous" element={<Lissajous />} />
         <Route path="/spirale" element={<Spirale />} />

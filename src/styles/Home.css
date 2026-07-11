@@ -66,7 +66,7 @@
 
 .home-grid {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -76,6 +76,11 @@
   display: flex;
   flex-direction: column;
   width: 50%;
+  position: relative;
+}
+
+.home-row-full {
+  width: 100%;
   position: relative;
 }
 
@@ -118,11 +123,20 @@
 }
 
 .home-col:last-child .home-cell:nth-child(3) {
-  height: 40vh;
+  height: 45vh;
 }
 
 .home-col:last-child .home-cell:nth-child(4) {
   height: 45vh;
+}
+
+.home-cell--full {
+  height: 45vh;
+  border-width: 0 0 1px;
+}
+
+.home-cell--full .home-cell-title {
+  font-size: 36px;
 }
 
 .home-cell canvas {
@@ -175,6 +189,19 @@
 
 .home-col:last-child .home-diagonal::after {
   background: linear-gradient(to top left,
+      transparent 0%,
+      transparent calc(50% - 0.8px),
+      #d8d8d8 50%,
+      transparent calc(50% + 0.8px),
+      transparent 100%);
+}
+
+.home-row-full {
+  position: relative;
+}
+
+.home-row-full .home-diagonal::after {
+  background: linear-gradient(to top right,
       transparent 0%,
       transparent calc(50% - 0.8px),
       #d8d8d8 50%,
