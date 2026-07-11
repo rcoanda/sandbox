@@ -16,6 +16,7 @@ export const categoryLinks = {
     { label: 'Anneaux', path: '/anneaux' },
   ],
   trajectoires: [
+    { label: 'Huit', path: '/huit' },
     { label: 'Lemniscate', path: '/lemniscate' },
     { label: 'Lissajous', path: '/lissajous' },
     { label: 'Spirale', path: '/spirale' },

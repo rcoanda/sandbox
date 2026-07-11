@@ -20,6 +20,7 @@ import Hypocycloide from './pages/Trajectoires/Hypocycloide'
 import Epicycloide from './pages/Trajectoires/Epicycloide'
 import Sinusoide from './pages/Trajectoires/Sinusoide'
 import Bezier from './pages/Trajectoires/Bezier'
+import Huit from './pages/Trajectoires/Huit'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
 import F0 from './pages/Geometrie/F0'
@@ -49,6 +50,7 @@ function App() {
         <Route path="/oscillation" element={<Oscillation />} />
         <Route path="/levitation" element={<Levitation />} />
         <Route path="/satelite" element={<Satelite />} />
+        <Route path="/huit" element={<Huit />} />
         <Route path="/random" element={<Random />} />
         <Route path="/f0" element={<F0 />} />
         <Route path="/matrice" element={<Matrice />} />
