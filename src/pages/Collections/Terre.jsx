@@ -7,9 +7,13 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Terre.css'
 
 const COUNT = 60
+const RECT_W = 0.45
+const RECT_H = 0.25
 const R = 3
 const r = 1
 const SPEED = 0.3
+const ERROR_LOAD_MSG = 'NASA Earthdata GIBS'
+const FALLBACK_LAYER = 'Earth image'
 
 let paused = false
 
@@ -155,7 +159,7 @@ function Rect({ index, total, texture, onClick }) {
       onPointerOver={() => { paused = true }}
       onClick={(e) => { e.stopPropagation(); onClick() }}
     >
-      <planeGeometry args={[0.65, 0.45]} />
+      <planeGeometry args={[RECT_W, RECT_H]} />
       <meshBasicMaterial map={texture} side={2} />
     </mesh>
   )
@@ -215,7 +219,7 @@ function Terre() {
     const loadProcedural = () => {
       const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
       setTextures(tex)
-      setImageMeta(tex.map((t) => ({ url: t.image.toDataURL(), layer: 'Cosmique', bbox: [] })))
+      setImageMeta(tex.map((t) => ({ url: t.image.toDataURL(), layer: FALLBACK_LAYER, bbox: [] })))
       setReady(true)
     }
 
@@ -308,7 +312,7 @@ function Terre() {
               <span className="rect-back-artist">
                 {imageMeta[expandedIndex].bbox.length
                   ? formatBbox(imageMeta[expandedIndex].bbox)
-                  : 'NASA Earthdata GIBS'}
+                  : ERROR_LOAD_MSG}
               </span>
             </div>
           </div>
