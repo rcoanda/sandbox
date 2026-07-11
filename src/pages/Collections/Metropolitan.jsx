@@ -8,7 +8,7 @@ const ROWS = 8
 const COLS = 14
 const TOTAL = ROWS * COLS
 const API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1'
-const FETCH_LIMIT = 30
+const FETCH_LIMIT = 14 * 8
 
 let cachedArtworks = null
 let cachedReady = false

@@ -5,14 +5,14 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Bezier.css'
 
-const COUNT = 20
-const RAYON = 0.10
-const SPEED = 0.1
+const COUNT = 60
+const RAYON = 0.18
+const SPEED = 0.10
 
-const P0 = [-5, 0, 3]
-const P1 = [-5, 0, -5]
-const P2 = [5, 0, 5]
-const P3 = [5, 0, -3]
+const P0 = [-8, 0, 5]
+const P1 = [-8, 0, -8]
+const P2 = [8, 0, 8]
+const P3 = [8, 0, -5]
 
 function bezier(t) {
   const u = 1 - t
@@ -108,7 +108,7 @@ function Bezier() {
     <div className="bezier-page">
       <BackArrow />
       <CategoryMenu category="trajectoires" />
-      <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 5, 14], fov: 50 }} dpr={[1, 2]}>
         <Scene />
       </Canvas>
     </div>

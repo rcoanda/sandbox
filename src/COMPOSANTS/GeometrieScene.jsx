@@ -1,45 +1,85 @@
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useRef, useEffect } from 'react'
+
+const shapes2D = [
+  { type: 'circle', x: 0.2, y: 0.2, r: 0.08, color: '#4f46e5', speed: 1.0 },
+  { type: 'rect', x: 0.75, y: 0.25, w: 0.12, h: 0.12, color: '#ec4899', speed: 0.7 },
+  { type: 'triangle', x: 0.3, y: 0.8, size: 0.1, color: '#f59e0b', speed: 1.3 },
+  { type: 'circle', x: 0.8, y: 0.75, r: 0.06, color: '#06b6d4', speed: 0.9 },
+  { type: 'rect', x: 0.5, y: 0.5, w: 0.1, h: 0.1, color: '#8b5cf6', speed: 0.5 },
+]
+
+function drawTriangle(ctx, cx, cy, size, angle) {
+  const h = size * 1.5
+  ctx.beginPath()
+  ctx.moveTo(cx, cy - h / 2)
+  ctx.lineTo(cx - size / 2, cy + h / 2)
+  ctx.lineTo(cx + size / 2, cy + h / 2)
+  ctx.closePath()
+  ctx.fill()
+}
 
 function GeometrieScene() {
-  const groupRef = useRef()
-  const shapes = useRef([])
+  const canvasRef = useRef(null)
 
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return
-    const t = clock.getElapsedTime()
-    groupRef.current.rotation.x = Math.sin(t * 0.2) * 0.2
-    groupRef.current.rotation.y = t * 0.3
-    shapes.current.forEach((mesh, i) => {
-      if (!mesh) return
-      mesh.rotation.x = t * (0.5 + i * 0.1)
-      mesh.rotation.z = t * (0.3 + i * 0.15)
-    })
-  })
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let animId
 
-  return (
-    <group ref={groupRef}>
-      <mesh ref={(el) => { shapes.current[0] = el }} position={[-1.2, 0.8, 0]}>
-        <icosahedronGeometry args={[0.6, 0]} />
-        <meshStandardMaterial color="#4f46e5" metalness={0.4} roughness={0.3} />
-      </mesh>
-      <mesh ref={(el) => { shapes.current[1] = el }} position={[1.3, -0.7, 0]}>
-        <torusGeometry args={[0.5, 0.2, 16, 32]} />
-        <meshStandardMaterial color="#ec4899" metalness={0.3} roughness={0.4} />
-      </mesh>
-      <mesh ref={(el) => { shapes.current[2] = el }} position={[-1.1, -0.9, 0]}>
-        <dodecahedronGeometry args={[0.5, 0]} />
-        <meshStandardMaterial color="#f59e0b" metalness={0.5} roughness={0.2} />
-      </mesh>
-      <mesh ref={(el) => { shapes.current[3] = el }} position={[1.4, 0.9, 0]}>
-        <octahedronGeometry args={[0.5, 0]} />
-        <meshStandardMaterial color="#06b6d4" metalness={0.3} roughness={0.3} />
-      </mesh>
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={1.5} />
-      <directionalLight position={[-3, -2, -5]} intensity={0.5} color="#a78bfa" />
-    </group>
-  )
+    const parent = canvas.parentElement
+    const resize = () => {
+      canvas.width = parent.clientWidth
+      canvas.height = parent.clientHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const startTime = performance.now()
+
+    const draw = (time) => {
+      const w = canvas.width
+      const h = canvas.height
+      const t = (time - startTime) / 1000
+
+      ctx.clearRect(0, 0, w, h)
+
+      shapes2D.forEach((s) => {
+        const angle = t * s.speed
+        const cx = s.x * w
+        const cy = s.y * h
+
+        ctx.save()
+        ctx.translate(cx, cy)
+        ctx.rotate(angle)
+        ctx.fillStyle = s.color
+        ctx.globalAlpha = 0.7 + Math.sin(t * s.speed * 0.5) * 0.2
+
+        if (s.type === 'circle') {
+          ctx.beginPath()
+          ctx.arc(0, 0, s.r * w, 0, Math.PI * 2)
+          ctx.fill()
+        } else if (s.type === 'rect') {
+          ctx.fillRect(-(s.w * w) / 2, -(s.h * h) / 2, s.w * w, s.h * h)
+        } else if (s.type === 'triangle') {
+          drawTriangle(ctx, 0, 0, s.size * w, angle)
+        }
+
+        ctx.restore()
+      })
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    animId = requestAnimationFrame(draw)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
 }
 
 export default GeometrieScene

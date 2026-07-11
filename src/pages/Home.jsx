@@ -1,19 +1,19 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
-import GeometrieScene from '../composants/GeometrieScene'
+import ThreeDScene from '../composants/ThreeDScene'
 import SceneTrajectoires from '../composants/SceneTrajectoires'
 import CosmosScene from '../composants/CosmosScene'
 import AbstraitScene from '../composants/AbstraitScene'
 import CollectionsScene from '../composants/CollectionsScene'
 import StructuresScene from '../composants/StructuresScene'
-import Scene2D from '../composants/Scene2D'
+import GeometrieScene from '../composants/GeometrieScene'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: Scene2D, bgClass: 'home-cell--geometrie', is2D: true },
-  { id: '3d', title: '3D', label: '02', Scene: GeometrieScene, bgClass: 'home-cell--3d' },
+  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene, bgClass: 'home-cell--geometrie', is2D: true },
+  { id: '3d', title: '3D', label: '02', Scene: ThreeDScene, bgClass: 'home-cell--3d' },
   { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: SceneTrajectoires, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
@@ -107,8 +107,8 @@ function Home() {
 
   const handleCellClick = useCallback((id) => {
     const routes = {
-      geometrie: '/f1',
-      '3d': '/satelite',
+      geometrie: '/f0',
+      '3d': '/levitation',
       trajectoires: '/lemniscate',
       cosmos: '/cosmos',
       abstrait: '/k2d',

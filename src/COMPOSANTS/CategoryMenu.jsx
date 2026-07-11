@@ -5,11 +5,14 @@ export const categoryLinks = {
     { label: 'Réseaux', path: '/reseaux' },
     { label: 'Grid2D', path: '/grid2d' },
     { label: 'Grid3D', path: '/grid3d' },
+    { label: 'Matrice', path: '/matrice' },
     { label: 'Cube', path: '/cube' },
     { label: 'Sfere', path: '/sfere' },
   ],
   '3d': [
+    { label: 'Levitation', path: '/levitation' },
     { label: 'Satelite', path: '/satelite' },
+    { label: 'Oscillation', path: '/oscillation' },
   ],
   trajectoires: [
     { label: 'Lemniscate', path: '/lemniscate' },
@@ -22,7 +25,7 @@ export const categoryLinks = {
     { label: 'Random', path: '/random' },
   ],
   geometrie: [
-    { label: 'F1', path: '/f1' },
+    { label: 'F0', path: '/f0' },
     { label: 'F2', path: '/f2' },
     { label: 'F3', path: '/f3' },
   ],

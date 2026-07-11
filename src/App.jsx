@@ -9,6 +9,8 @@ import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid2D from './pages/Structures/Grid2D'
 import Grid3D from './pages/Structures/Grid3D'
 import Sfere from './pages/Structures/Sfere'
+import Oscillation from './pages/3D/Oscillation'
+import Levitation from './pages/3D/Levitation'
 import Satelite from './pages/3D/Satelite'
 import Random from './pages/Trajectoires/Random'
 import Lissajous from './pages/Trajectoires/Lissajous'
@@ -19,7 +21,8 @@ import Sinusoide from './pages/Trajectoires/Sinusoide'
 import Bezier from './pages/Trajectoires/Bezier'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
-import F1 from './pages/Geometrie/F1'
+import F0 from './pages/Geometrie/F0'
+import Matrice from './pages/Structures/Matrice'
 import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
 import Cosmos from './pages/Cosmos/Cosmos'
@@ -41,9 +44,12 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/archive" element={<Archive />} />
+        <Route path="/oscillation" element={<Oscillation />} />
+        <Route path="/levitation" element={<Levitation />} />
         <Route path="/satelite" element={<Satelite />} />
         <Route path="/random" element={<Random />} />
-        <Route path="/f1" element={<F1 />} />
+        <Route path="/f0" element={<F0 />} />
+        <Route path="/matrice" element={<Matrice />} />
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
         <Route path="/terre" element={<Terre />} />

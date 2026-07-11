@@ -6,12 +6,12 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Terre.css'
 
-const COUNT = 60
-const RECT_W = 0.45
+const COUNT = 100
+const RECT_W = 0.25
 const RECT_H = 0.25
 const R = 3
 const r = 1
-const SPEED = 0.3
+const SPEED = 0.7
 const ERROR_LOAD_MSG = 'NASA Earthdata GIBS'
 const FALLBACK_LAYER = 'Earth image'
 
