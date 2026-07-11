@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Grid.css'
+import '../../styles/structures/Grid.css'
 
 const ROWS = 8
 const COLS = 14

@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Bezier.css'
+import '../../styles/trajectoires/Bezier.css'
 
 const COUNT = 20
 const RAYON = 0.10

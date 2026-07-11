@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Cosmique.css'
+import '../../styles/collections/Terre.css'
 
 const COUNT = 60
 const A = 4.5
@@ -45,15 +45,31 @@ function randomBbox() {
   return kinds[Math.floor(Math.random() * kinds.length)]()
 }
 
-function generateEarthUrls(count) {
-  const urls = []
+function formatLayer(layer) {
+  return layer
+    .replace(/_/g, ' ')
+    .replace(/([A-Z])/g, ' $1')
+    .trim()
+}
+
+function formatCoord(v, pos, neg) {
+  return `${Math.abs(v).toFixed(1)}°${v >= 0 ? pos : neg}`
+}
+
+function formatBbox(bbox) {
+  const [west, south, east, north] = bbox
+  return `${formatCoord(south, 'N', 'S')}–${formatCoord(north, 'N', 'S')}, ${formatCoord(west, 'E', 'W')}–${formatCoord(east, 'E', 'W')}`
+}
+
+function generateEarthData(count) {
+  const data = []
   for (let i = 0; i < count; i++) {
     const layer = LAYERS[i % LAYERS.length]
     const bbox = randomBbox()
     const url = `https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=${layer}&CRS=EPSG:4326&BBOX=${bbox.join(',')}&WIDTH=600&HEIGHT=400&FORMAT=image/jpeg`
-    urls.push(url)
+    data.push({ url, layer, bbox })
   }
-  return urls
+  return data
 }
 
 function generateCosmicTexture() {
@@ -187,24 +203,28 @@ function Terre() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
-  const [imageUrls, setImageUrls] = useState([])
+  const [imageMeta, setImageMeta] = useState([])
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
+    loader.crossOrigin = 'anonymous'
 
     const loadProcedural = () => {
       const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
       setTextures(tex)
-      setImageUrls(tex.map((t) => t.image.toDataURL()))
+      setImageMeta(tex.map((t) => ({ url: t.image.toDataURL(), layer: 'Cosmique', bbox: [] })))
       setReady(true)
     }
 
-    const urls = generateEarthUrls(COUNT)
-    setImageUrls(urls)
+    const earthData = generateEarthData(COUNT)
+    const urls = earthData.map((d) => d.url)
+
+    Promise.resolve().then(() => setImageMeta(earthData))
 
     let loaded = 0
+    let successCount = 0
     const tex = []
     const onLoad = () => {
       loaded++
@@ -217,15 +237,20 @@ function Terre() {
     urls.forEach((url, i) => {
       loader.load(
         url,
-        (t) => { tex[i] = t; onLoad() },
+        (t) => { tex[i] = t; onLoad(); successCount++ },
         undefined,
         () => onLoad()
       )
     })
 
     const timer = setTimeout(() => {
-      if (!ready) loadProcedural()
-    }, 15000)
+      if (successCount === 0) {
+        loadProcedural()
+      } else if (!ready) {
+        setTextures(tex)
+        setReady(true)
+      }
+    }, 20000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -248,16 +273,16 @@ function Terre() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="nasa-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="terre-page"><BackArrow /><CategoryMenu category="collections" /></div>
 
   return (
-    <div className="nasa-page">
+    <div className="terre-page">
       <BackArrow />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />
       </Canvas>
-      {expandedIndex !== null && imageUrls[expandedIndex] && (
+      {expandedIndex !== null && imageMeta[expandedIndex] && (
         <div className="expanded-rect">
           <div
             className={'expanded-inner' + (flipped ? ' flipped' : '')}
@@ -275,11 +300,15 @@ function Terre() {
             }}
           >
             <div className="expanded-front">
-              <img src={imageUrls[expandedIndex]} alt="" />
+              <img src={imageMeta[expandedIndex].url} alt="" />
             </div>
             <div className="expanded-back">
-              <span className="rect-back-title">Terre</span>
-              <span className="rect-back-artist">NASA Earthdata GIBS</span>
+              <span className="rect-back-title">{formatLayer(imageMeta[expandedIndex].layer)}</span>
+              <span className="rect-back-artist">
+                {imageMeta[expandedIndex].bbox.length
+                  ? formatBbox(imageMeta[expandedIndex].bbox)
+                  : 'NASA Earthdata GIBS'}
+              </span>
             </div>
           </div>
           <button className="close-btn" onClick={handleClose}>✕</button>

@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Spirale.css'
+import '../../styles/trajectoires/Spirale.css'
 
 const COUNT = 60
 const A = 0.8

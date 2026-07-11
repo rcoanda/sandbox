@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Cleveland.css'
+import '../../styles/collections/Cleveland.css'
 
 const COUNT = 60
 const SCALE = 4.5

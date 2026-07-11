@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Cube.css'
+import '../../styles/structures/Cube.css'
 
 const N = 3
 const SIZE = 0.6

@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Sfere.css'
+import '../../styles/structures/Sfere.css'
 
 const RADIUS = 2
 const COUNT = 120

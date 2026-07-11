@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Hypocycloide.css'
+import '../../styles/trajectoires/Hypocycloide.css'
 
 const COUNT = 60
 const R = 4
