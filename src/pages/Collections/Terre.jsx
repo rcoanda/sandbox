@@ -7,9 +7,9 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Terre.css'
 
 const COUNT = 60
-const A = 4.5
-const B = 2.2
-const SPEED = 0.25
+const R = 3
+const r = 1
+const SPEED = 0.3
 
 let paused = false
 
@@ -138,13 +138,14 @@ function Rect({ index, total, texture, onClick }) {
   useFrame(({ clock }) => {
     if (paused) return
     const t = clock.getElapsedTime() * SPEED + phase
-    const x = Math.cos(t) * A
-    const z = Math.sin(t) * B
+    const ratio = (R + r) / r
+    const x = (R + r) * Math.cos(t) - r * Math.cos(ratio * t)
+    const z = (R + r) * Math.sin(t) - r * Math.sin(ratio * t)
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -Math.sin(t) * A
-    const dz = Math.cos(t) * B
+    const dx = -(R + r) * Math.sin(t) + r * ratio * Math.sin(ratio * t)
+    const dz = (R + r) * Math.cos(t) - r * ratio * Math.cos(ratio * t)
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
