@@ -9,6 +9,7 @@ import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid2D from './pages/Structures/Grid2D'
 import Grid3D from './pages/Structures/Grid3D'
 import Sfere from './pages/Structures/Sfere'
+import Anneaux from './pages/3D/Anneaux'
 import Oscillation from './pages/3D/Oscillation'
 import Levitation from './pages/3D/Levitation'
 import Satelite from './pages/3D/Satelite'
@@ -25,7 +26,7 @@ import F0 from './pages/Geometrie/F0'
 import Matrice from './pages/Structures/Matrice'
 import F2 from './pages/Geometrie/F2'
 import F3 from './pages/Geometrie/F3'
-import Cosmos from './pages/Cosmos/Cosmos'
+import TerreLune from './pages/Cosmos/TerreLune'
 import Metropolitan from './pages/Collections/Metropolitan'
 import Europe from './pages/Collections/Europe'
 import Moon from './pages/Cosmos/Moon'
@@ -44,6 +45,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/archive" element={<Archive />} />
+        <Route path="/anneaux" element={<Anneaux />} />
         <Route path="/oscillation" element={<Oscillation />} />
         <Route path="/levitation" element={<Levitation />} />
         <Route path="/satelite" element={<Satelite />} />
@@ -66,7 +68,7 @@ function App() {
         <Route path="/grid2d" element={<Grid2D />} />
         <Route path="/grid3d" element={<Grid3D />} />
         <Route path="/sfere" element={<Sfere />} />
-        <Route path="/cosmos" element={<Cosmos />} />
+        <Route path="/terrelune" element={<TerreLune />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
         <Route path="/europe" element={<Europe />} />
         <Route path="/moon" element={<Moon />} />

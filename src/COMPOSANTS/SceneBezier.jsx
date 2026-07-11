@@ -1,21 +1,30 @@
 import { useRef, useMemo, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/trajectoires/Lissajous.css'
 
-const COUNT = 160
-const A = 4.5
-const B = 3.0
-const SPEED = 0.1// 0.3
-const aFreq = 3
-const bFreq = 2
-const DELTA = Math.PI / 2
+const COUNT = 60
+const RAYON = 0.18
+const SPEED = 0.10
 
-function Rect({ index, total }) {
+const P0 = [-8, 0, 5]
+const P1 = [-8, 0, -8]
+const P2 = [8, 0, 8]
+const P3 = [8, 0, -5]
+
+function bezier(t) {
+  const u = 1 - t
+  const u2 = u * u
+  const t2 = t * t
+  return [
+    u2 * u * P0[0] + 3 * u2 * t * P1[0] + 3 * u * t2 * P2[0] + t2 * t * P3[0],
+    0,
+    u2 * u * P0[2] + 3 * u2 * t * P1[2] + 3 * u * t2 * P2[2] + t2 * t * P3[2],
+  ]
+}
+
+function Bille({ index, total }) {
   const meshRef = useRef()
-  const phase = (index / total) * Math.PI * 2
+  const phase = index / total
 
   const color = useMemo(() => {
     const hue = (index / total) * 360
@@ -35,26 +44,22 @@ function Rect({ index, total }) {
   }, [])
 
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * SPEED + phase
-    const x = A * Math.sin(aFreq * t + DELTA)
-    const z = B * Math.sin(bFreq * t)
+    const raw = clock.getElapsedTime() * SPEED + phase
+    const t = raw - Math.floor(raw)
 
-    meshRef.current.position.set(x, 0, z)
-
-    const dx = A * aFreq * Math.cos(aFreq * t + DELTA)
-    const dz = B * bFreq * Math.cos(bFreq * t)
-    meshRef.current.rotation.y = Math.atan2(dx, dz)
+    const pos = bezier(t)
+    meshRef.current.position.set(pos[0], 0, pos[2])
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.15, 0.15]} />
-      <meshBasicMaterial color={color} side={2} />
+      <sphereGeometry args={[RAYON, 24, 24]} />
+      <meshBasicMaterial color={color} />
     </mesh>
   )
 }
 
-function Scene() {
+function SceneBezier() {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
@@ -80,22 +85,10 @@ function Scene() {
   return (
     <group ref={groupRef}>
       {Array.from({ length: COUNT }, (_, i) => (
-        <Rect key={i} index={i} total={COUNT} />
+        <Bille key={i} index={i} total={COUNT} />
       ))}
     </group>
   )
 }
 
-function Lissajous() {
-  return (
-    <div className="lissajous-page">
-      <BackArrow />
-      <CategoryMenu category="trajectoires" />
-      <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
-        <Scene />
-      </Canvas>
-    </div>
-  )
-}
-
-export default Lissajous
+export default SceneBezier

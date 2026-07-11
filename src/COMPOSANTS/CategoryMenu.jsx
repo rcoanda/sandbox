@@ -13,6 +13,7 @@ export const categoryLinks = {
     { label: 'Levitation', path: '/levitation' },
     { label: 'Satelite', path: '/satelite' },
     { label: 'Oscillation', path: '/oscillation' },
+    { label: 'Anneaux', path: '/anneaux' },
   ],
   trajectoires: [
     { label: 'Lemniscate', path: '/lemniscate' },
@@ -30,7 +31,7 @@ export const categoryLinks = {
     { label: 'F3', path: '/f3' },
   ],
   cosmos: [
-    { label: 'Cosmos', path: '/cosmos' },
+    { label: 'TerreLune', path: '/terrelune' },
     { label: 'Moon', path: '/moon' },
     { label: 'Astronaute', path: '/astronaute' },
   ],

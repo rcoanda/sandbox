@@ -2,9 +2,9 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
 import ThreeDScene from '../composants/ThreeDScene'
-import SceneTrajectoires from '../composants/SceneTrajectoires'
-import CosmosScene from '../composants/CosmosScene'
-import AbstraitScene from '../composants/AbstraitScene'
+import SceneLemniscate from '../composants/SceneLemniscate'
+import SceneCosmosSphere from '../composants/SceneCosmosSphere'
+import K2DScene from '../composants/K2DScene'
 import CollectionsScene from '../composants/CollectionsScene'
 import StructuresScene from '../composants/StructuresScene'
 import GeometrieScene from '../composants/GeometrieScene'
@@ -14,9 +14,9 @@ import '../styles/Home.css'
 const categories = [
   { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene, bgClass: 'home-cell--geometrie', is2D: true },
   { id: '3d', title: '3D', label: '02', Scene: ThreeDScene, bgClass: 'home-cell--3d' },
-  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: SceneTrajectoires, bgClass: 'home-cell--trajectoires' },
-  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: CosmosScene, bgClass: 'home-cell--cosmos' },
-  { id: 'abstrait', title: 'Abstrait', label: '05', Scene: AbstraitScene, bgClass: 'home-cell--abstrait' },
+  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: SceneLemniscate, bgClass: 'home-cell--trajectoires' },
+  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: SceneCosmosSphere, bgClass: 'home-cell--cosmos' },
+  { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
   { id: 'structures', title: 'Structures', label: '06', Scene: StructuresScene, bgClass: 'home-cell--structures' },
   { id: 'collections', title: 'Collections & Défilés', label: '07', Scene: CollectionsScene, bgClass: 'home-cell--collections' },
 ]
@@ -110,7 +110,7 @@ function Home() {
       geometrie: '/f0',
       '3d': '/levitation',
       trajectoires: '/lemniscate',
-      cosmos: '/cosmos',
+      cosmos: '/terrelune',
       abstrait: '/k2d',
       structures: '/reseaux',
       collections: '/cosmique',

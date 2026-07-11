@@ -1,17 +1,11 @@
 import { useRef, useMemo, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/trajectoires/Lissajous.css'
 
-const COUNT = 160
+const COUNT = 60
 const A = 4.5
 const B = 3.0
-const SPEED = 0.1// 0.3
-const aFreq = 3
-const bFreq = 2
-const DELTA = Math.PI / 2
+const SPEED = 0.3
 
 function Rect({ index, total }) {
   const meshRef = useRef()
@@ -36,25 +30,25 @@ function Rect({ index, total }) {
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * SPEED + phase
-    const x = A * Math.sin(aFreq * t + DELTA)
-    const z = B * Math.sin(bFreq * t)
+    const x = Math.cos(t) * A
+    const z = Math.sin(t * 2) * (B / 2)
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = A * aFreq * Math.cos(aFreq * t + DELTA)
-    const dz = B * bFreq * Math.cos(bFreq * t)
+    const dx = -Math.sin(t) * A
+    const dz = Math.cos(t * 2) * B
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.15, 0.15]} />
+      <planeGeometry args={[0.65, 0.45]} />
       <meshBasicMaterial color={color} side={2} />
     </mesh>
   )
 }
 
-function Scene() {
+function SceneLemniscate() {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
@@ -86,16 +80,4 @@ function Scene() {
   )
 }
 
-function Lissajous() {
-  return (
-    <div className="lissajous-page">
-      <BackArrow />
-      <CategoryMenu category="trajectoires" />
-      <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
-        <Scene />
-      </Canvas>
-    </div>
-  )
-}
-
-export default Lissajous
+export default SceneLemniscate

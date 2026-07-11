@@ -5,10 +5,10 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Epicycloide.css'
 
-const COUNT = 60
+const COUNT = 100
 const R = 3
 const r = 1
-const SPEED = 0.3
+const SPEED = 0.30
 
 function Rect({ index, total }) {
   const meshRef = useRef()

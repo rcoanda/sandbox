@@ -2,7 +2,7 @@ import CosmosSphere from '../../composants/CosmosSphere'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 
-function Cosmos() {
+function TerreLune() {
   return (
     <>
       <BackArrow />
@@ -12,4 +12,4 @@ function Cosmos() {
   )
 }
 
-export default Cosmos
+export default TerreLune
