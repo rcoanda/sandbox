@@ -7,7 +7,7 @@ import '../../styles/Grid.css'
 const ROWS = 8
 const COLS = 14
 
-function Grid() {
+function Grid2D() {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
@@ -195,4 +195,4 @@ function Grid() {
   )
 }
 
-export default Grid
+export default Grid2D

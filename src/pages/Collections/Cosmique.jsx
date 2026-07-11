@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Nasa.css'
+import '../../styles/Cosmique.css'
 
 const COUNT = 60
 const A = 4.5
@@ -140,7 +140,7 @@ function Scene({ textures, onImageClick }) {
   )
 }
 
-function Nasa() {
+function Cosmique() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
@@ -149,53 +149,12 @@ function Nasa() {
   const flipTimerRef = useRef(null)
 
   useEffect(() => {
-    const loader = new THREE.TextureLoader()
-
-    const loadProcedural = () => {
+    Promise.resolve().then(() => {
       const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
       setTextures(tex)
       setImageUrls(tex.map((t) => t.image.toDataURL()))
       setReady(true)
-    }
-
-    fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=60')
-      .then((res) => res.json())
-      .then((data) => {
-        const items = (Array.isArray(data) ? data : [])
-          .filter((item) => !item.copyright)
-
-        const urls = items
-          .map((item) => item.url)
-          .filter((url) => /\.(jpg|jpeg|png)$/i.test(url))
-
-        if (urls.length < 10) {
-          loadProcedural()
-          return
-        }
-
-        setImageUrls(urls)
-        console.log('Animation imageUrls:', urls.length)
-
-        let loaded = 0
-        const tex = []
-        const onLoad = () => {
-          loaded++
-          if (loaded >= urls.length) {
-            setTextures(tex)
-            setReady(true)
-          }
-        }
-
-        urls.forEach((url, i) => {
-          loader.load(
-            url,
-            (t) => { tex[i] = t; onLoad() },
-            undefined,
-            () => onLoad()
-          )
-        })
-      })
-      .catch(() => loadProcedural())
+    })
   }, [])
 
   const handleImageClick = useCallback((index) => {
@@ -216,10 +175,10 @@ function Nasa() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="nasa-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="cosmique-page"><BackArrow /><CategoryMenu category="collections" /></div>
 
   return (
-    <div className="nasa-page">
+    <div className="cosmique-page">
       <BackArrow />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
@@ -246,8 +205,8 @@ function Nasa() {
               <img src={imageUrls[expandedIndex]} alt="" />
             </div>
             <div className="expanded-back">
-              <span className="rect-back-title">NASA</span>
-              <span className="rect-back-artist">Astronomy Picture of the Day</span>
+              <span className="rect-back-title">Texture cosmique</span>
+              <span className="rect-back-artist">Générée local</span>
             </div>
           </div>
           <button className="close-btn" onClick={handleClose}>✕</button>
@@ -257,4 +216,4 @@ function Nasa() {
   )
 }
 
-export default Nasa
+export default Cosmique

@@ -113,7 +113,7 @@ function Home() {
       cosmos: '/cosmos',
       abstrait: '/k2d',
       structures: '/reseaux',
-      collections: '/nasa',
+      collections: '/cosmique',
     }
     window.location.href = routes[id] || '/'
   }, [])

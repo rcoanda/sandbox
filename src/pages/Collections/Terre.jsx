@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/Nasa.css'
+import '../../styles/Cosmique.css'
 
 const COUNT = 60
 const A = 4.5

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 export const categoryLinks = {
   structure: [
     { label: 'Réseaux', path: '/reseaux' },
-    { label: 'Grid', path: '/grid' },
+    { label: 'Grid2D', path: '/grid2d' },
     { label: 'Grid3D', path: '/grid3d' },
     { label: 'Cube', path: '/cube' },
     { label: 'Sfere', path: '/sfere' },
@@ -36,7 +36,7 @@ export const categoryLinks = {
     { label: 'K3D', path: '/k3d' },
   ],
   collections: [
-    { label: 'Nasa', path: '/nasa' },
+    { label: 'Cosmique', path: '/cosmique' },
     { label: 'Terre', path: '/terre' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },

@@ -1,11 +1,11 @@
-.nasa-page {
+.cosmique-page {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background: #0f0f0f;
 }
 
-.nasa-page .expanded-rect {
+.cosmique-page .expanded-rect {
   position: fixed;
   z-index: 100;
   display: flex;
@@ -13,29 +13,25 @@
   justify-content: center;
   background-color: #d9cebf;
   background-image:
-    repeating-linear-gradient(
-      0deg,
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 3px,
-      rgba(0,0,0,0.015) 3px,
-      rgba(0,0,0,0.015) 5px
-    ),
-    repeating-linear-gradient(
-      90deg,
+      rgba(0, 0, 0, 0.015) 3px,
+      rgba(0, 0, 0, 0.015) 5px),
+    repeating-linear-gradient(90deg,
       transparent,
       transparent 3px,
-      rgba(0,0,0,0.01) 3px,
-      rgba(0,0,0,0.01) 5px
-    ),
-    radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 70% 60%, rgba(0,0,0,0.04) 0%, transparent 50%);
+      rgba(0, 0, 0, 0.01) 3px,
+      rgba(0, 0, 0, 0.01) 5px),
+    radial-gradient(ellipse at 30% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(0, 0, 0, 0.04) 0%, transparent 50%);
   top: 10vh;
   left: 10vw;
   width: 80vw;
   height: 80vh;
 }
 
-.nasa-page .expanded-inner {
+.cosmique-page .expanded-inner {
   position: relative;
   display: inline-flex;
   max-width: 100%;
@@ -45,18 +41,18 @@
   perspective: 1200px;
 }
 
-.nasa-page .expanded-inner.flipped {
+.cosmique-page .expanded-inner.flipped {
   transform: rotateY(180deg);
 }
 
-.nasa-page .expanded-front {
+.cosmique-page .expanded-front {
   display: flex;
   align-items: center;
   justify-content: center;
   backface-visibility: hidden;
 }
 
-.nasa-page .expanded-front img {
+.cosmique-page .expanded-front img {
   display: block;
   max-width: 80vw;
   max-height: 80vh;
@@ -64,11 +60,11 @@
   box-shadow:
     0 0 0 8px #c8b89a,
     0 0 0 10px #b8a786,
-    0 4px 24px rgba(0,0,0,0.35);
+    0 4px 24px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
 
-.nasa-page .expanded-back {
+.cosmique-page .expanded-back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
@@ -84,7 +80,7 @@
   pointer-events: none;
 }
 
-.nasa-page .rect-back-title {
+.cosmique-page .rect-back-title {
   color: #e0d8c8;
   font-size: 24px;
   font-weight: 700;
@@ -92,14 +88,14 @@
   line-height: 1.2;
 }
 
-.nasa-page .rect-back-artist {
+.cosmique-page .rect-back-artist {
   color: #b8a88a;
   font-size: 18px;
   text-align: center;
   line-height: 1.2;
 }
 
-.nasa-page .close-btn {
+.cosmique-page .close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -119,7 +115,7 @@
   z-index: 10;
 }
 
-.nasa-page .close-btn:hover {
+.cosmique-page .close-btn:hover {
   background: rgba(0, 0, 0, 0.6);
   color: white;
 }

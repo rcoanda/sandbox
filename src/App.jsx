@@ -2,11 +2,11 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Nasa from './pages/Collections/Nasa'
+import Cosmique from './pages/Collections/Cosmique'
 import Terre from './pages/Collections/Terre'
 import Archive from './pages/Archive'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
-import Grid from './pages/Structures/Grid'
+import Grid2D from './pages/Structures/Grid2D'
 import Grid3D from './pages/Structures/Grid3D'
 import Sfere from './pages/Structures/Sfere'
 import Satelite from './pages/3D/Satelite'
@@ -47,7 +47,7 @@ function App() {
         <Route path="/f2" element={<F2 />} />
         <Route path="/f3" element={<F3 />} />
         <Route path="/terre" element={<Terre />} />
-        <Route path="/nasa" element={<Nasa />} />
+        <Route path="/cosmique" element={<Cosmique />} />
         <Route path="/lemniscate" element={<Lemniscate />} />
         <Route path="/lissajous" element={<Lissajous />} />
         <Route path="/spirale" element={<Spirale />} />
@@ -57,7 +57,7 @@ function App() {
         <Route path="/bezier" element={<Bezier />} />
         <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
-        <Route path="/grid" element={<Grid />} />
+        <Route path="/grid2d" element={<Grid2D />} />
         <Route path="/grid3d" element={<Grid3D />} />
         <Route path="/sfere" element={<Sfere />} />
         <Route path="/cosmos" element={<Cosmos />} />
