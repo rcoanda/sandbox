@@ -1,16 +1,16 @@
+import { Canvas } from '@react-three/fiber'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
+import RandomScene from '../../composants/trajectoires/RandomScene'
 
 function M1() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', background: '#0b1522' }}>
       <BackArrow />
       <CategoryMenu category="trajectoires" />
-      <iframe
-        src="/M1.html"
-        style={{ width: '100%', height: '100%', border: 'none' }}
-        title="M1"
-      />
+      <Canvas camera={{ position: [0, 0, 20], fov: 75 }}>
+        <RandomScene />
+      </Canvas>
     </div>
   )
 }
