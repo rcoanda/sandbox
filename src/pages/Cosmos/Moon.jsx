@@ -1,15 +1,9 @@
 import { Canvas } from '@react-three/fiber'
-import { useGLTF, useAnimations, OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
-
-function Model() {
-  const { scene, animations } = useGLTF('/moon.gltf')
-  const { ref, mixer } = useAnimations(animations)
-
-  return <primitive ref={ref} object={scene} />
-}
+import MoonScene from '../../composants/cosmos/MoonScene'
 
 function Moon() {
   return (
@@ -20,7 +14,7 @@ function Moon() {
       <Canvas camera={{ position: [6, 4, 8], fov: 45 }} dpr={[1, 2]} style={{ background: '#000' }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 10, 7]} intensity={1} />
-        <Model />
+        <MoonScene />
         <OrbitControls />
       </Canvas>
     </div>
