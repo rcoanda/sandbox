@@ -11,7 +11,7 @@ function Contact() {
 
   return (
     <div className="p-8 pt-20">
-      <BackArrow color="#000" />
+      <BackArrow />
       <h1 className="text-3xl font-bold mb-6">Contact</h1>
       <div className="space-y-3 text-gray-700">
         <p><span className="font-semibold">Nom :</span> {coordonnees.nom}</p>

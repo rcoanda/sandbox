@@ -16,7 +16,7 @@ function Archive() {
 
   return (
     <div className="p-8 pt-20">
-      <BackArrow color="#000" />
+      <BackArrow />
       <h1 className="text-3xl font-bold mb-6">Archive</h1>
       <div className="space-y-6 max-w-md">
         {categories.map(([key, pages]) => (
