@@ -61,7 +61,7 @@ function Moon({ size }) {
   )
 }
 
-export function CosmosScene() {
+export function AnneauxScene() {
   const planetRef = useRef()
   const ringRef = useRef()
   const moonRef = useRef()
@@ -110,28 +110,4 @@ export function CosmosScene() {
   )
 }
 
-export function SceneCosmosSphere() {
-  const satelliteRef = useRef()
 
-  useFrame(({ clock }) => {
-    if (!satelliteRef.current) return
-    const t = clock.getElapsedTime()
-    const radius = 2.5
-    satelliteRef.current.position.x = Math.cos(t * 0.8) * radius
-    satelliteRef.current.position.z = Math.sin(t * 0.8) * radius
-  })
-
-  return (
-    <group scale={0.6}>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} />
-      <directionalLight position={[-3, -2, -5]} intensity={0.3} color="#6ee7ff" />
-
-      <Stars spread={100} size={0.3} />
-      <Earth size={1.5} />
-      <group ref={satelliteRef}>
-        <Moon size={0.7} />
-      </group>
-    </group>
-  )
-}

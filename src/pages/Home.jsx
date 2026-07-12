@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
 import LevitationScene from '../composants/3d/LevitationScene'
 
-import { SceneCosmosSphere } from '../composants/cosmos/CosmosScene'
+import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
 import K2DScene from '../composants/abstrait/K2DScene'
 import HuitScene from '../composants/collections/HuitScene'
 import ApiScene from '../composants/structures/ApiScene'
@@ -16,7 +16,7 @@ const categories = [
   { id: 'geometrie', title: 'Géométrie', label: '01', Scene: F0Scene, bgClass: 'home-cell--geometrie', is2D: true },
   { id: '3d', title: '3D', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
   { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
-  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: SceneCosmosSphere, bgClass: 'home-cell--cosmos' },
+  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
   { id: 'structures', title: 'Structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
   { id: 'collections', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--collections', is2D: true },
