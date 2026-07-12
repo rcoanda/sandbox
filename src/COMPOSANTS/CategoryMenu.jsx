@@ -23,6 +23,7 @@ export const categoryLinks = {
     { label: 'Sinusoide', path: '/sinusoide' },
     { label: 'Bezier', path: '/bezier' },
     { label: 'Random', path: '/random' },
+    { label: 'Ruban', path: '/ruban' },
   ],
 
   cosmos: [

@@ -20,6 +20,7 @@ import Hypocycloide from './pages/Trajectoires/Hypocycloide'
 import Epicycloide from './pages/Trajectoires/Epicycloide'
 import Sinusoide from './pages/Trajectoires/Sinusoide'
 import Bezier from './pages/Trajectoires/Bezier'
+import Ruban from './pages/Trajectoires/Ruban'
 import Huit from './pages/Trajectoires/Huit'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
@@ -65,6 +66,7 @@ function App() {
         <Route path="/epicycloide" element={<Epicycloide />} />
         <Route path="/sinusoide" element={<Sinusoide />} />
         <Route path="/bezier" element={<Bezier />} />
+        <Route path="/ruban" element={<Ruban />} />
         <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid2d" element={<Grid2D />} />
