@@ -6,82 +6,139 @@ const R = 6
 const W = 1.2
 const N = 10
 const TWIST = Math.PI
-const SPEED = 0.08
+const SPEED = 0.06
 const CX = R * 0.5
 const CZ = R * 0.5
 
 const _normal = new THREE.Vector3(0, 1, 0)
 const _binormal = new THREE.Vector3()
 
-function getFrame(t, store) {
+function getFrame(t) {
   const angle = t * Math.PI * 0.5
-  store.pos.set(R * Math.cos(angle) - CX, 0, R * Math.sin(angle) - CZ)
-  store.tangent.set(-Math.sin(angle), 0, Math.cos(angle)).normalize()
+  const pos = new THREE.Vector3(R * Math.cos(angle) - CX, 0, R * Math.sin(angle) - CZ)
+  const tangent = new THREE.Vector3(-Math.sin(angle), 0, Math.cos(angle)).normalize()
 
-  _binormal.crossVectors(store.tangent, _normal).normalize()
+  _binormal.crossVectors(tangent, _normal).normalize()
 
   const ta = t * TWIST
   const cosA = Math.cos(ta)
   const sinA = Math.sin(ta)
-  store.normal.set(
+  const nTw = new THREE.Vector3(
     _normal.x * cosA + _binormal.x * sinA,
     _normal.y * cosA + _binormal.y * sinA,
     _normal.z * cosA + _binormal.z * sinA,
   )
-  store.binormal.crossVectors(store.tangent, store.normal).normalize()
+  const bTw = new THREE.Vector3().crossVectors(tangent, nTw).normalize()
+
+  return { pos, tangent, normal: nTw, binormal: bTw }
+}
+
+function buildRect(tA, tB, verts, off) {
+  const fA = getFrame(tA)
+  const fB = getFrame(tB)
+
+  const hw = W * 0.5
+
+  // triangle 1: leftA, rightA, leftB
+  verts[off] = fA.pos.x - fA.binormal.x * hw
+  verts[off + 1] = fA.pos.y - fA.binormal.y * hw
+  verts[off + 2] = fA.pos.z - fA.binormal.z * hw
+
+  verts[off + 3] = fA.pos.x + fA.binormal.x * hw
+  verts[off + 4] = fA.pos.y + fA.binormal.y * hw
+  verts[off + 5] = fA.pos.z + fA.binormal.z * hw
+
+  verts[off + 6] = fB.pos.x - fB.binormal.x * hw
+  verts[off + 7] = fB.pos.y - fB.binormal.y * hw
+  verts[off + 8] = fB.pos.z - fB.binormal.z * hw
+
+  // triangle 2: rightA, rightB, leftB
+  verts[off + 9] = fA.pos.x + fA.binormal.x * hw
+  verts[off + 10] = fA.pos.y + fA.binormal.y * hw
+  verts[off + 11] = fA.pos.z + fA.binormal.z * hw
+
+  verts[off + 12] = fB.pos.x + fB.binormal.x * hw
+  verts[off + 13] = fB.pos.y + fB.binormal.y * hw
+  verts[off + 14] = fB.pos.z + fB.binormal.z * hw
+
+  verts[off + 15] = fB.pos.x - fB.binormal.x * hw
+  verts[off + 16] = fB.pos.y - fB.binormal.y * hw
+  verts[off + 17] = fB.pos.z - fB.binormal.z * hw
+}
+
+function buildSep(t, verts, off) {
+  const f = getFrame(t)
+  const hw = W * 0.5
+
+  verts[off] = f.pos.x - f.binormal.x * hw
+  verts[off + 1] = f.pos.y - f.binormal.y * hw
+  verts[off + 2] = f.pos.z - f.binormal.z * hw
+
+  verts[off + 3] = f.pos.x + f.binormal.x * hw
+  verts[off + 4] = f.pos.y + f.binormal.y * hw
+  verts[off + 5] = f.pos.z + f.binormal.z * hw
 }
 
 function RectTile({ index, color }) {
   const meshRef = useRef()
-  const phase = index / N
-  const f = useMemo(() => ({ pos: new THREE.Vector3(), tangent: new THREE.Vector3(), normal: new THREE.Vector3(), binormal: new THREE.Vector3() }), [])
-  const q = useMemo(() => new THREE.Quaternion(), [])
-  const m4 = useMemo(() => new THREE.Matrix4(), [])
+  const visibleRef = useRef(true)
+  const i = index
 
   useFrame(({ clock }) => {
-    const t = (clock.getElapsedTime() * SPEED + phase) % 1
-    getFrame(t, f)
+    const offset = clock.getElapsedTime() * SPEED
+    const rawA = i / N + offset
+    const rawB = (i + 1) / N + offset
 
-    m4.set(
-      f.binormal.x, f.tangent.x, f.normal.x, f.pos.x,
-      f.binormal.y, f.tangent.y, f.normal.y, f.pos.y,
-      f.binormal.z, f.tangent.z, f.normal.z, f.pos.z,
-      0, 0, 0, 1,
-    )
-    q.setFromRotationMatrix(m4)
-    meshRef.current.position.copy(f.pos)
-    meshRef.current.quaternion.copy(q)
+    if (Math.floor(rawA) !== Math.floor(rawB)) {
+      if (visibleRef.current) {
+        visibleRef.current = false
+        meshRef.current.visible = false
+      }
+      return
+    }
+
+    if (!visibleRef.current) {
+      visibleRef.current = true
+      meshRef.current.visible = true
+    }
+
+    const tA = rawA % 1
+    const tB = rawB % 1
+
+    const verts = new Float32Array(18)
+    buildRect(tA, tB, verts, 0)
+
+    const geom = meshRef.current.geometry
+    geom.setAttribute('position', new THREE.BufferAttribute(verts, 3))
+    geom.computeVertexNormals()
   })
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[W, W * 1.5]} />
+      <bufferGeometry />
       <meshBasicMaterial color={color} side={THREE.DoubleSide} />
     </mesh>
   )
 }
 
 function SepLine({ index }) {
-  const meshRef = useRef()
-  const phase = index / N
-  const f = useMemo(() => ({ pos: new THREE.Vector3(), tangent: new THREE.Vector3(), normal: new THREE.Vector3(), binormal: new THREE.Vector3() }), [])
-  const _q = useMemo(() => new THREE.Quaternion(), [])
-  const _up = useMemo(() => new THREE.Vector3(0, 1, 0), [])
+  const ref = useRef()
+  const i = index
 
   useFrame(({ clock }) => {
-    const t = (clock.getElapsedTime() * SPEED + phase) % 1
-    getFrame(t, f)
+    const t = (i / N + clock.getElapsedTime() * SPEED) % 1
+    const verts = new Float32Array(6)
+    buildSep(t, verts, 0)
 
-    _q.setFromUnitVectors(_up, f.binormal)
-    meshRef.current.position.copy(f.pos)
-    meshRef.current.quaternion.copy(_q)
+    const geom = ref.current.geometry
+    geom.setAttribute('position', new THREE.BufferAttribute(verts, 3))
   })
 
   return (
-    <mesh ref={meshRef}>
-      <boxGeometry args={[0.04, W, 0.04]} />
-      <meshBasicMaterial color="white" transparent opacity={0.5} />
-    </mesh>
+    <line ref={ref}>
+      <bufferGeometry />
+      <lineBasicMaterial color="white" transparent opacity={0.5} />
+    </line>
   )
 }
 
