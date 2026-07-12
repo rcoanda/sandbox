@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/collections/Terre.css'
+import '../../styles/galeriesApi/Terre.css'
 import Informations from '../../composants/Informations'
 
 const COUNT = 100
@@ -279,13 +279,13 @@ function Terre() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="terre-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="terre-page"><BackArrow /><CategoryMenu category="galeriesApi" /></div>
 
   return (
     <div className="terre-page">
       <BackArrow />
       <Informations />
-      <CategoryMenu category="collections" />
+      <CategoryMenu category="galeriesApi" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />
       </Canvas>

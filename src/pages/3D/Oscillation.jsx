@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import SceneTrajectoires from '../../composants/trajectoires/SceneTrajectoires'
+import OscillationScene from '../../composants/3d/OscillationScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
@@ -11,7 +11,7 @@ function Oscillation() {
       <Informations />
       <CategoryMenu category="3d" />
       <Canvas camera={{ position: [0, 0, 3], fov: 45 }} dpr={[1, 2]}>
-        <SceneTrajectoires />
+        <OscillationScene />
       </Canvas>
     </div>
   )

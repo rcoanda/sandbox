@@ -4,12 +4,11 @@ import * as THREE from 'three'
 import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/collections/Europe.css'
+import '../../styles/galeriesApi/Cleveland.css'
 import Informations from '../../composants/Informations'
 
 const COUNT = 60
-const A = 4.5
-const B = 2.2
+const SCALE = 4.5
 const SPEED = 0.25
 
 let paused = false
@@ -64,11 +63,9 @@ function generateCosmicTexture() {
 function Rect({ index, total, texture, onClick }) {
   const meshRef = useRef()
   const phase = (index / total) * Math.PI * 2
-  const clockOffset = useRef(Math.random() * 1000)
-  const gsapRef = useRef(null)
 
   useEffect(() => {
-    gsapRef.current = gsap.to(meshRef.current.scale, {
+    gsap.to(meshRef.current.scale, {
       x: 1.15 + Math.random() * 0.2,
       y: 1.15 + Math.random() * 0.2,
       duration: 0.6 + Math.random() * 0.4,
@@ -81,14 +78,15 @@ function Rect({ index, total, texture, onClick }) {
 
   useFrame(({ clock }) => {
     if (paused) return
-    const t = (clock.getElapsedTime() + clockOffset.current) * SPEED + phase
-    const x = Math.cos(t) * A
-    const z = Math.sin(t) * B
+    const t = clock.getElapsedTime() * SPEED + phase
+    const denom = 1 + Math.cos(t) * Math.cos(t)
+    const x = SCALE * Math.sin(t) / denom
+    const z = SCALE * Math.sin(t) * Math.cos(t) / denom
 
     meshRef.current.position.set(x, 0, z)
 
-    const dx = -Math.sin(t) * A
-    const dz = Math.cos(t) * B
+    const dx = SCALE * (Math.cos(t) * denom + Math.sin(t) * 2 * Math.cos(t) * Math.sin(t)) / (denom * denom)
+    const dz = SCALE * (Math.cos(2 * t) * denom + Math.sin(t) * Math.cos(t) * 2 * Math.cos(t) * Math.sin(t)) / (denom * denom)
     meshRef.current.rotation.y = Math.atan2(dx, dz)
   })
 
@@ -143,46 +141,38 @@ function Scene({ textures, onImageClick }) {
   )
 }
 
-function Europe() {
+function Cleveland() {
   const [textures, setTextures] = useState([])
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [imageUrls, setImageUrls] = useState([])
+  const [artworkMetas, setArtworkMetas] = useState([])
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
 
   useEffect(() => {
-    const loader = new THREE.TextureLoader()
-
     const loadProcedural = () => {
       const tex = Array.from({ length: COUNT }, () => generateCosmicTexture())
       setTextures(tex)
       setReady(true)
     }
 
-    const PERMISSIVE = [
-      'creativecommons.org/publicdomain',
-      'creativecommons.org/licenses/zero',
-      'creativecommons.org/licenses/by/',
-      'creativecommons.org/licenses/by-sa/',
-    ]
-
-    const isPermissive = (rights) => {
-      if (!rights) return false
-      const url = Array.isArray(rights) ? rights[0] : rights
-      return PERMISSIVE.some((p) => url.includes(p))
-    }
-
-    fetch('https://api.europeana.eu/record/v2/search.json?wskey=api2demo&query=*:*&media=true&thumbnail=true&rows=60')
+    fetch('https://openaccess-api.clevelandart.org/api/artworks?has_image=1&limit=60')
       .then((res) => res.json())
-      .then((data) => {
-        const items = (data.items || []).filter((item) => isPermissive(item.rights))
-        const urls = items
+      .then(async (data) => {
+        const metas = (data.data || []).map((item) => ({
+          title: item.title || 'Untitled',
+          artist: item.creators?.[0]?.description || 'Unknown Artist',
+          year: item.creation_date || 'Unknown Year',
+        }))
+
+        const urls = (data.data || [])
           .map((item) => {
-            const preview = Array.isArray(item.edmPreview) ? item.edmPreview[0] : item.edmPreview
-            const shownBy = Array.isArray(item.edmIsShownBy) ? item.edmIsShownBy[0] : item.edmIsShownBy
-            const obj = Array.isArray(item.edmObject) ? item.edmObject[0] : item.edmObject
-            return preview || shownBy || obj
+            const web = item.images?.web?.url
+            const print = item.images?.print?.url
+            const original = web || print
+            if (!original) return null
+            return original.replace('https://openaccess-cdn.clevelandart.org', '/cma')
           })
           .filter(Boolean)
 
@@ -191,32 +181,34 @@ function Europe() {
           return
         }
 
+        setArtworkMetas(metas.slice(0, urls.length))
         setImageUrls(urls)
 
-        let loaded = 0
-        const tex = []
-        const onLoad = () => {
-          loaded++
-          if (loaded >= urls.length) {
-            setTextures(tex)
-            setReady(true)
-          }
+        const loadImage = (url) =>
+          new Promise((resolve) => {
+            const img = new Image()
+            img.crossOrigin = 'anonymous'
+            img.onload = () => resolve(img)
+            img.onerror = () => resolve(null)
+            img.src = url
+          })
+
+        const images = await Promise.all(urls.map(loadImage))
+        const valid = images.filter(Boolean)
+
+        if (valid.length < 10) {
+          loadProcedural()
+          return
         }
 
-        urls.forEach((url, i) => {
-          loader.load(
-            url,
-            (t) => {
-              tex[i] = t
-              onLoad()
-            },
-            undefined,
-            () => {
-              tex[i] = generateCosmicTexture()
-              onLoad()
-            }
-          )
+        const tex = valid.map((img) => {
+          const t = new THREE.Texture(img)
+          t.colorSpace = 'srgb'
+          t.needsUpdate = true
+          return t
         })
+        setTextures(tex)
+        setReady(true)
       })
       .catch(() => loadProcedural())
   }, [])
@@ -239,13 +231,13 @@ function Europe() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="europe-page"><BackArrow /><CategoryMenu category="collections" /></div>
+  if (!ready) return <div className="cleveland-page"><BackArrow /><CategoryMenu category="galeriesApi" /></div>
 
   return (
-    <div className="europe-page">
+    <div className="cleveland-page">
       <BackArrow />
       <Informations />
-      <CategoryMenu category="collections" />
+      <CategoryMenu category="galeriesApi" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />
       </Canvas>
@@ -270,8 +262,9 @@ function Europe() {
               <img src={imageUrls[expandedIndex]} alt="" />
             </div>
             <div className="expanded-back">
-              <span className="rect-back-title">Europeana</span>
-              <span className="rect-back-artist">Cultural Heritage</span>
+              <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
+              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Artist'}</span>
+              <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
             </div>
           </div>
           <button className="close-btn" onClick={handleClose}>✕</button>
@@ -281,4 +274,4 @@ function Europe() {
   )
 }
 
-export default Europe
+export default Cleveland

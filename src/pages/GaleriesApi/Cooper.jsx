@@ -3,19 +3,33 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import '../../styles/collections/Chicago.css'
+import '../../styles/galeriesApi/Cooper.css'
 import Informations from '../../composants/Informations'
 
-const N = 3
-const SIZE = 0.6
-const SPACING = 2 / N
-const OFFSET = (N - 1) * SPACING / 2
+const RADIUS = 2
+const COUNT = 120
+const SIZE = 0.25
 const DELAY_BETWEEN_IMAGES = 1000
 let paused = false
 
-function PetitCube({ pos, texture, onClick }) {
+const sphereElements = Array.from({ length: COUNT }, (_, i) => {
+  const phi = Math.acos(1 - 2 * (i + 0.5) / COUNT)
+  const theta = Math.PI * (1 + Math.sqrt(5)) * i
+  const x = Math.sin(phi) * Math.cos(theta)
+  const y = Math.sin(phi) * Math.sin(theta)
+  const z = Math.cos(phi)
+  return {
+    pos: [x * RADIUS, y * RADIUS, z * RADIUS],
+    quat: new THREE.Quaternion().setFromUnitVectors(
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(x, y, z).normalize()
+    ),
+  }
+})
+
+function PetitCube({ pos, quat, texture, onClick }) {
   return (
-    <group position={pos}>
+    <group position={pos} quaternion={quat}>
       <mesh
         onPointerOver={() => { paused = true }}
         onPointerOut={() => { paused = false }}
@@ -29,15 +43,11 @@ function PetitCube({ pos, texture, onClick }) {
           color={texture ? undefined : '#333'}
         />
       </mesh>
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(SIZE, SIZE, SIZE)]} />
-        <lineBasicMaterial color="#000" />
-      </lineSegments>
     </group>
   )
 }
 
-function Cube3D({ textures, onImageClick }) {
+function Sphere3D({ textures, onImageClick }) {
   const groupRef = useRef()
 
   useFrame(({ clock }) => {
@@ -47,26 +57,17 @@ function Cube3D({ textures, onImageClick }) {
     groupRef.current.rotation.y = t * 0.6
   })
 
-  const cubes = []
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-      for (let k = 0; k < N; k++) {
-        const idx = i * N * N + j * N + k
-        cubes.push(
-          <PetitCube
-            key={idx}
-            pos={[i * SPACING - OFFSET, j * SPACING - OFFSET, k * SPACING - OFFSET]}
-            texture={textures[idx]}
-            onClick={() => onImageClick(idx)}
-          />
-        )
-      }
-    }
-  }
-
   return (
     <group ref={groupRef}>
-      {cubes}
+      {sphereElements.map((el, i) => (
+        <PetitCube
+          key={i}
+          pos={el.pos}
+          quat={el.quat}
+          texture={textures[i]}
+          onClick={() => onImageClick(i)}
+        />
+      ))}
     </group>
   )
 }
@@ -103,18 +104,44 @@ function Scene({ textures, onImageClick }) {
 
   return (
     <group ref={groupRef}>
-      <Cube3D textures={textures} onImageClick={onImageClick} />
+      <Sphere3D textures={textures} onImageClick={onImageClick} />
     </group>
   )
 }
 
+function proxyImg(url) {
+  return url && url.includes('ciim-static-media.s3.us-east-1.amazonaws.com')
+    ? url.replace('https://ciim-static-media.s3.us-east-1.amazonaws.com', '/cooper-img')
+    : url
+}
+
 function preloadTexture(url) {
   return new Promise((resolve) => {
-    new THREE.TextureLoader().load(url, (t) => resolve(t), undefined, () => resolve(null))
+    new THREE.TextureLoader().load(proxyImg(url), (t) => resolve(t), undefined, () => resolve(null))
   })
 }
 
-function Chicago() {
+const COOPER_QUERY = `{
+  object(hasImages: true, size: 120) {
+    id
+    summary
+    date
+    multimedia
+    agent { summary }
+  }
+}`
+
+function fetchCooperObjects() {
+  return fetch('/cooper-api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: COOPER_QUERY }),
+  })
+    .then(r => r.json())
+    .then(d => (d.data || {}).object || [])
+}
+
+function Cooper() {
   const [textures, setTextures] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
@@ -124,40 +151,41 @@ function Chicago() {
   const swapCancelled = useRef(false)
 
   useEffect(() => {
-    const page = Math.floor(Math.random() * 1000) + 1
-    fetch(`https://api.artic.edu/api/v1/artworks?limit=27&page=${page}&fields=id,image_id,title,artist_display,date_display`)
-      .then(r => r.json())
-      .then(d => {
-        const items = d.data.filter(item => item.image_id)
-        if (items.length >= N * N * N) {
-          const selected = items.slice(0, N * N * N)
-          setImageUrls(selected.map(item => `https://www.artic.edu/iiif/2/${item.image_id}/full/400,/0/default.jpg`))
-          setArtworkMetas(selected.map(item => ({
-            title: item.title || 'Untitled',
-            artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
-            year: item.date_display || 'Unknown Year',
-          })))
-          Promise.all(selected.map(item => preloadTexture(`https://www.artic.edu/iiif/2/${item.image_id}/full/400,/0/default.jpg`))).then(setTextures)
-        }
+    fetchCooperObjects().then((items) => {
+      const valid = items.filter((item) => {
+        const media = item.multimedia || []
+        return media.length > 0 && media[0].preview && media[0].preview.url
       })
+      if (valid.length >= COUNT) {
+        const selected = valid.slice(0, COUNT)
+        setImageUrls(selected.map((item) => proxyImg(item.multimedia[0].preview.url)))
+        setArtworkMetas(selected.map((item) => ({
+          title: (item.summary && item.summary.title) || 'Untitled',
+          artist: (item.agent && item.agent[0] && item.agent[0].summary && item.agent[0].summary.title) || 'Unknown Designer',
+          year: (item.date && item.date[0] && item.date[0].value) || 'Unknown Year',
+        })))
+        Promise.all(
+          selected.map((item) => preloadTexture(item.multimedia[0].preview.url))
+        ).then(setTextures)
+      }
+    })
   }, [])
 
   useEffect(() => {
-    if (textures.length < N * N * N) return
+    if (textures.length < COUNT) return
     swapCancelled.current = false
 
     const swapLoop = async () => {
       while (!swapCancelled.current) {
-        const idx = Math.floor(Math.random() * N * N * N)
-        const page = Math.floor(Math.random() * 1000) + 1
+        const idx = Math.floor(Math.random() * COUNT)
         try {
-          const res = await fetch(
-            `https://api.artic.edu/api/v1/artworks?limit=1&page=${page}&fields=id,image_id,title,artist_display,date_display`
-          )
-          const d = await res.json()
-          const item = d.data.find((i) => i.image_id)
-          if (item && !swapCancelled.current) {
-            const url = `https://www.artic.edu/iiif/2/${item.image_id}/full/400,/0/default.jpg`
+          const items = await fetchCooperObjects()
+          const item = items.find((i) => {
+            const media = i.multimedia || []
+            return media.length > 0 && media[0].preview && media[0].preview.url
+          })
+            if (item && !swapCancelled.current) {
+            const url = proxyImg(item.multimedia[0].preview.url)
             const tex = await preloadTexture(url)
             if (!swapCancelled.current) {
               setImageUrls((prev) => {
@@ -168,9 +196,9 @@ function Chicago() {
               setArtworkMetas((prev) => {
                 const next = [...prev]
                 next[idx] = {
-                  title: item.title || 'Untitled',
-                  artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
-                  year: item.date_display || 'Unknown Year',
+                  title: (item.summary && item.summary.title) || 'Untitled',
+                  artist: (item.agent && item.agent[0] && item.agent[0].summary && item.agent[0].summary.title) || 'Unknown Designer',
+                  year: (item.date && item.date[0] && item.date[0].value) || 'Unknown Year',
                 }
                 return next
               })
@@ -210,13 +238,13 @@ function Chicago() {
     }
   }, [expandedIndex])
 
-  if (textures.length < N * N * N) return null
+  if (textures.length < COUNT) return null
 
   return (
-    <div className="chicago-page">
+    <div className="cooper-page">
       <BackArrow />
       <Informations />
-      <CategoryMenu category="collections" />
+      <CategoryMenu category="galeriesApi" />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
@@ -240,11 +268,11 @@ function Chicago() {
             }}
           >
             <div className="expanded-front">
-              <img src={imageUrls[expandedIndex]} alt="" />
+              <img src={proxyImg(imageUrls[expandedIndex])} alt="" />
             </div>
             <div className="expanded-back">
               <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
-              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Artist'}</span>
+              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Designer'}</span>
               <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
             </div>
           </div>
@@ -255,4 +283,4 @@ function Chicago() {
   )
 }
 
-export default Chicago
+export default Cooper

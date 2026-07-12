@@ -8,7 +8,7 @@ const categoryTitles = {
   cosmos: 'Cosmos',
   abstrait: 'Abstrait',
   structure: 'Structures',
-  collections: 'Collections & Défilés',
+  galeriesApi: 'Collections & Défilés',
 }
 
 function Archive() {

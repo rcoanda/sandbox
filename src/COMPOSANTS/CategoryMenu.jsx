@@ -43,7 +43,7 @@ export const categoryLinks = {
     { label: 'Cube', path: '/cube' },
     { label: 'Sfere', path: '/sfere' },
   ],
-  collections: [
+  galeriesApi: [
     { label: 'Terre', path: '/terre' },
     { label: 'Metropolitan', path: '/metropolitan' },
     { label: 'Europe', path: '/europe' },

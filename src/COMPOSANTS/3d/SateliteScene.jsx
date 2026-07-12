@@ -72,7 +72,7 @@ function Scene() {
   )
 }
 
-function Sphere() {
+function Satelite() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const isDragging = useRef(false)
   const dragStart = useRef({ x: 0, y: 0 })
@@ -127,4 +127,4 @@ function Sphere() {
   )
 }
 
-export default Sphere
+export default Satelite

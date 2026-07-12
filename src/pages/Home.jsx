@@ -5,8 +5,8 @@ import LevitationScene from '../composants/3d/LevitationScene'
 
 import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
 import K2DScene from '../composants/abstrait/K2DScene'
-import HuitScene from '../composants/collections/HuitScene'
-import ApiScene from '../composants/structures/ApiScene'
+import HuitScene from '../composants/galeriesApi/HuitScene'
+import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
 import F0Scene from '../composants/geometrie/F0Scene'
 import gsap from 'gsap'
@@ -19,7 +19,7 @@ const categories = [
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
   { id: 'structures', title: 'Structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
-  { id: 'collections', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--collections', is2D: true },
+  { id: 'galeriesApi', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
 ]
 
 function Preview({ activeCat }) {
@@ -114,15 +114,15 @@ function Home() {
       cosmos: '/terrelune',
       abstrait: '/k2d',
       structures: '/reseaux',
-      collections: '/terre',
+      galeriesApi: '/terre',
     }
     window.location.href = routes[id] || '/'
   }, [])
 
-  const gridCats = categories.filter((c) => c.id !== 'collections')
+  const gridCats = categories.filter((c) => c.id !== 'galeriesApi')
   const col1 = gridCats.filter((_, i) => i % 2 === 0)
   const col2 = gridCats.filter((_, i) => i % 2 === 1)
-  const collectionsCat = categories.find((c) => c.id === 'collections')
+  const galeriesApiCat = categories.find((c) => c.id === 'galeriesApi')
 
   return (
     <div className="home-page">
@@ -160,11 +160,11 @@ function Home() {
           <div className="home-diagonal" />
         </div>
         <div className="home-row-full">
-          <div key={collectionsCat.id} className={`home-cell home-cell--full ${collectionsCat.bgClass}${activeId === collectionsCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(collectionsCat.id)} onMouseEnter={() => setActiveId(collectionsCat.id)}>
-            <h2 className="home-cell-title">{collectionsCat.title}</h2>
+          <div key={galeriesApiCat.id} className={`home-cell home-cell--full ${galeriesApiCat.bgClass}${activeId === galeriesApiCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(galeriesApiCat.id)} onMouseEnter={() => setActiveId(galeriesApiCat.id)}>
+            <h2 className="home-cell-title">{galeriesApiCat.title}</h2>
             <div className="home-cell-footer">
               <span>Explorer</span>
-              <span>{collectionsCat.label}</span>
+              <span>{galeriesApiCat.label}</span>
             </div>
           </div>
           <div className="home-diagonal" />

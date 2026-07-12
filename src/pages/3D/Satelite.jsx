@@ -1,4 +1,4 @@
-import Sphere from '../../composants/3d/Sphere'
+import SateliteScene from '../../composants/3d/SateliteScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
@@ -9,7 +9,7 @@ function Satelite() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="3d" />
-      <Sphere />
+      <SateliteScene />
     </>
   )
 }
