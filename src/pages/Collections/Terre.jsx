@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Terre.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 100
 const RECT_W = 0.25
@@ -283,6 +284,7 @@ function Terre() {
   return (
     <div className="terre-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />

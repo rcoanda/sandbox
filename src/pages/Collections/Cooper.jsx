@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Cooper.css'
+import Informations from '../../composants/Informations'
 
 const RADIUS = 2
 const COUNT = 120
@@ -242,6 +243,7 @@ function Cooper() {
   return (
     <div className="cooper-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
         <ambientLight intensity={0.5} />

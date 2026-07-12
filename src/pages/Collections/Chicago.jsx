@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Chicago.css'
+import Informations from '../../composants/Informations'
 
 const N = 3
 const SIZE = 0.6
@@ -214,6 +215,7 @@ function Chicago() {
   return (
     <div className="chicago-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
         <ambientLight intensity={0.5} />

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Epicycloide.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 100
 const R = 3
@@ -88,6 +89,7 @@ function Epicycloide() {
   return (
     <div className="epicycloide-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />

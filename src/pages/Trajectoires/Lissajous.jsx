@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Lissajous.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 160
 const A = 4.5
@@ -90,6 +91,7 @@ function Lissajous() {
   return (
     <div className="lissajous-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene />

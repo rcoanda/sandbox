@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Metropolitan.css'
+import Informations from '../../composants/Informations'
 
 const ROWS = 8
 const COLS = 14
@@ -231,6 +232,7 @@ function Metropolitan() {
   return (
     <div className="metropolitan-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <div className="metropolitan-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
         {Array.from({ length: TOTAL }, (_, i) => {

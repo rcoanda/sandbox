@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
+import Informations from '../../composants/Informations'
 
 const SHAPES = [
   { label: 'Carré', render: (w, h) => <rect x={w * 0.25} y={h * 0.25} width={w * 0.5} height={h * 0.5} /> },
@@ -99,6 +100,7 @@ function Matrice() {
       position: 'relative', background: '#0b1522',
     }}>
       <BackArrow />
+      <Informations />
       <CategoryMenu category="structure" />
       <div style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center',

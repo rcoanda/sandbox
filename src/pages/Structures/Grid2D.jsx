@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/structures/Grid.css'
+import Informations from '../../composants/Informations'
 
 const ROWS = 8
 const COLS = 14
@@ -175,6 +176,7 @@ function Grid2D() {
   return (
     <div className="grid-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="structure" />
       <div className="grid-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
         {rects.map((r, i) => (

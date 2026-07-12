@@ -1,0 +1,21 @@
+.informations {
+  position: fixed;
+  top: 0;
+  left: 45px;
+  width: 120px;
+  height: 100vh;
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.informations p {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 300;
+  color: #999;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}

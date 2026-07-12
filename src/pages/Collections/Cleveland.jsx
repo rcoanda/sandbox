@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/collections/Cleveland.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 60
 const SCALE = 4.5
@@ -235,6 +236,7 @@ function Cleveland() {
   return (
     <div className="cleveland-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />

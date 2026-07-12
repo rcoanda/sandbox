@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Ellipse.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 60
 const A = 4.5
@@ -180,6 +181,7 @@ function Ellipse() {
   return (
     <div className="ellipse-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 3, 9], fov: 50 }} dpr={[1, 2]}>
         <Scene textures={textures} onImageClick={handleImageClick} />

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/structures/Grid.css'
+import Informations from '../../composants/Informations'
 
 const ROWS = 8
 const COLS = 14
@@ -143,6 +144,7 @@ function Grid3D() {
   return (
     <div className="grid-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="structure" />
       <Canvas camera={{ position: [0, 12, 12], fov: 45 }} dpr={[1, 2]}>
         <ambientLight intensity={0.6} />

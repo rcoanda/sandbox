@@ -5,6 +5,7 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import AquatiqueScene, { setPaused } from '../../composants/collections/AquatiqueScene'
 import '../../styles/collections/Aquatique.css'
+import Informations from '../../composants/Informations'
 
 const ROBOFLOW_WORKSPACE = 'LhZe9xSpLbPGwPNJW8WEjUbVnE42'
 const IMAGE_IDS = [
@@ -51,6 +52,7 @@ function Aquatique() {
   return (
     <div className="aquatique-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="collections" />
       <Canvas camera={{ position: [0, 5, 7], fov: 50, up: [0, 1, 0] }}>
         <ambientLight intensity={0.5} />

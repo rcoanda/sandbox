@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Bezier.css'
+import Informations from '../../composants/Informations'
 
 const COUNT = 60
 const RAYON = 0.18
@@ -109,6 +110,7 @@ function Bezier() {
   return (
     <div className="bezier-page">
       <BackArrow />
+      <Informations />
       <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: CAM_POS, fov: 50 }} dpr={[1, 2]}>
         <Scene />
