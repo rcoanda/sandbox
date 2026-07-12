@@ -38,6 +38,7 @@ import K3D from './pages/Abstrait/K3D'
 import Cleveland from './pages/Collections/Cleveland'
 import Chicago from './pages/Collections/Chicago'
 import Cooper from './pages/Collections/Cooper'
+import Aquatique from './pages/Collections/Aquatique'
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
         <Route path="/cleveland" element={<Cleveland />} />
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/cooper" element={<Cooper />} />
+        <Route path="/aquatique" element={<Aquatique />} />
       </Routes>
     </div>
   )

@@ -50,6 +50,7 @@ export const categoryLinks = {
     { label: 'Cleveland', path: '/cleveland' },
     { label: 'Chicago', path: '/chicago' },
     { label: 'Cooper', path: '/cooper' },
+    { label: 'Aquatique', path: '/aquatique' },
   ],
 }
 

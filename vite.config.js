@@ -22,6 +22,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/cooper-img/, ''),
       },
+      '/roboflow-img': {
+        target: 'https://source.roboflow.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/roboflow-img/, ''),
+      },
     },
   },
 })
