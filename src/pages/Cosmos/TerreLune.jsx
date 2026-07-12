@@ -1,4 +1,4 @@
-import CosmosSphere from '../../composants/CosmosSphere'
+import CosmosSphere from '../../composants/cosmos/CosmosSphere'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 

@@ -1,4 +1,4 @@
-import Sphere from '../../composants/Sphere'
+import Sphere from '../../composants/3d/Sphere'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 

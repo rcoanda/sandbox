@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import CosmosScene from '../../composants/CosmosScene'
+import CosmosScene from '../../composants/cosmos/CosmosScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 

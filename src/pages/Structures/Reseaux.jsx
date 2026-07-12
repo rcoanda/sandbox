@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import StructuresScene from '../../composants/StructuresScene'
+import StructuresScene from '../../composants/structures/StructuresScene'
 
 function Reseaux() {
   return (

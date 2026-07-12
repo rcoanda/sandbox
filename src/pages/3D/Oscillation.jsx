@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import SceneTrajectoires from '../../composants/SceneTrajectoires'
+import SceneTrajectoires from '../../composants/trajectoires/SceneTrajectoires'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 

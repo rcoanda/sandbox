@@ -1,4 +1,4 @@
-import GeometrieScene from '../../composants/GeometrieScene'
+import GeometrieScene from '../../composants/geometrie/GeometrieScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 

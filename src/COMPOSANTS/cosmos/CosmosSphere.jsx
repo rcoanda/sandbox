@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
-import '../styles/cosmos/Sphere.css'
+import '../../styles/cosmos/Sphere.css'
 
 const EARTH_MAP = 'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'
 const MOON_MAP = 'https://threejs.org/examples/textures/planets/moon_1024.jpg'

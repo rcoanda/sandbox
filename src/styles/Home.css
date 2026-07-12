@@ -110,24 +110,32 @@
   height: 50vh;
 }
 
+
 .home-col:first-child .home-cell:nth-child(4) {
-  height: 40vh;
+  height: 100vh;
 }
+
+/*
 
 .home-col:last-child .home-cell:nth-child(1) {
   height: 50vh;
 }
 
 .home-col:last-child .home-cell:nth-child(2) {
-  height: 55vh;
+  height: 40vh;
 }
 
 .home-col:last-child .home-cell:nth-child(3) {
-  height: 45vh;
+  height: 60vh;
 }
 
+
 .home-col:last-child .home-cell:nth-child(4) {
-  height: 45vh;
+  height: 40vh;
+}
+*/
+.home-col:last-child .home-cell--3D {
+  height: 70vh;
 }
 
 .home-cell--full {

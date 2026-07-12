@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import SceneLemniscate from '../../composants/SceneLemniscate'
+import SceneLemniscate from '../../composants/trajectoires/SceneLemniscate'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/trajectoires/Lemniscate.css'

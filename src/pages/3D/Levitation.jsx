@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import ThreeDScene from '../../composants/ThreeDScene'
+import ThreeDScene from '../../composants/3d/ThreeDScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/3d/Levitation.css'

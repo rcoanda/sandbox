@@ -1,6 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import CollectionsScene from '../../composants/CollectionsScene'
+import CollectionsScene from '../../composants/collections/CollectionsScene'
 import { Canvas } from '@react-three/fiber'
 
 function Huit() {
