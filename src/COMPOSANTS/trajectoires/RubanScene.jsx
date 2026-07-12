@@ -4,7 +4,7 @@ import * as THREE from 'three'
 
 const R = 6
 const W = 1.2
-const N = 30
+const N = 10
 const TWIST = Math.PI
 const SPEED = 0.08
 const CX = R * 0.5
@@ -55,7 +55,7 @@ function RectTile({ index, color }) {
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[W, W * 0.5]} />
+      <planeGeometry args={[W, W * 1.5]} />
       <meshBasicMaterial color={color} side={THREE.DoubleSide} />
     </mesh>
   )
