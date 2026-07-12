@@ -1,4 +1,4 @@
-import GeometrieScene from '../../composants/geometrie/GeometrieScene'
+import F0Scene from '../../composants/geometrie/F0Scene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
@@ -9,7 +9,7 @@ function F0() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="geometrie" />
-      <GeometrieScene />
+      <F0Scene />
     </div>
   )
 }

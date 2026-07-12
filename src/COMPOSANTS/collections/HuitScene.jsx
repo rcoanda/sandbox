@@ -134,7 +134,7 @@ function FloatingShapes() {
   )
 }
 
-function CollectionsScene() {
+function HuitScene() {
   return (
     <group rotation-x={-0.5} rotation-y={0.3}>
       <Ribbon />
@@ -147,4 +147,4 @@ function CollectionsScene() {
   )
 }
 
-export default CollectionsScene
+export default HuitScene

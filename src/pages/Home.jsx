@@ -1,24 +1,24 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
-import ThreeDScene from '../composants/3d/ThreeDScene'
+import LevitationScene from '../composants/3d/LevitationScene'
 
 import { SceneCosmosSphere } from '../composants/cosmos/CosmosScene'
 import K2DScene from '../composants/abstrait/K2DScene'
-import CollectionsScene from '../composants/collections/CollectionsScene'
+import HuitScene from '../composants/collections/HuitScene'
 import ApiScene from '../composants/structures/ApiScene'
-import StructuresScene from '../composants/structures/StructuresScene'
-import GeometrieScene from '../composants/geometrie/GeometrieScene'
+import ReseauxScene from '../composants/structures/ReseauxScene'
+import F0Scene from '../composants/geometrie/F0Scene'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: GeometrieScene, bgClass: 'home-cell--geometrie', is2D: true },
-  { id: '3d', title: '3D', label: '02', Scene: ThreeDScene, bgClass: 'home-cell--3d' },
-  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: CollectionsScene, bgClass: 'home-cell--trajectoires' },
+  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: F0Scene, bgClass: 'home-cell--geometrie', is2D: true },
+  { id: '3d', title: '3D', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
+  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: SceneCosmosSphere, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
-  { id: 'structures', title: 'Structures', label: '06', Scene: StructuresScene, bgClass: 'home-cell--structures' },
+  { id: 'structures', title: 'Structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
   { id: 'collections', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--collections', is2D: true },
 ]
 

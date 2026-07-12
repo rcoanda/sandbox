@@ -1,6 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import CollectionsScene from '../../composants/collections/CollectionsScene'
+import HuitScene from '../../composants/collections/HuitScene'
 import { Canvas } from '@react-three/fiber'
 import Informations from '../../composants/Informations'
 
@@ -11,7 +11,7 @@ function Huit() {
       <Informations />
       <CategoryMenu category="trajectoires" />
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-        <CollectionsScene />
+        <HuitScene />
       </Canvas>
     </div>
   )

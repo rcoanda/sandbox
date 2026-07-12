@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import ThreeDScene from '../../composants/3d/ThreeDScene'
+import LevitationScene from '../../composants/3d/LevitationScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import '../../styles/3d/Levitation.css'
@@ -12,7 +12,7 @@ function Levitation() {
       <Informations />
       <CategoryMenu category="3d" />
       <Canvas camera={{ position: [0, 0, 3], fov: 45 }} dpr={[1, 2]}>
-        <ThreeDScene />
+        <LevitationScene />
       </Canvas>
     </div>
   )

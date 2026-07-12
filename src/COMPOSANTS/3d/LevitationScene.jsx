@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-function ThreeDScene() {
+function LevitationScene() {
   const groupRef = useRef()
   const shapes = useRef([])
 
@@ -42,4 +42,4 @@ function ThreeDScene() {
   )
 }
 
-export default ThreeDScene
+export default LevitationScene

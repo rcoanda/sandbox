@@ -18,7 +18,7 @@ function drawTriangle(ctx, cx, cy, size, angle) {
   ctx.fill()
 }
 
-function GeometrieScene() {
+function F0Scene() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -82,4 +82,4 @@ function GeometrieScene() {
   return <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
 }
 
-export default GeometrieScene
+export default F0Scene

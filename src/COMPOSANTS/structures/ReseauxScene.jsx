@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-function StructuresScene() {
+function ReseauxScene() {
   const groupRef = useRef()
 
   useFrame(({ clock }) => {
@@ -26,4 +26,4 @@ function StructuresScene() {
   return <group ref={groupRef}>{grid}</group>
 }
 
-export default StructuresScene
+export default ReseauxScene
