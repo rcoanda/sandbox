@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { useNavigate } from 'react-router-dom'
 import ThreeDScene from '../composants/3d/ThreeDScene'
 
-import SceneCosmosSphere from '../composants/cosmos/SceneCosmosSphere'
+import { SceneCosmosSphere } from '../composants/cosmos/CosmosScene'
 import K2DScene from '../composants/abstrait/K2DScene'
 import CollectionsScene from '../composants/collections/CollectionsScene'
 import ApiScene from '../composants/structures/ApiScene'

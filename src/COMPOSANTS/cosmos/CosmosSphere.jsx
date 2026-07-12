@@ -3,9 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import '../../styles/cosmos/Sphere.css'
-
-const EARTH_MAP = 'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'
-const MOON_MAP = 'https://threejs.org/examples/textures/planets/moon_1024.jpg'
+import earthMap from '../../assets/cosmos/earth_atmos_2048.jpg'
+import moonMap from '../../assets/cosmos/moon_1024.jpg'
 
 function Stars() {
   const [geometry] = useState(() => {
@@ -42,7 +41,7 @@ function Stars() {
 }
 
 function Earth({ size }) {
-  const texture = useTexture(EARTH_MAP)
+  const texture = useTexture(earthMap)
 
   return (
     <mesh>
@@ -57,7 +56,7 @@ function Earth({ size }) {
 }
 
 function Moon({ size }) {
-  const texture = useTexture(MOON_MAP)
+  const texture = useTexture(moonMap)
 
   return (
     <mesh>

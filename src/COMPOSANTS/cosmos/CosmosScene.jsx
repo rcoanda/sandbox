@@ -1,6 +1,10 @@
 import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useTexture } from '@react-three/drei'
+import { DoubleSide } from 'three'
+
+import earthMap from '../../assets/cosmos/earth_atmos_2048.jpg'
+import moonMap from '../../assets/cosmos/moon_1024.jpg'
 
 function seededRandom(seed) {
   let s = seed
@@ -8,15 +12,14 @@ function seededRandom(seed) {
     s = (s * 16807) % 2147483647
     return (s - 1) / 2147483646
   }
-
 }
 
-function Stars() {
+function Stars({ spread = 50, size = 0.15 }) {
   const positions = useMemo(() => {
     const pos = []
     const rng = seededRandom(42)
     for (let i = 0; i < 2000; i++) {
-      const r = 20 + rng() * 50
+      const r = 20 + rng() * spread
       const theta = rng() * Math.PI * 2
       const phi = Math.acos(2 * rng() - 1)
       pos.push(
@@ -26,19 +29,39 @@ function Stars() {
       )
     }
     return new Float32Array(pos)
-  }, [])
+  }, [spread])
 
   return (
     <points>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial color="white" size={0.15} sizeAttenuation transparent opacity={0.8} />
+      <pointsMaterial color="white" size={size} sizeAttenuation transparent opacity={0.8} />
     </points>
   )
 }
 
-function CosmosScene() {
+function Earth({ size }) {
+  const texture = useTexture(earthMap)
+  return (
+    <mesh>
+      <sphereGeometry args={[size, 48, 48]} />
+      <meshStandardMaterial map={texture} metalness={0.1} roughness={0.6} />
+    </mesh>
+  )
+}
+
+function Moon({ size }) {
+  const texture = useTexture(moonMap)
+  return (
+    <mesh>
+      <sphereGeometry args={[size, 32, 32]} />
+      <meshStandardMaterial map={texture} metalness={0.05} roughness={0.8} />
+    </mesh>
+  )
+}
+
+export function CosmosScene() {
   const planetRef = useRef()
   const ringRef = useRef()
   const moonRef = useRef()
@@ -74,7 +97,7 @@ function CosmosScene() {
       </mesh>
       <mesh ref={ringRef} rotation={[0.4, 0, 0]}>
         <ringGeometry args={[1.3, 2, 64]} />
-        <meshBasicMaterial color="#a5b4fc" side={THREE.DoubleSide} transparent opacity={0.3} />
+        <meshBasicMaterial color="#a5b4fc" side={DoubleSide} transparent opacity={0.3} />
       </mesh>
       <mesh ref={moonRef}>
         <sphereGeometry args={[0.25, 24, 24]} />
@@ -87,4 +110,28 @@ function CosmosScene() {
   )
 }
 
-export default CosmosScene
+export function SceneCosmosSphere() {
+  const satelliteRef = useRef()
+
+  useFrame(({ clock }) => {
+    if (!satelliteRef.current) return
+    const t = clock.getElapsedTime()
+    const radius = 2.5
+    satelliteRef.current.position.x = Math.cos(t * 0.8) * radius
+    satelliteRef.current.position.z = Math.sin(t * 0.8) * radius
+  })
+
+  return (
+    <group scale={0.6}>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 5, 5]} intensity={1.2} />
+      <directionalLight position={[-3, -2, -5]} intensity={0.3} color="#6ee7ff" />
+
+      <Stars spread={100} size={0.3} />
+      <Earth size={1.5} />
+      <group ref={satelliteRef}>
+        <Moon size={0.7} />
+      </group>
+    </group>
+  )
+}
