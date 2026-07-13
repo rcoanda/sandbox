@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -71,7 +71,7 @@ function buildRect(tA, tB, verts, off) {
   verts[off + 17] = fB.pos.z - fB.binormal.z * hw
 }
 
-function RectTile({ index, texture, onClick }) {
+function RectTile({ index, texturePoolRef, tileUrlsRef, onClick }) {
   const meshRef = useRef()
   const visibleRef = useRef(true)
   const posArr = useRef(new Float32Array(18))
@@ -85,66 +85,95 @@ function RectTile({ index, texture, onClick }) {
   }, [])
 
   useFrame(({ clock }) => {
-    if (paused) return
+    if (!paused) {
+      const offset = clock.getElapsedTime() * SPEED
+      const rawA = i / N + offset
+      const rawB = (i + 1) / N + offset
 
-    const offset = clock.getElapsedTime() * SPEED
-    const rawA = i / N + offset
-    const rawB = (i + 1) / N + offset
+      if (Math.floor(rawA) !== Math.floor(rawB)) {
+        if (visibleRef.current) {
+          visibleRef.current = false
+          meshRef.current.visible = false
+        }
+      } else {
+        if (!visibleRef.current) {
+          visibleRef.current = true
+          meshRef.current.visible = true
+        }
 
-    if (Math.floor(rawA) !== Math.floor(rawB)) {
-      if (visibleRef.current) {
-        visibleRef.current = false
-        meshRef.current.visible = false
+        const tA = rawA % 1
+        const tB = rawB % 1
+
+        buildRect(tA, tB, posArr.current, 0)
+
+        const geom = meshRef.current.geometry
+        const pos = geom.getAttribute('position')
+        pos.array.set(posArr.current)
+        pos.needsUpdate = true
+        geom.computeVertexNormals()
+        geom.computeBoundingSphere()
       }
-      return
     }
 
-    if (!visibleRef.current) {
-      visibleRef.current = true
-      meshRef.current.visible = true
+    const pool = texturePoolRef.current
+    if (pool.length > 0) {
+      const period = 4
+      const poolIdx = (Math.floor(clock.getElapsedTime() / period) + index) % pool.length
+      const entry = pool[poolIdx]
+      if (entry && meshRef.current.material.map !== entry.texture) {
+        meshRef.current.material.map = entry.texture
+        meshRef.current.material.needsUpdate = true
+        tileUrlsRef.current[index] = entry.url
+      }
     }
-
-    const tA = rawA % 1
-    const tB = rawB % 1
-
-    buildRect(tA, tB, posArr.current, 0)
-
-    const geom = meshRef.current.geometry
-    const pos = geom.getAttribute('position')
-    pos.array.set(posArr.current)
-    pos.needsUpdate = true
-    geom.computeVertexNormals()
-    geom.computeBoundingSphere()
   })
 
   return (
     <mesh
       ref={meshRef}
       onPointerOver={() => { paused = true }}
-      onClick={(e) => { onClick?.(index) }}
+      onClick={() => onClick?.(index)}
     >
       <bufferGeometry />
-      <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
+      <meshBasicMaterial side={THREE.DoubleSide} />
     </mesh>
   )
 }
 
-function AquatiqueScene({ textures, onImageClick }) {
-  const hasTextures = textures && textures.length > 0
+function AquatiqueScene({ imageUrls, onImageClick }) {
+  const texturePoolRef = useRef([])
+  const tileUrlsRef = useRef({})
+  const loaderRef = useRef(new THREE.TextureLoader())
 
   useEffect(() => {
+    if (!imageUrls || imageUrls.length === 0) return
+    const loaded = []
+    imageUrls.forEach((url) => {
+      loaderRef.current.load(url, (tex) => {
+        loaded.push({ texture: tex, url })
+        if (loaded.length === imageUrls.length) {
+          texturePoolRef.current = loaded
+        }
+      })
+    })
     const canvas = document.querySelector('canvas')
     const onLeave = () => { paused = false }
     if (canvas) canvas.addEventListener('mouseleave', onLeave)
     return () => {
+      texturePoolRef.current.forEach(e => e.texture.dispose())
       if (canvas) canvas.removeEventListener('mouseleave', onLeave)
     }
-  }, [])
+  }, [imageUrls])
+
+  const handleClick = useCallback((index) => {
+    setPaused(true)
+    onImageClick?.(index, tileUrlsRef.current[index] || '')
+  }, [onImageClick])
 
   return (
     <group position={[1.5, 0, 0]}>
       {Array.from({ length: N }, (_, i) => (
-        <RectTile key={i} index={i} texture={hasTextures ? textures[i % textures.length] : undefined} onClick={onImageClick} />
+        <RectTile key={i} index={i} texturePoolRef={texturePoolRef} tileUrlsRef={tileUrlsRef} onClick={handleClick} />
       ))}
     </group>
   )
