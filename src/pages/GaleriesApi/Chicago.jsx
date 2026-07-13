@@ -28,7 +28,7 @@ function Chicago() {
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 1000) + 1
-    fetch(`https://api.artic.edu/api/v1/artworks?limit=27&page=${page}&fields=id,image_id,title,artist_display,date_display`)
+    fetch(`https://api.artic.edu/api/v1/artworks/search?limit=27&page=${page}&fields=id,image_id,title,artist_display,date_display&query[term][is_public_domain]=true`)
       .then(r => r.json())
       .then(d => {
         const items = d.data.filter(item => item.image_id)
@@ -55,7 +55,7 @@ function Chicago() {
         const page = Math.floor(Math.random() * 1000) + 1
         try {
           const res = await fetch(
-            `https://api.artic.edu/api/v1/artworks?limit=1&page=${page}&fields=id,image_id,title,artist_display,date_display`
+            `https://api.artic.edu/api/v1/artworks/search?limit=1&page=${page}&fields=id,image_id,title,artist_display,date_display&query[term][is_public_domain]=true`
           )
           const d = await res.json()
           const item = d.data.find((i) => i.image_id)

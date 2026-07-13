@@ -28,7 +28,10 @@ const COOPER_QUERY = `{
     id
     summary
     date
-    multimedia
+    multimedia {
+      cc0
+      preview { url }
+    }
     agent { summary }
   }
 }`
@@ -56,7 +59,7 @@ function Cooper() {
     fetchCooperObjects().then((items) => {
       const valid = items.filter((item) => {
         const media = item.multimedia || []
-        return media.length > 0 && media[0].preview && media[0].preview.url
+        return media.length > 0 && media[0].preview && media[0].preview.url && media[0].cc0 === true
       })
       if (valid.length >= COUNT) {
         const selected = valid.slice(0, COUNT)
@@ -84,7 +87,7 @@ function Cooper() {
           const items = await fetchCooperObjects()
           const item = items.find((i) => {
             const media = i.multimedia || []
-            return media.length > 0 && media[0].preview && media[0].preview.url
+            return media.length > 0 && media[0].preview && media[0].preview.url && media[0].cc0 === true
           })
             if (item && !swapCancelled.current) {
             const url = proxyImg(item.multimedia[0].preview.url)

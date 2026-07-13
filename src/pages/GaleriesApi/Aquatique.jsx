@@ -27,6 +27,7 @@ function Aquatique() {
   const [expandedUrl, setExpandedUrl] = useState('')
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
+  const expandedId = expandedIndex !== null ? IMAGE_IDS[expandedIndex] : ''
 
   const handleImageClick = useCallback((index, url) => {
     setPaused(true)
@@ -77,6 +78,10 @@ function Aquatique() {
           >
             <div className="expanded-front">
               <img src={expandedUrl} alt="" />
+            </div>
+            <div className="expanded-back">
+              <span className="rect-back-title">Aquatique #{expandedIndex !== null ? expandedIndex + 1 : ''}</span>
+              <span className="rect-back-artist">{expandedId}</span>
             </div>
           </div>
           <button className="close-btn" onClick={handleClose}>✕</button>
