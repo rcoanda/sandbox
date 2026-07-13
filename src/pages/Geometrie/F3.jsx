@@ -1,5 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
+import F3Layout from '../../composants/geometrie/F3Layout'
 import Informations from '../../composants/Informations'
 
 function F3() {
@@ -8,11 +9,7 @@ function F3() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="geometrie" />
-      <iframe
-        src="/F3.html"
-        style={{ width: '100%', height: '100%', border: 'none' }}
-        title="F3"
-      />
+      <F3Layout />
     </div>
   )
 }
