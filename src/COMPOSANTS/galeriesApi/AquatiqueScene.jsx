@@ -20,13 +20,14 @@ const _normal = new THREE.Vector3(0, 1, 0)
 const _binormal = new THREE.Vector3()
 
 function getFrame(t) {
-  const angle = t * Math.PI * 0.5
-  const pos = new THREE.Vector3(R * Math.cos(angle) - CX, 0, R * Math.sin(angle) - CZ)
+  const angle = t * Math.PI * 0.5 * (N + 1) / N
+  const yRaise = 2.5
+  const pos = new THREE.Vector3(R * Math.cos(angle) - CX, yRaise * (1 - t), R * Math.sin(angle) - CZ)
   const tangent = new THREE.Vector3(-Math.sin(angle), 0, Math.cos(angle)).normalize()
 
   _binormal.crossVectors(tangent, _normal).normalize()
 
-  const ta = t * TWIST
+  const ta = t < 1 / N ? 0 : (t - 1 / N) / (1 - 1 / N) * TWIST
   const cosA = Math.cos(ta)
   const sinA = Math.sin(ta)
   const nTw = new THREE.Vector3(
@@ -141,7 +142,7 @@ function AquatiqueScene({ textures, onImageClick }) {
   }, [])
 
   return (
-    <group>
+    <group position={[1.5, 0, 0]}>
       {Array.from({ length: N }, (_, i) => (
         <RectTile key={i} index={i} texture={hasTextures ? textures[i % textures.length] : undefined} onClick={onImageClick} />
       ))}
