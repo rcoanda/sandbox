@@ -6,7 +6,7 @@ import Informations from '../../composants/Informations'
 
 function Huit() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative', background: '#000000' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="trajectoires" />

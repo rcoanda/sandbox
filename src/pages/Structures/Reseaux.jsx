@@ -7,7 +7,7 @@ import Informations from '../../composants/Informations'
 
 function Reseaux() {
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen" style={{ background: '#0b1522' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="structure" />
