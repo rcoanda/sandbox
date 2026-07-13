@@ -8,7 +8,7 @@ import Archive from './pages/Archive'
 import Lemniscate from './pages/Trajectoires/Lemniscate'
 import Grid2D from './pages/Structures/Grid2D'
 import Grid3D from './pages/Structures/Grid3D'
-import Sfere from './pages/Structures/Sfere'
+import Sphere from './pages/Structures/Sphere'
 import Anneaux from './pages/3D/Anneaux'
 import Oscillation from './pages/3D/Oscillation'
 import Levitation from './pages/3D/Levitation'
@@ -72,7 +72,7 @@ function App() {
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid2d" element={<Grid2D />} />
         <Route path="/grid3d" element={<Grid3D />} />
-        <Route path="/sfere" element={<Sfere />} />
+        <Route path="/sfere" element={<Sphere />} />
         <Route path="/terrelune" element={<TerreLune />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
         <Route path="/europe" element={<Europe />} />

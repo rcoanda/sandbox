@@ -4,6 +4,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import ReseauxScene from '../../composants/structures/ReseauxScene'
 
 import Informations from '../../composants/Informations'
+
 function Reseaux() {
   return (
     <div className="w-full h-screen">

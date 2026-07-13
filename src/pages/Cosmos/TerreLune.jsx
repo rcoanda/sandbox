@@ -5,7 +5,7 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
 import TerreLuneScene from '../../composants/cosmos/TerreLuneScene'
-import '../../styles/cosmos/Sphere.css'
+import '../../styles/cosmos/TerreLune.css'
 
 function TerreLune() {
   const [pos, setPos] = useState({ x: 0, y: 0 })

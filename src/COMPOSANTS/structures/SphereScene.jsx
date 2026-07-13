@@ -50,7 +50,7 @@ function Sphere3D() {
   )
 }
 
-function SfereScene() {
+function SphereScene() {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
@@ -80,4 +80,4 @@ function SfereScene() {
   )
 }
 
-export default SfereScene
+export default SphereScene
