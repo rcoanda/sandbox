@@ -1,6 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import HuitScene from '../../composants/galeriesApi/HuitScene'
+import HuitScene from '../../composants/trajectoires/HuitScene'
 import { Canvas } from '@react-three/fiber'
 import Informations from '../../composants/Informations'
 
