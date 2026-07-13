@@ -7,7 +7,7 @@ export const categoryLinks = {
     { label: 'F3', path: '/f3' },
   ],
   '3d': [
-    { label: 'Levitation', path: '/levitation' },
+    { label: 'Lévitation', path: '/levitation' },
     { label: 'Satelite', path: '/satelite' },
     { label: 'Oscillation', path: '/oscillation' },
     { label: 'Anneaux', path: '/anneaux' },
@@ -27,8 +27,8 @@ export const categoryLinks = {
   ],
 
   cosmos: [
-    { label: 'TerreLune', path: '/terrelune' },
-    { label: 'Moon', path: '/moon' },
+    { label: 'Terre', path: '/terrelune' },
+    { label: 'Lune', path: '/moon' },
     { label: 'Astronaute', path: '/astronaute' },
   ],
   abstrait: [
@@ -41,7 +41,7 @@ export const categoryLinks = {
     { label: 'Grid3D', path: '/grid3d' },
     { label: 'Matrice', path: '/matrice' },
     { label: 'Cube', path: '/cube' },
-    { label: 'Sfere', path: '/sfere' },
+    { label: 'Sphère', path: '/sfere' },
   ],
   galeriesApi: [
     { label: 'Terre', path: '/terre' },
@@ -49,7 +49,7 @@ export const categoryLinks = {
     { label: 'Europe', path: '/europe' },
     { label: 'Cleveland', path: '/cleveland' },
     { label: 'Chicago', path: '/chicago' },
-    { label: 'Cooper', path: '/cooper' },
+    { label: 'Cooper Hewitt', path: '/cooper' },
     { label: 'Aquatique', path: '/aquatique' },
   ],
 }

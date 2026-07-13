@@ -19,7 +19,7 @@ const categories = [
   { id: 'cosmos', title: 'Cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
   { id: 'structures', title: 'Structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
-  { id: 'galeriesApi', title: 'Galerie API', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
+  { id: 'galeriesApi', title: 'Galeries API', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
 ]
 
 function Preview({ activeCat }) {

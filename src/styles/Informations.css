@@ -11,6 +11,16 @@
   pointer-events: none;
 }
 
+.informations h1 {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+}
+
 .informations p {
   font-family: inherit;
   font-size: 14px;
