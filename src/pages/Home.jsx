@@ -5,7 +5,7 @@ import LevitationScene from '../composants/3d/LevitationScene'
 
 import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
 import K2DScene from '../composants/abstrait/K2DScene'
-import HuitScene from '../composants/galeriesApi/HuitScene'
+import HuitScene from '../composants/trajectoires/HuitScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
 import F0Scene from '../composants/geometrie/F0Scene'

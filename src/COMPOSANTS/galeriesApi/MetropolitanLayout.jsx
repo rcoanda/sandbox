@@ -10,7 +10,7 @@ const FETCH_LIMIT = 14 * 8
 let cachedArtworks = null
 let cachedReady = false
 
-function MetropolitanLayout() {
+function MetropolitanLayout({ onReady }) {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
@@ -67,9 +67,10 @@ function MetropolitanLayout() {
           cachedReady = true
           setArtworks(items)
           setReady(true)
+          onReady?.(true)
         }
       } catch {
-        if (!cancelled) setReady(true)
+        if (!cancelled) { setReady(true); onReady?.(true) }
       }
     }
 

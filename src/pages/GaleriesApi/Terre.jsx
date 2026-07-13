@@ -6,6 +6,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import TerreScene, { setPaused } from '../../composants/galeriesApi/TerreScene'
 import '../../styles/galeriesApi/Terre.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const COUNT = 100
 const ERROR_LOAD_MSG = 'NASA Earthdata GIBS'
@@ -191,7 +192,7 @@ function Terre() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="terre-page"><BackArrow /><CategoryMenu category="galeriesApi" /></div>
+  if (!ready) return <div className="terre-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
   return (
     <div className="terre-page">

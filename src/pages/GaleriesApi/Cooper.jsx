@@ -6,6 +6,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import CooperScene, { setPaused } from '../../composants/galeriesApi/CooperScene'
 import '../../styles/galeriesApi/Cooper.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const COUNT = 120
 const DELAY_BETWEEN_IMAGES = 1000
@@ -139,7 +140,7 @@ function Cooper() {
     }
   }, [expandedIndex])
 
-  if (textures.length < COUNT) return null
+  if (textures.length < COUNT) return <div className="cooper-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
   return (
     <div className="cooper-page">

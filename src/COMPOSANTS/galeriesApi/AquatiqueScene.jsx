@@ -140,7 +140,7 @@ function RectTile({ index, texturePoolRef, tileUrlsRef, onClick }) {
   )
 }
 
-function AquatiqueScene({ imageUrls, onImageClick }) {
+function AquatiqueScene({ imageUrls, onImageClick, onReady }) {
   const texturePoolRef = useRef([])
   const tileUrlsRef = useRef({})
   const loaderRef = useRef(new THREE.TextureLoader())
@@ -153,6 +153,7 @@ function AquatiqueScene({ imageUrls, onImageClick }) {
         loaded.push({ texture: tex, url })
         if (loaded.length === imageUrls.length) {
           texturePoolRef.current = loaded
+          onReady?.()
         }
       })
     })

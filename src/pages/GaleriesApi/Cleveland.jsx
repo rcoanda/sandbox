@@ -6,6 +6,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import ClevelandScene, { setPaused } from '../../composants/galeriesApi/ClevelandScene'
 import '../../styles/galeriesApi/Cleveland.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const COUNT = 60
 
@@ -146,7 +147,7 @@ function Cleveland() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="cleveland-page"><BackArrow /><CategoryMenu category="galeriesApi" /></div>
+  if (!ready) return <div className="cleveland-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
   return (
     <div className="cleveland-page">

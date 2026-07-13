@@ -6,6 +6,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import EuropeScene, { setPaused } from '../../composants/galeriesApi/EuropeScene'
 import '../../styles/galeriesApi/Europe.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const COUNT = 60
 
@@ -152,7 +153,7 @@ function Europe() {
     }
   }, [expandedIndex])
 
-  if (!ready) return <div className="europe-page"><BackArrow /><CategoryMenu category="galeriesApi" /></div>
+  if (!ready) return <div className="europe-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
   return (
     <div className="europe-page">

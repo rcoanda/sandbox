@@ -5,6 +5,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import AquatiqueScene, { setPaused } from '../../composants/galeriesApi/AquatiqueScene'
 import '../../styles/galeriesApi/Aquatique.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const ROBOFLOW_WORKSPACE = 'LhZe9xSpLbPGwPNJW8WEjUbVnE42'
 const IMAGE_IDS = [
@@ -21,6 +22,7 @@ const IMAGE_URLS = IMAGE_IDS.map(
 )
 
 function Aquatique() {
+  const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [expandedUrl, setExpandedUrl] = useState('')
   const [flipped, setFlipped] = useState(false)
@@ -53,8 +55,9 @@ function Aquatique() {
       <Canvas camera={{ position: [0, 5, 7], fov: 50, up: [0, 1, 0] }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
-        <AquatiqueScene imageUrls={IMAGE_URLS} onImageClick={handleImageClick} />
+        <AquatiqueScene imageUrls={IMAGE_URLS} onImageClick={handleImageClick} onReady={() => setReady(true)} />
       </Canvas>
+      {!ready && <Loading />}
       {expandedIndex !== null && expandedUrl && (
         <div className="expanded-rect">
           <div

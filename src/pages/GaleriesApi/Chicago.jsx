@@ -6,6 +6,7 @@ import CategoryMenu from '../../composants/CategoryMenu'
 import ChicagoScene, { setPaused } from '../../composants/galeriesApi/ChicagoScene'
 import '../../styles/galeriesApi/Chicago.css'
 import Informations from '../../composants/Informations'
+import Loading from '../../composants/Loading'
 
 const N = 3
 const DELAY_BETWEEN_IMAGES = 1000
@@ -112,7 +113,7 @@ function Chicago() {
     }
   }, [expandedIndex])
 
-  if (textures.length < N * N * N) return null
+  if (textures.length < N * N * N) return <div className="chicago-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
   return (
     <div className="chicago-page">
