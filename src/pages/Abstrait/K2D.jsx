@@ -1,5 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
+import K2DLayout from '../../composants/abstrait/K2DLayout'
 import Informations from '../../composants/Informations'
 
 function K2D() {
@@ -8,11 +9,7 @@ function K2D() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="abstrait" />
-      <iframe
-        src="/K2D.html"
-        style={{ width: '100%', height: '100%', border: 'none' }}
-        title="K2D"
-      />
+      <K2DLayout />
     </div>
   )
 }
