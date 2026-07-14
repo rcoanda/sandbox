@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import TerreScene, { setPaused } from '../../composants/galeriesApi/TerreScene'
+import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Terre.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
@@ -123,8 +124,6 @@ function Terre() {
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [imageMeta, setImageMeta] = useState([])
-  const [flipped, setFlipped] = useState(false)
-  const flipTimerRef = useRef(null)
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
@@ -181,16 +180,8 @@ function Terre() {
 
   const handleClose = useCallback(() => {
     setExpandedIndex(null)
-    setFlipped(false)
     setPaused(false)
   }, [])
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(flipTimerRef.current)
-      setFlipped(false)
-    }
-  }, [expandedIndex])
 
   if (!ready) return <div className="terre-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
@@ -204,34 +195,14 @@ function Terre() {
       </Canvas>
       {expandedIndex !== null && imageMeta[expandedIndex] && (
         <div className="expanded-rect">
-          <div
-            className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => {
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseMove={() => {
-              if (flipped) return
-              clearTimeout(flipTimerRef.current)
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseLeave={() => {
-              clearTimeout(flipTimerRef.current)
-              setFlipped(false)
-            }}
-          >
-            <div className="expanded-front">
-              <img src={imageMeta[expandedIndex].url} alt="" />
-            </div>
-            <div className="expanded-back">
-              <span className="rect-back-title">{formatLayer(imageMeta[expandedIndex].layer)}</span>
-              <span className="rect-back-artist">
-                {imageMeta[expandedIndex].bbox.length
-                  ? formatBbox(imageMeta[expandedIndex].bbox)
-                  : ERROR_LOAD_MSG}
-              </span>
-            </div>
-          </div>
-          <button className="close-btn" onClick={handleClose}>✕</button>
+          <Overlay key={expandedIndex} imageSrc={imageMeta[expandedIndex].url} onClose={handleClose}>
+            <span className="rect-back-title">{formatLayer(imageMeta[expandedIndex].layer)}</span>
+            <span className="rect-back-artist">
+              {imageMeta[expandedIndex].bbox.length
+                ? formatBbox(imageMeta[expandedIndex].bbox)
+                : ERROR_LOAD_MSG}
+            </span>
+          </Overlay>
         </div>
       )}
     </div>

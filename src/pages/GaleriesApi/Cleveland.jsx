@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import ClevelandScene, { setPaused } from '../../composants/galeriesApi/ClevelandScene'
+import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Cleveland.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
@@ -63,8 +64,6 @@ function Cleveland() {
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
-  const [flipped, setFlipped] = useState(false)
-  const flipTimerRef = useRef(null)
 
   useEffect(() => {
     const loadProcedural = () => {
@@ -136,16 +135,8 @@ function Cleveland() {
 
   const handleClose = useCallback(() => {
     setExpandedIndex(null)
-    setFlipped(false)
     setPaused(false)
   }, [])
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(flipTimerRef.current)
-      setFlipped(false)
-    }
-  }, [expandedIndex])
 
   if (!ready) return <div className="cleveland-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
@@ -159,31 +150,11 @@ function Cleveland() {
       </Canvas>
       {expandedIndex !== null && imageUrls[expandedIndex] && (
         <div className="expanded-rect">
-          <div
-            className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => {
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseMove={() => {
-              if (flipped) return
-              clearTimeout(flipTimerRef.current)
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseLeave={() => {
-              clearTimeout(flipTimerRef.current)
-              setFlipped(false)
-            }}
-          >
-            <div className="expanded-front">
-              <img src={imageUrls[expandedIndex]} alt="" />
-            </div>
-            <div className="expanded-back">
-              <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
-              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Artist'}</span>
-              <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
-            </div>
-          </div>
-          <button className="close-btn" onClick={handleClose}>✕</button>
+          <Overlay key={expandedIndex} imageSrc={imageUrls[expandedIndex]} onClose={handleClose}>
+            <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
+            <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Artist'}</span>
+            <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
+          </Overlay>
         </div>
       )}
     </div>

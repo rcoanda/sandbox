@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import CooperScene, { setPaused } from '../../composants/galeriesApi/CooperScene'
+import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Cooper.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
@@ -51,8 +52,6 @@ function Cooper() {
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
   const [expandedIndex, setExpandedIndex] = useState(null)
-  const [flipped, setFlipped] = useState(false)
-  const flipTimerRef = useRef(null)
   const swapCancelled = useRef(false)
 
   useEffect(() => {
@@ -132,16 +131,8 @@ function Cooper() {
 
   const handleClose = useCallback(() => {
     setExpandedIndex(null)
-    setFlipped(false)
     setPaused(false)
   }, [])
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(flipTimerRef.current)
-      setFlipped(false)
-    }
-  }, [expandedIndex])
 
   if (textures.length < COUNT) return <div className="cooper-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
 
@@ -157,31 +148,11 @@ function Cooper() {
       </Canvas>
       {expandedIndex !== null && imageUrls[expandedIndex] && (
         <div className="expanded-rect">
-          <div
-            className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => {
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseMove={() => {
-              if (flipped) return
-              clearTimeout(flipTimerRef.current)
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseLeave={() => {
-              clearTimeout(flipTimerRef.current)
-              setFlipped(false)
-            }}
-          >
-            <div className="expanded-front">
-              <img src={proxyImg(imageUrls[expandedIndex])} alt="" />
-            </div>
-            <div className="expanded-back">
-              <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
-              <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Designer'}</span>
-              <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
-            </div>
-          </div>
-          <button className="close-btn" onClick={handleClose}>✕</button>
+          <Overlay key={expandedIndex} imageSrc={proxyImg(imageUrls[expandedIndex])} onClose={handleClose}>
+            <span className="rect-back-title">{artworkMetas[expandedIndex]?.title || 'Untitled'}</span>
+            <span className="rect-back-artist">{artworkMetas[expandedIndex]?.artist || 'Unknown Designer'}</span>
+            <span className="rect-back-year">{artworkMetas[expandedIndex]?.year || 'Unknown Year'}</span>
+          </Overlay>
         </div>
       )}
     </div>

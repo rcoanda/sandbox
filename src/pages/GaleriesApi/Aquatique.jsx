@@ -1,8 +1,9 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import AquatiqueScene, { setPaused } from '../../composants/galeriesApi/AquatiqueScene'
+import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Aquatique.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
@@ -25,8 +26,6 @@ function Aquatique() {
   const [ready, setReady] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [expandedUrl, setExpandedUrl] = useState('')
-  const [flipped, setFlipped] = useState(false)
-  const flipTimerRef = useRef(null)
   const expandedId = expandedIndex !== null ? IMAGE_IDS[expandedIndex] : ''
 
   const handleImageClick = useCallback((index, url) => {
@@ -37,16 +36,8 @@ function Aquatique() {
 
   const handleClose = useCallback(() => {
     setExpandedIndex(null)
-    setFlipped(false)
     setPaused(false)
   }, [])
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(flipTimerRef.current)
-      setFlipped(false)
-    }
-  }, [expandedIndex])
 
   return (
     <div className="aquatique-page">
@@ -61,30 +52,10 @@ function Aquatique() {
       {!ready && <Loading />}
       {expandedIndex !== null && expandedUrl && (
         <div className="expanded-rect">
-          <div
-            className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => {
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseMove={() => {
-              if (flipped) return
-              clearTimeout(flipTimerRef.current)
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseLeave={() => {
-              clearTimeout(flipTimerRef.current)
-              setFlipped(false)
-            }}
-          >
-            <div className="expanded-front">
-              <img src={expandedUrl} alt="" />
-            </div>
-            <div className="expanded-back">
-              <span className="rect-back-title">Aquatique #{expandedIndex !== null ? expandedIndex + 1 : ''}</span>
-              <span className="rect-back-artist">{expandedId}</span>
-            </div>
-          </div>
-          <button className="close-btn" onClick={handleClose}>✕</button>
+          <Overlay key={expandedIndex} imageSrc={expandedUrl} onClose={handleClose}>
+            <span className="rect-back-title">Aquatique #{expandedIndex !== null ? expandedIndex + 1 : ''}</span>
+            <span className="rect-back-artist">{expandedId}</span>
+          </Overlay>
         </div>
       )}
     </div>

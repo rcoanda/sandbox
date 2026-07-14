@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
+import OverlayGrid from '../OverlayGrid'
 
 const ROWS = 8
 const COLS = 14
@@ -15,7 +16,6 @@ function MetropolitanLayout({ onReady }) {
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
   const parallaxActive = useRef([])
-  const expandedRef = useRef(null)
   const setXRef = useRef([])
   const setYRef = useRef([])
   const setRotRef = useRef([])
@@ -25,8 +25,7 @@ function MetropolitanLayout({ onReady }) {
   const [artworks, setArtworks] = useState(() => cachedArtworks || [])
   const [ready, setReady] = useState(() => cachedReady || false)
   const [expandedIndex, setExpandedIndex] = useState(null)
-  const [flipped, setFlipped] = useState(false)
-  const flipTimerRef = useRef(null)
+  const [originRect, setOriginRect] = useState(null)
 
   useEffect(() => {
     if (cachedArtworks) return
@@ -151,6 +150,9 @@ function MetropolitanLayout({ onReady }) {
     if (expandedIndex !== null) return
     if (!artworks[index]) return
 
+    const originEl = gridRef.current.querySelectorAll('.rect')[index]
+    setOriginRect(originEl.getBoundingClientRect())
+
     parallaxActive.current[index] = false
     targetRef.current[index] = { x: 0, y: 0, rot: 0 }
     currentRef.current[index] = { x: 0, y: 0, rot: 0 }
@@ -162,68 +164,12 @@ function MetropolitanLayout({ onReady }) {
   }, [expandedIndex, artworks])
 
   const handleClose = useCallback(() => {
-    const index = expandedIndex
-    const originEl = gridRef.current.querySelectorAll('.rect')[index]
-    const originRect = originEl.getBoundingClientRect()
-    const targetEl = expandedRef.current
-
-    gsap.to(targetEl, {
-      top: originRect.top,
-      left: originRect.left,
-      width: originRect.width,
-      height: originRect.height,
-      borderRadius: '6px',
-      duration: 0.5,
-      ease: 'power3.out',
-      onComplete: () => {
-        targetRef.current[index] = { x: 0, y: 0, rot: 0 }
-        currentRef.current[index] = { x: 0, y: 0, rot: 0 }
-        parallaxActive.current[index] = true
-        setExpandedIndex(null)
-      },
-    })
-  }, [expandedIndex])
-
-  useEffect(() => {
     if (expandedIndex === null) return
-
-    const originEl = gridRef.current.querySelectorAll('.rect')[expandedIndex]
-    const originRect = originEl.getBoundingClientRect()
-    const targetEl = expandedRef.current
-    if (!targetEl) return
-
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-    const targetW = vw * 0.8
-    const targetH = vh * 0.8
-
-    gsap.set(targetEl, {
-      position: 'fixed',
-      top: originRect.top,
-      left: originRect.left,
-      width: originRect.width,
-      height: originRect.height,
-      margin: 0,
-      borderRadius: '6px',
-      zIndex: 100,
-    })
-
-    gsap.to(targetEl, {
-      top: (vh - targetH) / 2,
-      left: (vw - targetW) / 2,
-      width: targetW,
-      height: targetH,
-      borderRadius: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-    })
-  }, [expandedIndex, artworks])
-
-  useEffect(() => {
-    if (expandedIndex === null) {
-      setFlipped(false)
-    }
-    return () => clearTimeout(flipTimerRef.current)
+    const index = expandedIndex
+    targetRef.current[index] = { x: 0, y: 0, rot: 0 }
+    currentRef.current[index] = { x: 0, y: 0, rot: 0 }
+    parallaxActive.current[index] = true
+    setExpandedIndex(null)
   }, [expandedIndex])
 
   return (
@@ -261,35 +207,16 @@ function MetropolitanLayout({ onReady }) {
           )
         })}
       </div>
-      {expandedIndex !== null && artworks[expandedIndex] && (
-        <div ref={expandedRef} className="expanded-rect">
-          <div
-            className={'expanded-inner' + (flipped ? ' flipped' : '')}
-            onMouseEnter={() => {
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseMove={() => {
-              if (flipped) return
-              clearTimeout(flipTimerRef.current)
-              flipTimerRef.current = setTimeout(() => setFlipped(true), 1000)
-            }}
-            onMouseLeave={() => {
-              clearTimeout(flipTimerRef.current)
-              setFlipped(false)
-            }}
-          >
-            <div className="expanded-front">
-              <img src={artworks[expandedIndex].imageUrl} alt={artworks[expandedIndex].title} />
-            </div>
-            <div className="expanded-back">
-              <span className="rect-back-title">{artworks[expandedIndex].title}</span>
-              <span className="rect-back-artist">{artworks[expandedIndex].artist}</span>
-              <span className="rect-back-year">{artworks[expandedIndex].year}</span>
-            </div>
-          </div>
-          <button className="close-btn" onClick={handleClose}>✕</button>
-        </div>
-      )}
+      <OverlayGrid
+        isOpen={expandedIndex !== null && artworks[expandedIndex]}
+        imageSrc={artworks[expandedIndex]?.imageUrl}
+        onClose={handleClose}
+        originRect={originRect}
+      >
+        <span className="rect-back-title">{artworks[expandedIndex]?.title}</span>
+        <span className="rect-back-artist">{artworks[expandedIndex]?.artist}</span>
+        <span className="rect-back-year">{artworks[expandedIndex]?.year}</span>
+      </OverlayGrid>
     </>
   )
 }
