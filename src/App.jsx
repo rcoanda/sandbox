@@ -31,7 +31,7 @@ import F3 from './pages/Geometrie/F3'
 import TerreLune from './pages/Cosmos/TerreLune'
 import Metropolitan from './pages/GaleriesApi/Metropolitan'
 import Europe from './pages/GaleriesApi/Europe'
-import Moon from './pages/Cosmos/Moon'
+import Lune from './pages/Cosmos/Lune'
 import Astronaute from './pages/Cosmos/Astronaute'
 import K2D from './pages/Abstrait/K2D'
 import K3D from './pages/Abstrait/K3D'
@@ -76,7 +76,7 @@ function App() {
         <Route path="/terrelune" element={<TerreLune />} />
         <Route path="/metropolitan" element={<Metropolitan />} />
         <Route path="/europe" element={<Europe />} />
-        <Route path="/moon" element={<Moon />} />
+        <Route path="/lune" element={<Lune />} />
         <Route path="/astronaute" element={<Astronaute />} />
         <Route path="/k2d" element={<K2D />} />
         <Route path="/k3d" element={<K3D />} />

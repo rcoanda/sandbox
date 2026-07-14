@@ -28,7 +28,7 @@ export const categoryLinks = {
 
   cosmos: [
     { label: 'Terre', path: '/terrelune' },
-    { label: 'Lune', path: '/moon' },
+    { label: 'Lune', path: '/lune' },
     { label: 'Astronaute', path: '/astronaute' },
   ],
   abstrait: [
