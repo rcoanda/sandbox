@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { useNavigate } from 'react-router-dom'
 import LevitationScene from '../composants/3d/LevitationScene'
 
 import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
@@ -9,6 +8,7 @@ import HuitScene from '../composants/trajectoires/HuitScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
 import F0Scene from '../composants/geometrie/F0Scene'
+import Navigation from '../composants/Navigation'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
@@ -38,7 +38,6 @@ function Preview({ activeCat }) {
 }
 
 function Home() {
-  const navigate = useNavigate()
   const [activeId, setActiveId] = useState('geometrie')
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -126,11 +125,7 @@ function Home() {
 
   return (
     <div className="home-page">
-      <nav className="home-nav">
-        <button onClick={() => navigate('/about')} className="home-nav-link">A propos</button>
-        <button onClick={() => navigate('/contact')} className="home-nav-link">Contact</button>
-        <button onClick={() => navigate('/archive')} className="home-nav-link">Archive</button>
-      </nav>
+      <Navigation />
       <div className="home-preview">
         <Preview activeCat={activeCat} />
       </div>
