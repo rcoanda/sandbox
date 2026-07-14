@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import LevitationScene from '../composants/3d/LevitationScene'
 
@@ -8,18 +9,19 @@ import HuitScene from '../composants/trajectoires/HuitScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
 import F0Scene from '../composants/geometrie/F0Scene'
+import { useDico } from '../composants/Dico'
 import Navigation from '../composants/Navigation'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', title: 'Géométrie', label: '01', Scene: F0Scene, bgClass: 'home-cell--geometrie', is2D: true },
-  { id: '3d', title: '3D', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
-  { id: 'trajectoires', title: 'Trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
-  { id: 'cosmos', title: 'Cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
-  { id: 'abstrait', title: 'Abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
-  { id: 'structures', title: 'Structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
-  { id: 'galeriesApi', title: 'Galeries API', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
+  { id: 'geometrie', label: '01', Scene: F0Scene, bgClass: 'home-cell--geometrie', is2D: true },
+  { id: '3d', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
+  { id: 'trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
+  { id: 'cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
+  { id: 'abstrait', label: '05', Scene: K2DScene, bgClass: 'home-cell--abstrait', is2D: true },
+  { id: 'structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
+  { id: 'galeriesApi', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
 ]
 
 function Preview({ activeCat }) {
@@ -38,6 +40,8 @@ function Preview({ activeCat }) {
 }
 
 function Home() {
+  const navigate = useNavigate()
+  const { t } = useDico()
   const [activeId, setActiveId] = useState('geometrie')
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -115,7 +119,7 @@ function Home() {
       structures: '/reseaux',
       galeriesApi: '/terre',
     }
-    window.location.href = routes[id] || '/'
+    navigate(routes[id] || '/')
   }, [])
 
   const gridCats = categories.filter((c) => c.id !== 'galeriesApi')
@@ -133,9 +137,9 @@ function Home() {
         <div className="home-col">
           {col1.map((cat) => (
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
-              <h2 className="home-cell-title">{cat.title}</h2>
+              <h2 className="home-cell-title">{t('home.categories.' + cat.id)}</h2>
               <div className="home-cell-footer">
-                <span>Explorer</span>
+                <span>{t('home.explorer')}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -145,9 +149,9 @@ function Home() {
         <div className="home-col">
           {col2.map((cat) => (
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
-              <h2 className="home-cell-title">{cat.title}</h2>
+              <h2 className="home-cell-title">{t('home.categories.' + cat.id)}</h2>
               <div className="home-cell-footer">
-                <span>Explorer</span>
+                <span>{t('home.explorer')}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -156,9 +160,9 @@ function Home() {
         </div>
         <div className="home-row-full">
           <div key={galeriesApiCat.id} className={`home-cell home-cell--full ${galeriesApiCat.bgClass}${activeId === galeriesApiCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(galeriesApiCat.id)} onMouseEnter={() => setActiveId(galeriesApiCat.id)}>
-            <h2 className="home-cell-title">{galeriesApiCat.title}</h2>
+            <h2 className="home-cell-title">{t('home.categories.' + galeriesApiCat.id)}</h2>
             <div className="home-cell-footer">
-              <span>Explorer</span>
+              <span>{t('home.explorer')}</span>
               <span>{galeriesApiCat.label}</span>
             </div>
           </div>

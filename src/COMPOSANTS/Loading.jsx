@@ -1,4 +1,8 @@
+import { useDico } from './Dico'
+
 function Loading() {
+  const { t } = useDico()
+
   return (
     <div
       style={{
@@ -12,7 +16,7 @@ function Loading() {
       }}
     >
       <span style={{ color: '#888', fontSize: 18, letterSpacing: '0.05em' }}>
-        Chargement...
+        {t('loading')}
       </span>
     </div>
   )

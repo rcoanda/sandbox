@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDico } from './Dico'
 
 export const categoryLinks = {
   geometrie: [
@@ -55,6 +56,7 @@ export const categoryLinks = {
 }
 
 function CategoryMenu({ category }) {
+  const { t } = useDico()
   const location = useLocation()
   const navigate = useNavigate()
   const links = categoryLinks[category] || []
@@ -100,7 +102,7 @@ function CategoryMenu({ category }) {
               if (!isActive) e.currentTarget.style.color = '#999'
             }}
           >
-            {link.label}
+            {t('menu.' + link.path) || link.label}
           </button>
         )
       })}

@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { DicoProvider } from './composants/Dico'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -42,7 +43,7 @@ import Aquatique from './pages/GaleriesApi/Aquatique'
 
 function App() {
   return (
-    <div>
+    <DicoProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -85,7 +86,7 @@ function App() {
         <Route path="/cooper" element={<Cooper />} />
         <Route path="/aquatique" element={<Aquatique />} />
       </Routes>
-    </div>
+    </DicoProvider>
   )
 }
 
