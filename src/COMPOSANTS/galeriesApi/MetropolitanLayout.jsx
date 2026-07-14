@@ -1,17 +1,12 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import gsap from 'gsap'
 import OverlayGrid from '../OverlayGrid'
 
 const ROWS = 8
 const COLS = 14
 const TOTAL = ROWS * COLS
-const API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1'
-const FETCH_LIMIT = 14 * 8
 
-let cachedArtworks = null
-let cachedReady = false
-
-function MetropolitanLayout({ onReady }) {
+function MetropolitanLayout({ artworks, ready }) {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
@@ -22,60 +17,8 @@ function MetropolitanLayout({ onReady }) {
   const targetRef = useRef([])
   const currentRef = useRef([])
 
-  const [artworks, setArtworks] = useState(() => cachedArtworks || [])
-  const [ready, setReady] = useState(() => cachedReady || false)
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [originRect, setOriginRect] = useState(null)
-
-  useEffect(() => {
-    if (cachedArtworks) return
-
-    let cancelled = false
-
-    const fetchArtworks = async () => {
-      try {
-        const searchRes = await fetch(
-          `${API_BASE}/search?q=art&isPublicDomain=true&hasImages=true`
-        )
-        const searchData = await searchRes.json()
-        const ids = searchData.objectIDs || []
-
-        const items = []
-        for (let i = 0; i < ids.length && items.length < TOTAL; i += 5) {
-          const batch = ids.slice(i, i + 5)
-          const results = await Promise.allSettled(
-            batch.map(id =>
-              fetch(`${API_BASE}/objects/${id}`).then(r => r.json())
-            )
-          )
-          for (const r of results) {
-            if (r.status === 'fulfilled' && r.value.primaryImageSmall) {
-              items.push({
-                imageUrl: r.value.primaryImageSmall,
-                title: r.value.title || 'Untitled',
-                artist: r.value.artistDisplayName || 'Unknown Artist',
-                year: r.value.objectDate || 'Unknown Year',
-              })
-              if (items.length >= FETCH_LIMIT) break
-            }
-          }
-        }
-
-        if (!cancelled) {
-          cachedArtworks = items
-          cachedReady = true
-          setArtworks(items)
-          setReady(true)
-          onReady?.(true)
-        }
-      } catch {
-        if (!cancelled) { setReady(true); onReady?.(true) }
-      }
-    }
-
-    fetchArtworks()
-    return () => { cancelled = true }
-  }, [])
 
   useEffect(() => {
     parallaxActive.current = new Array(TOTAL).fill(true)

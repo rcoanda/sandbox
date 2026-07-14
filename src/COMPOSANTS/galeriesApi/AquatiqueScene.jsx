@@ -140,31 +140,22 @@ function RectTile({ index, texturePoolRef, tileUrlsRef, onClick }) {
   )
 }
 
-function AquatiqueScene({ imageUrls, onImageClick, onReady }) {
-  const texturePoolRef = useRef([])
+function AquatiqueScene({ texturePool, onImageClick }) {
+  const texturePoolRef = useRef(texturePool || [])
   const tileUrlsRef = useRef({})
-  const loaderRef = useRef(new THREE.TextureLoader())
 
   useEffect(() => {
-    if (!imageUrls || imageUrls.length === 0) return
-    const loaded = []
-    imageUrls.forEach((url) => {
-      loaderRef.current.load(url, (tex) => {
-        loaded.push({ texture: tex, url })
-        if (loaded.length === imageUrls.length) {
-          texturePoolRef.current = loaded
-          onReady?.()
-        }
-      })
-    })
+    texturePoolRef.current = texturePool || []
+  }, [texturePool])
+
+  useEffect(() => {
     const canvas = document.querySelector('canvas')
     const onLeave = () => { paused = false }
     if (canvas) canvas.addEventListener('mouseleave', onLeave)
     return () => {
-      texturePoolRef.current.forEach(e => e.texture.dispose())
       if (canvas) canvas.removeEventListener('mouseleave', onLeave)
     }
-  }, [imageUrls])
+  }, [])
 
   const handleClick = useCallback((index) => {
     setPaused(true)
