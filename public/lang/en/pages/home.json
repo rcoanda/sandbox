@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "about": "About",
+    "contact": "Contact",
+    "archive": "Archive"
+  },
+  "categories": {
+    "geometrie": "Geometry",
+    "3d": "3D",
+    "trajectoires": "Trajectories",
+    "cosmos": "Cosmos",
+    "abstrait": "Abstract",
+    "structures": "Structures",
+    "galeriesApi": "API Galleries"
+  },
+  "explorer": "Explore"
+}

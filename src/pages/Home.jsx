@@ -41,7 +41,16 @@ function Preview({ activeCat }) {
 
 function Home() {
   const navigate = useNavigate()
-  const { t } = useDico()
+  const { lang } = useDico()
+  const [commonJson, setCommonJson] = useState(null)
+
+  useEffect(() => {
+    fetch(`/lang/${lang}/pages/home.json`)
+      .then((r) => r.json())
+      .then((data) => setCommonJson(data))
+      .catch(() => setCommonJson(null))
+  }, [lang])
+
   const [activeId, setActiveId] = useState('geometrie')
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -137,9 +146,9 @@ function Home() {
         <div className="home-col">
           {col1.map((cat) => (
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
-              <h2 className="home-cell-title">{t('home.categories.' + cat.id)}</h2>
+              <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
               <div className="home-cell-footer">
-                <span>{t('home.explorer')}</span>
+                <span>{commonJson?.explorer}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -149,9 +158,9 @@ function Home() {
         <div className="home-col">
           {col2.map((cat) => (
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
-              <h2 className="home-cell-title">{t('home.categories.' + cat.id)}</h2>
+              <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
               <div className="home-cell-footer">
-                <span>{t('home.explorer')}</span>
+                <span>{commonJson?.explorer}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -160,9 +169,9 @@ function Home() {
         </div>
         <div className="home-row-full">
           <div key={galeriesApiCat.id} className={`home-cell home-cell--full ${galeriesApiCat.bgClass}${activeId === galeriesApiCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(galeriesApiCat.id)} onMouseEnter={() => setActiveId(galeriesApiCat.id)}>
-            <h2 className="home-cell-title">{t('home.categories.' + galeriesApiCat.id)}</h2>
+            <h2 className="home-cell-title">{commonJson?.categories?.[galeriesApiCat.id]}</h2>
             <div className="home-cell-footer">
-              <span>{t('home.explorer')}</span>
+              <span>{commonJson?.explorer}</span>
               <span>{galeriesApiCat.label}</span>
             </div>
           </div>

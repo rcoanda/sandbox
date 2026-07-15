@@ -1,65 +1,44 @@
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDico } from './Dico'
+import { useDico, pageToPath } from './Dico'
 
+// Regroupe les routes par catégorie pour le menu latéral et la page Archive
+// Chaque clé est un slug de catégorie, la valeur est la liste des routes associées
 export const categoryLinks = {
-  geometrie: [
-    { label: 'F0', path: '/f0' },
-    { label: 'F2', path: '/f2' },
-    { label: 'F3', path: '/f3' },
-  ],
-  '3d': [
-    { label: 'Lévitation', path: '/levitation' },
-    { label: 'Satelite', path: '/satelite' },
-    { label: 'Oscillation', path: '/oscillation' },
-    { label: 'Anneaux', path: '/anneaux' },
-  ],
-  trajectoires: [
-    { label: 'Huit', path: '/huit' },
-    { label: 'Ellipse', path: '/ellipse' },
-    { label: 'Lemniscate', path: '/lemniscate' },
-    { label: 'Lissajous', path: '/lissajous' },
-    { label: 'Spirale', path: '/spirale' },
-    { label: 'Hypocycloide', path: '/hypocycloide' },
-    { label: 'Epicycloide', path: '/epicycloide' },
-    { label: 'Sinusoide', path: '/sinusoide' },
-    { label: 'Bezier', path: '/bezier' },
-    { label: 'Random', path: '/random' },
-    { label: 'Ruban', path: '/ruban' },
-  ],
-
-  cosmos: [
-    { label: 'Terre', path: '/terrelune' },
-    { label: 'Lune', path: '/lune' },
-    { label: 'Astronaute', path: '/astronaute' },
-  ],
-  abstrait: [
-    { label: 'K2D', path: '/k2d' },
-    { label: 'K3D', path: '/k3d' },
-  ],
-  structure: [
-    { label: 'Réseaux', path: '/reseaux' },
-    { label: 'Grid2D', path: '/grid2d' },
-    { label: 'Grid3D', path: '/grid3d' },
-    { label: 'Matrice', path: '/matrice' },
-    { label: 'Cube', path: '/cube' },
-    { label: 'Sphère', path: '/sfere' },
-  ],
-  galeriesApi: [
-    { label: 'Terre', path: '/terre' },
-    { label: 'Metropolitan', path: '/metropolitan' },
-    { label: 'Europe', path: '/europe' },
-    { label: 'Cleveland', path: '/cleveland' },
-    { label: 'Chicago', path: '/chicago' },
-    { label: 'Cooper Hewitt', path: '/cooper' },
-    { label: 'Aquatique', path: '/aquatique' },
-  ],
+  geometrie: ['/f0', '/f2', '/f3'],
+  '3d': ['/levitation', '/satelite', '/oscillation', '/anneaux'],
+  trajectoires: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban'],
+  cosmos: ['/terrelune', '/lune', '/astronaute'],
+  abstrait: ['/k2d', '/k3d'],
+  structure: ['/reseaux', '/grid2d', '/grid3d', '/matrice', '/cube', '/sfere'],
+  galeriesApi: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
 }
 
 function CategoryMenu({ category }) {
-  const { t } = useDico()
+  const { lang } = useDico()
+  const [labels, setLabels] = useState({})
   const location = useLocation()
   const navigate = useNavigate()
-  const links = categoryLinks[category] || []
+  const paths = categoryLinks[category] || []
+
+  useEffect(() => {
+    const routeToFile = (route) => {
+      const key = route.replace(/^\//, '')
+      return pageToPath[key] || key
+    }
+    Promise.all(
+      paths.map((route) =>
+        fetch(`/lang/${lang}/pages/${routeToFile(route)}.json`)
+          .then((r) => r.json())
+          .then((data) => ({ route, title: data.title }))
+          .catch(() => ({ route, title: null }))
+      )
+    ).then((results) => {
+      const map = {}
+      results.forEach(({ route, title }) => { map[route] = title })
+      setLabels(map)
+    })
+  }, [lang, paths])
 
   return (
     <nav
@@ -75,12 +54,12 @@ function CategoryMenu({ category }) {
         gap: 8,
       }}
     >
-      {links.map((link) => {
-        const isActive = location.pathname === link.path
+      {paths.map((path) => {
+        const isActive = location.pathname === path
         return (
           <button
-            key={link.path}
-            onClick={() => navigate(link.path)}
+            key={path}
+            onClick={() => navigate(path)}
             style={{
               background: 'none',
               border: 'none',
@@ -102,7 +81,7 @@ function CategoryMenu({ category }) {
               if (!isActive) e.currentTarget.style.color = '#999'
             }}
           >
-            {t('menu.' + link.path) || link.label}
+            {labels[path] || path.slice(1)}
           </button>
         )
       })}

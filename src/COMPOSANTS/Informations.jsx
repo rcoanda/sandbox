@@ -1,18 +1,17 @@
 import { useLocation } from 'react-router-dom'
-import { useDico } from './Dico'
+import usePageDico from './Dico'
 import '../styles/Informations.css'
 
 function Informations() {
-  const { t } = useDico()
   const location = useLocation()
-  const label = t('menu.' + location.pathname)
-  const description = t('desc.' + location.pathname)
+  const pageKey = location.pathname.replace(/^\//, '')
+  const dico = usePageDico(pageKey)
 
   return (
     <aside className="informations">
       <div>
-        <h1>{label}</h1>
-        <p>{description}</p>
+        <h1>{dico?.title}</h1>
+        <p>{dico?.description}</p>
       </div>
     </aside>
   )
