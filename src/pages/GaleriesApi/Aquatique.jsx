@@ -40,10 +40,7 @@ function Aquatique() {
         const meta = getMeta(expandedIndex)
         return (
           <div className="expanded-rect">
-            <Overlay key={expandedIndex} imageSrc={expandedUrl} onClose={handleClose}>
-              <span className="rect-back-title">{meta?.title}</span>
-              <span className="rect-back-artist">{meta?.artist}</span>
-            </Overlay>
+            <Overlay key={expandedIndex} imageSrc={expandedUrl} onClose={handleClose} title={meta?.title} author={meta?.artist} />
           </div>
         )
       })()}

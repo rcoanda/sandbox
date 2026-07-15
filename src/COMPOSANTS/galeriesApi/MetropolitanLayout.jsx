@@ -1,12 +1,11 @@
-import { useRef, useEffect, useCallback, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
-import OverlayGrid from '../OverlayGrid'
 
 const ROWS = 8
 const COLS = 14
 const TOTAL = ROWS * COLS
 
-function MetropolitanLayout({ artworks, ready }) {
+function MetropolitanLayout({ artworks, ready, expandedIndex, onImageClick }) {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef([])
@@ -16,9 +15,7 @@ function MetropolitanLayout({ artworks, ready }) {
   const setRotRef = useRef([])
   const targetRef = useRef([])
   const currentRef = useRef([])
-
-  const [expandedIndex, setExpandedIndex] = useState(null)
-  const [originRect, setOriginRect] = useState(null)
+  const prevExpandedRef = useRef(null)
 
   useEffect(() => {
     parallaxActive.current = new Array(TOTAL).fill(true)
@@ -89,78 +86,65 @@ function MetropolitanLayout({ artworks, ready }) {
     }
   }, [])
 
-  const handleRectClick = useCallback((e, index) => {
-    if (expandedIndex !== null) return
-    if (!artworks[index]) return
-
-    const originEl = gridRef.current.querySelectorAll('.rect')[index]
-    setOriginRect(originEl.getBoundingClientRect())
-
-    parallaxActive.current[index] = false
-    targetRef.current[index] = { x: 0, y: 0, rot: 0 }
-    currentRef.current[index] = { x: 0, y: 0, rot: 0 }
-    setXRef.current[index](0)
-    setYRef.current[index](0)
-    setRotRef.current[index](0)
-
-    setExpandedIndex(index)
-  }, [expandedIndex, artworks])
-
-  const handleClose = useCallback(() => {
-    if (expandedIndex === null) return
-    const index = expandedIndex
-    targetRef.current[index] = { x: 0, y: 0, rot: 0 }
-    currentRef.current[index] = { x: 0, y: 0, rot: 0 }
-    parallaxActive.current[index] = true
-    setExpandedIndex(null)
+  useEffect(() => {
+    if (prevExpandedRef.current !== null && expandedIndex === null) {
+      const index = prevExpandedRef.current
+      targetRef.current[index] = { x: 0, y: 0, rot: 0 }
+      currentRef.current[index] = { x: 0, y: 0, rot: 0 }
+      parallaxActive.current[index] = true
+    }
+    if (expandedIndex !== null) {
+      parallaxActive.current[expandedIndex] = false
+      targetRef.current[expandedIndex] = { x: 0, y: 0, rot: 0 }
+      currentRef.current[expandedIndex] = { x: 0, y: 0, rot: 0 }
+      if (setXRef.current[expandedIndex]) {
+        setXRef.current[expandedIndex](0)
+        setYRef.current[expandedIndex](0)
+        setRotRef.current[expandedIndex](0)
+      }
+    }
+    prevExpandedRef.current = expandedIndex
   }, [expandedIndex])
 
   return (
-    <>
-      <div className="metropolitan-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
-        {Array.from({ length: TOTAL }, (_, i) => {
-          const art = artworks[i]
-          return (
-            <div
-              key={i}
-              className={`rect${expandedIndex === i && artworks[i] ? ' rect--hidden' : ''}${!ready ? ' rect--loading' : ''}`}
-              onClick={(e) => handleRectClick(e, i)}
-            >
-              <div className="rect-inner">
-                <div
-                  className="rect-front"
-                  style={{
-                    backgroundImage: art ? `url(${art.imageUrl})` : undefined,
-                    backgroundColor: art ? undefined : `hsl(${(i / TOTAL) * 360}, 70%, 60%)`,
-                  }}
-                />
-                <div className="rect-back">
-                  {art ? (
-                    <>
-                      <span className="rect-back-title">{art.title}</span>
-                      <span className="rect-back-artist">{art.artist}</span>
-                      <span className="rect-back-year">{art.year}</span>
-                    </>
-                  ) : (
-                    <span className="rect-loading-text">en cours de chargement...</span>
-                  )}
-                </div>
+    <div className="metropolitan-layout" ref={gridRef} style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)` }}>
+      {Array.from({ length: TOTAL }, (_, i) => {
+        const art = artworks[i]
+        return (
+          <div
+            key={i}
+            className={`rect${expandedIndex === i && artworks[i] ? ' rect--hidden' : ''}${!ready ? ' rect--loading' : ''}`}
+            onClick={(e) => {
+              if (expandedIndex !== null) return
+              if (!artworks[i]) return
+              const originEl = gridRef.current.querySelectorAll('.rect')[i]
+              onImageClick(i, originEl.getBoundingClientRect())
+            }}
+          >
+            <div className="rect-inner">
+              <div
+                className="rect-front"
+                style={{
+                  backgroundImage: art ? `url(${art.imageUrl})` : undefined,
+                  backgroundColor: art ? undefined : `hsl(${(i / TOTAL) * 360}, 70%, 60%)`,
+                }}
+              />
+              <div className="rect-back">
+                {art ? (
+                  <>
+                    <span className="rect-back-title">{art.title}</span>
+                    <span className="rect-back-artist">{art.artist}</span>
+                    <span className="rect-back-year">{art.year}</span>
+                  </>
+                ) : (
+                  <span className="rect-loading-text">en cours de chargement...</span>
+                )}
               </div>
             </div>
-          )
-        })}
-      </div>
-      <OverlayGrid
-        isOpen={expandedIndex !== null && artworks[expandedIndex]}
-        imageSrc={artworks[expandedIndex]?.imageUrl}
-        onClose={handleClose}
-        originRect={originRect}
-      >
-        <span className="rect-back-title">{artworks[expandedIndex]?.title}</span>
-        <span className="rect-back-artist">{artworks[expandedIndex]?.artist}</span>
-        <span className="rect-back-year">{artworks[expandedIndex]?.year}</span>
-      </OverlayGrid>
-    </>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

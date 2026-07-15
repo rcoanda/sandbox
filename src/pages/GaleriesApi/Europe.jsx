@@ -37,10 +37,7 @@ function Europe() {
       </Canvas>
       {meta && (
         <div className="expanded-rect">
-          <Overlay key={expandedIndex} imageSrc={getImageUrl(expandedIndex)} onClose={handleClose}>
-            <span className="rect-back-title">{meta.title}</span>
-            <span className="rect-back-artist">{meta.artist}</span>
-          </Overlay>
+          <Overlay key={expandedIndex} imageSrc={getImageUrl(expandedIndex)} onClose={handleClose} title={meta.title} author={meta.artist} />
         </div>
       )}
     </div>

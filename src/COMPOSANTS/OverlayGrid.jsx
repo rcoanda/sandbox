@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import Overlay from './Overlay'
 
-function OverlayGrid({ isOpen, imageSrc, onClose, originRect, children }) {
+function OverlayGrid({ isOpen, imageSrc, onClose, originRect, title, author, place, date }) {
   const expandedRef = useRef(null)
 
   useEffect(() => {
@@ -60,9 +60,7 @@ function OverlayGrid({ isOpen, imageSrc, onClose, originRect, children }) {
 
   return (
     <div ref={expandedRef} className="expanded-rect">
-      <Overlay imageSrc={imageSrc} onClose={handleClose}>
-        {children}
-      </Overlay>
+      <Overlay imageSrc={imageSrc} onClose={handleClose} title={title} author={author} place={place} date={date} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-function Overlay({ imageSrc, onClose, children }) {
+function Overlay({ imageSrc, onClose, title, author, place, date }) {
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
 
@@ -31,7 +31,10 @@ function Overlay({ imageSrc, onClose, children }) {
           <img src={imageSrc} alt="" />
         </div>
         <div className="expanded-back">
-          {children}
+          {title && <span className="rect-back-title">{title}</span>}
+          {author && <span className="rect-back-artist">{author}</span>}
+          {place && <span className="rect-back-lieu">{place}</span>}
+          {date && <span className="rect-back-date">{date}</span>}
         </div>
       </div>
       <button className="close-btn" onClick={onClose}>✕</button>

@@ -99,7 +99,8 @@
   line-height: 1.2;
 }
 
-.chicago-page .rect-back-year {
+.chicago-page .rect-back-year,
+.chicago-page .rect-back-date {
   color: #888;
   font-size: 16px;
   text-align: center;

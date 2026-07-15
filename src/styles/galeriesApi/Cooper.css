@@ -99,7 +99,8 @@
   line-height: 1.2;
 }
 
-.cooper-page .rect-back-year {
+.cooper-page .rect-back-year,
+.cooper-page .rect-back-date {
   color: #888;
   font-size: 16px;
   text-align: center;
