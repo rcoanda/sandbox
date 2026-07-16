@@ -19,17 +19,17 @@ const categories = [
   { id: '3d', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
   { id: 'trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
-  { id: 'abstrait', label: '05', Scene: K2Scene, bgClass: 'home-cell--abstrait', is2D: true },
+  { id: 'abstrait', label: '05', Scene: K2Scene, bgClass: 'home-cell--abstrait', is2D: true, transparent: true },
   { id: 'structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
   { id: 'galeriesApi', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
 ]
 
 function Preview({ activeCat }) {
   if (!activeCat) return null
-  const { Scene, is2D, id } = activeCat
+  const { Scene, is2D, id, transparent } = activeCat
 
   if (is2D) {
-    return <Scene />
+    return <Scene transparent={transparent} />
   }
 
   return (

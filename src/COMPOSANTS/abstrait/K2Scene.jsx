@@ -1,9 +1,9 @@
 import '../../styles/abstrait/K2D.css'
 
-function K2Scene() {
+function K2Scene({ transparent }) {
   return (
-    <div className="k2d-layout">
-      <div className="k2d-container">
+    <div className="k2d-layout" style={{ background: transparent ? 'transparent' : undefined }}>
+      <div className="k2d-container" style={transparent ? { background: 'transparent', border: 'none', boxShadow: 'none' } : undefined}>
         <svg className="k2d-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750">
           <defs>
             <radialGradient id="bg-grad-1" cx="40%" cy="40%" r="60%">
@@ -20,12 +20,14 @@ function K2Scene() {
             </filter>
           </defs>
 
-          <rect width="1000" height="750" fill="url(#bg-grad-1)" />
-          <circle cx="300" cy="250" r="180" fill="#000814" opacity="0.6" filter="url(#soft-blur)" />
-          <circle cx="750" cy="500" r="220" fill="#051c33" opacity="0.8" filter="url(#soft-blur)" />
-          <path d="M100,600 Q300,400 600,650 T1000,550 L1000,750 L0,750 Z" fill="#0a2540" opacity="0.4" filter="url(#soft-blur)" />
-          <circle cx="200" cy="200" r="90" fill="#e63946" opacity="0.15" filter="url(#soft-blur)" />
-          <circle cx="800" cy="250" r="120" fill="#ffb703" opacity="0.12" filter="url(#soft-blur)" />
+          {!transparent && <>
+            <rect width="1000" height="750" fill="url(#bg-grad-1)" />
+            <circle cx="300" cy="250" r="180" fill="#000814" opacity="0.6" filter="url(#soft-blur)" />
+            <circle cx="750" cy="500" r="220" fill="#051c33" opacity="0.8" filter="url(#soft-blur)" />
+            <path d="M100,600 Q300,400 600,650 T1000,550 L1000,750 L0,750 Z" fill="#0a2540" opacity="0.4" filter="url(#soft-blur)" />
+            <circle cx="200" cy="200" r="90" fill="#e63946" opacity="0.15" filter="url(#soft-blur)" />
+            <circle cx="800" cy="250" r="120" fill="#ffb703" opacity="0.12" filter="url(#soft-blur)" />
+          </>}
 
           <polygon className="animated-triangle" points="150,650 450,150 550,550" fill="url(#yellow-sun)" />
 
