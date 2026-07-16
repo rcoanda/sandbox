@@ -8,9 +8,16 @@ import '../../styles/galeriesApi/Terre.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
 import useTerreData from '../../composants/data/TerreData'
+import useTextureCosmiqueData from '../../composants/data/TextureCosmiqueData'
+import useEuropeData from '../../composants/data/EuropeData'
+import useMetropolitanData from '../../composants/data/MetropolitanData'
+import useAquatiqueData from '../../composants/data/AquatiqueData'
+import useClevelandData from '../../composants/data/ClevelandData'
+import useCooperData from '../../composants/data/CooperData'
+import useChicagoData from '../../composants/data/ChicagoData'
 
 function Terre() {
-  const { ready, textures, getImageUrl, getMeta } = useTerreData()
+  const { ready, textures, getImageUrl, getMeta } = useClevelandData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {

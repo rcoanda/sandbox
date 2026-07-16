@@ -148,7 +148,7 @@ function Home() {
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
               <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
               <div className="home-cell-footer">
-                <span>{commonJson?.explorer}</span>
+                <span>{commonJson?.subtitle?.[cat.id]}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -160,7 +160,7 @@ function Home() {
             <div key={cat.id} className={`home-cell ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
               <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
               <div className="home-cell-footer">
-                <span>{commonJson?.explorer}</span>
+                <span>{commonJson?.subtitle?.[cat.id]}</span>
                 <span>{cat.label}</span>
               </div>
             </div>
@@ -171,7 +171,7 @@ function Home() {
           <div key={galeriesApiCat.id} className={`home-cell home-cell--full ${galeriesApiCat.bgClass}${activeId === galeriesApiCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(galeriesApiCat.id)} onMouseEnter={() => setActiveId(galeriesApiCat.id)}>
             <h2 className="home-cell-title">{commonJson?.categories?.[galeriesApiCat.id]}</h2>
             <div className="home-cell-footer">
-              <span>{commonJson?.explorer}</span>
+              <span>{commonJson?.subtitle?.[galeriesApiCat.id]}</span>
               <span>{galeriesApiCat.label}</span>
             </div>
           </div>

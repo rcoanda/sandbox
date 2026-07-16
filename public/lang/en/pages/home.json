@@ -13,5 +13,13 @@
     "structures": "Structures",
     "galeriesApi": "API Galleries"
   },
-  "explorer": "Explore"
+  "subtitle": {
+    "geometrie": "Shapes & figures",
+    "3d": "Volume & depth",
+    "trajectoires": "Paths & curves",
+    "cosmos": "Stars & planets",
+    "abstrait": "Colors & forms",
+    "structures": "Nodes & links",
+    "galeriesApi": "Images & data"
+  }
 }
