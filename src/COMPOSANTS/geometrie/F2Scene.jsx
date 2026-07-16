@@ -1,6 +1,6 @@
 import '../../styles/geometrie/F2.css'
 
-function F2Layout() {
+function F2Scene() {
   return (
     <div className="f2-layout">
       <svg viewBox="0 0 500 500" className="f2-svg">
@@ -29,4 +29,4 @@ function F2Layout() {
   )
 }
 
-export default F2Layout
+export default F2Scene

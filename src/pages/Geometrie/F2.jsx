@@ -1,6 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import F2Layout from '../../composants/geometrie/F2Layout'
+import F2Scene from '../../composants/geometrie/F2Scene'
 import Informations from '../../composants/Informations'
 
 function F2() {
@@ -9,7 +9,7 @@ function F2() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="geometrie" />
-      <F2Layout />
+      <F2Scene />
     </div>
   )
 }

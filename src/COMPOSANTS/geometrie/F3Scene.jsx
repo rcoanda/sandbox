@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import '../../styles/geometrie/F3.css'
 
-function F3Layout() {
+function F3Scene() {
   const cardsRef = useRef([])
 
   useEffect(() => {
@@ -74,4 +74,4 @@ function F3Layout() {
   )
 }
 
-export default F3Layout
+export default F3Scene

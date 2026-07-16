@@ -1,6 +1,6 @@
 import '../../styles/abstrait/K2D.css'
 
-function K2DLayout() {
+function K2Scene() {
   return (
     <div className="k2d-layout">
       <div className="k2d-container">
@@ -98,4 +98,4 @@ function K2DLayout() {
   )
 }
 
-export default K2DLayout
+export default K2Scene

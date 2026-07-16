@@ -1,6 +1,6 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import K2DLayout from '../../composants/abstrait/K2DLayout'
+import K2Scene from '../../composants/abstrait/K2Scene'
 import Informations from '../../composants/Informations'
 
 function K2D() {
@@ -9,7 +9,7 @@ function K2D() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="abstrait" />
-      <K2DLayout />
+      <K2Scene />
     </div>
   )
 }
