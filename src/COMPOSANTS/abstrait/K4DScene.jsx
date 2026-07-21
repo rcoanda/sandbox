@@ -31,10 +31,10 @@ function YellowTriangle() {
     >
       <coneGeometry args={[7, 14, 3]} />
       <meshStandardMaterial
-        color="#ffb703"
+        color={0xffb703}
         roughness={0.2}
         metalness={0.1}
-        emissive="#ffb703"
+        emissive={0xffb703}
         emissiveIntensity={0.2}
       />
     </mesh>
@@ -47,7 +47,7 @@ function BlueRing() {
   return (
     <mesh ref={ref} position={[2, 1, 0]}>
       <ringGeometry args={[11, 11.4, 64]} />
-      <meshBasicMaterial color="#4361ee" side={DoubleSide} transparent opacity={0.6} />
+      <meshBasicMaterial color={0x4361ee} side={DoubleSide} transparent opacity={0.6} />
     </mesh>
   )
 }
@@ -58,7 +58,7 @@ function BlueDisk() {
   return (
     <mesh ref={ref} position={[1, 0, -2]}>
       <circleGeometry args={[9, 64]} />
-      <meshStandardMaterial color="#4cc9f0" transparent opacity={0.25} side={DoubleSide} />
+      <meshStandardMaterial color={0x4cc9f0} transparent opacity={0.25} side={DoubleSide} />
     </mesh>
   )
 }
@@ -88,7 +88,7 @@ function Grid() {
       ))}
       <mesh position={[step + step / 2, step + step / 2, 0.01]}>
         <planeGeometry args={[step, step]} />
-        <meshBasicMaterial color="#e63946" side={DoubleSide} />
+        <meshBasicMaterial color={0xe63946} side={DoubleSide} />
       </mesh>
     </group>
   )
@@ -125,11 +125,11 @@ function CosmosGroup() {
     <group ref={ref} position={[-8, 6, 3]}>
       <mesh>
         <sphereGeometry args={[2, 32, 32]} />
-        <meshStandardMaterial color="#e63946" roughness={0.5} />
+        <meshStandardMaterial color={0xe63946} roughness={0.5} />
       </mesh>
       <mesh position={[-4, 2, 1]}>
         <sphereGeometry args={[0.6, 16, 16]} />
-        <meshStandardMaterial color="#4cc9f0" />
+        <meshStandardMaterial color={0x4cc9f0} />
       </mesh>
     </group>
   )
@@ -140,11 +140,11 @@ function BackgroundBlobs() {
     <>
       <mesh position={[-15, 5, -15]}>
         <sphereGeometry args={[12, 32, 32]} />
-        <meshBasicMaterial color="#0a2540" transparent opacity={0.5} />
+        <meshBasicMaterial color={0x0a2540} transparent opacity={0.5} />
       </mesh>
       <mesh position={[15, -8, -15]}>
         <sphereGeometry args={[12, 32, 32]} />
-        <meshBasicMaterial color="#051c33" transparent opacity={0.6} />
+        <meshBasicMaterial color={0x051c33} transparent opacity={0.6} />
       </mesh>
     </>
   )
@@ -175,11 +175,11 @@ function K4DScene() {
 
   return (
     <>
-      <color attach="background" args={['#07111e']} />
-      <fog attach="fog" args={['#07111e', 30, 100]} />
-      <ambientLight color="#1e3d59" intensity={1.5} />
-      <pointLight position={[-10, 10, 20]} intensity={2} color="#ffb703" distance={50} />
-      <pointLight position={[15, -10, 15]} intensity={3} color="#4cc9f0" distance={50} />
+      <color attach="background" args={[0x07111e]} />
+      <fog attach="fog" args={[0x07111e, 30, 100]} />
+      <ambientLight color={0x1e3d59} intensity={8} />
+      <pointLight position={[-10, 10, 20]} intensity={150} color={0xffb703} distance={0} />
+      <pointLight position={[15, -10, 15]} intensity={250} color={0x4cc9f0} distance={0} />
       <BackgroundBlobs />
       <BlueDisk />
       <BlueRing />
