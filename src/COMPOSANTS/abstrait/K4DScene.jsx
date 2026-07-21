@@ -177,9 +177,9 @@ function K4DScene() {
     <>
       <color attach="background" args={[0x07111e]} />
       <fog attach="fog" args={[0x07111e, 30, 100]} />
-      <ambientLight color={0x1e3d59} intensity={8} />
-      <pointLight position={[-10, 10, 20]} intensity={150} color={0xffb703} distance={0} />
-      <pointLight position={[15, -10, 15]} intensity={250} color={0x4cc9f0} distance={0} />
+      <ambientLight color={0x1e3d59} intensity={15} />
+      <pointLight position={[-10, 10, 20]} intensity={1000} color={0xffb703} distance={0} />
+      <pointLight position={[50, 0, 15]} intensity={1000} color={0x4cc9f0} distance={0} />
       <BackgroundBlobs />
       <BlueDisk />
       <BlueRing />
