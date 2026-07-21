@@ -39,6 +39,7 @@ export const pageToPath = {
   astronaute: 'cosmos/astronaute',
   k2d: 'abstrait/k2d',
   k3d: 'abstrait/k3d',
+  k4d: 'abstrait/k4d',
   reseaux: 'structures/reseaux',
   grid2d: 'structures/grid2d',
   grid3d: 'structures/grid3d',

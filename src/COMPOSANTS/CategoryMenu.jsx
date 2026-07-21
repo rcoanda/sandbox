@@ -9,7 +9,7 @@ export const categoryLinks = {
   '3d': ['/levitation', '/satelite', '/oscillation', '/anneaux'],
   trajectoires: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban'],
   cosmos: ['/terrelune', '/lune', '/astronaute'],
-  abstrait: ['/k2d', '/k3d'],
+  abstrait: ['/k2d', '/k3d', '/k4d'],
   structure: ['/reseaux', '/grid2d', '/grid3d', '/matrice', '/cube', '/sfere'],
   galeriesApi: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
 }
