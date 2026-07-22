@@ -6,11 +6,11 @@ import Informations from '../../composants/Informations'
 
 function Anneaux() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', background: '#0f0f0f' }}>
+    <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#0f0f0f', display: 'flex' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="3d" />
-      <Canvas camera={{ position: [0, 0, 4], fov: 45 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
         <AnneauxScene />
       </Canvas>
     </div>

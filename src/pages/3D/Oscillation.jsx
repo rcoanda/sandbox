@@ -6,7 +6,7 @@ import Informations from '../../composants/Informations'
 
 function Oscillation() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', background: '#0f0f0f' }}>
+    <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#0f0f0f', display: 'flex' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="3d" />
