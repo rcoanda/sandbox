@@ -1,5 +1,6 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 import gsap from 'gsap'
 
 const ROWS = 8
@@ -42,6 +43,8 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
       curPos.current[2] += (initPos[2] - curPos.current[2]) * 0.06
       curScale.current += (1 - curScale.current) * 0.06
       curOpacity.current += (selectionActive ? 0 - curOpacity.current : 1 - curOpacity.current) * 0.06
+      mesh.rotation.x += (0 - mesh.rotation.x) * 0.06
+      mesh.rotation.y += (0 - mesh.rotation.y) * 0.06
     }
     mesh.position.set(curPos.current[0], curPos.current[1], curPos.current[2])
     mesh.scale.set(curScale.current, curScale.current, curScale.current)
@@ -51,7 +54,6 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
   return (
     <mesh
       ref={meshRef}
-      position={position}
       onClick={(e) => { e.stopPropagation(); onClick(index) }}
     >
       <boxGeometry args={[CUBE_SIZE, CUBE_SIZE, CUBE_SIZE]} />
@@ -61,6 +63,7 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
         metalness={0.1}
         transparent
         opacity={1}
+        side={THREE.DoubleSide}
       />
     </mesh>
   )
@@ -70,6 +73,7 @@ function Grid3DScene({ cubes, selectedIndex, onCubeClick }) {
   const groupRef = useRef()
   const mouse = useRef({ x: 0, y: 0 })
   const current = useRef({ x: 0, y: 0 })
+  const saved = useRef(null)
 
   useEffect(() => {
     const onMove = (e) => {
@@ -82,10 +86,26 @@ function Grid3DScene({ cubes, selectedIndex, onCubeClick }) {
     return () => window.removeEventListener('mousemove', onMove)
   }, [])
 
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      saved.current = { ...current.current }
+    }
+  }, [selectedIndex])
+
   useFrame(() => {
-    if (selectedIndex !== null) return
-    current.current.x += (mouse.current.x - current.current.x) * 0.04
-    current.current.y += (mouse.current.y - current.current.y) * 0.04
+    if (selectedIndex !== null) {
+      current.current.x += (mouse.current.x - current.current.x) * 0.04
+      current.current.y += (mouse.current.y - current.current.y) * 0.04
+    } else if (saved.current) {
+      current.current.x += (saved.current.x - current.current.x) * 0.04
+      current.current.y += (saved.current.y - current.current.y) * 0.04
+      if (Math.abs(current.current.x - saved.current.x) < 0.001 && Math.abs(current.current.y - saved.current.y) < 0.001) {
+        saved.current = null
+      }
+    } else {
+      current.current.x += (mouse.current.x - current.current.x) * 0.04
+      current.current.y += (mouse.current.y - current.current.y) * 0.04
+    }
     if (groupRef.current) {
       groupRef.current.rotation.x = current.current.y * 0.15
       groupRef.current.rotation.y = current.current.x * 0.15
