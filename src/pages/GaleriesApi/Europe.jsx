@@ -37,7 +37,7 @@ function Europe() {
       </Canvas>
       {meta && (
         <div className="expanded-rect">
-          <Overlay key={expandedIndex} imageSrc={getImageUrl(expandedIndex)} onClose={handleClose} title={meta.title} author={meta.artist} />
+          <Overlay key={expandedIndex} imageSrc={getImageUrl(expandedIndex)} onClose={handleClose} title={meta.title} author={meta.artist} date={meta.date} place={meta.place} />
         </div>
       )}
     </div>

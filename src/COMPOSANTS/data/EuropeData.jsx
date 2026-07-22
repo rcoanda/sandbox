@@ -30,10 +30,23 @@ export default function useEuropeData() {
       const res = await fetch(`https://api.europeana.eu/record/v2/search.json?wskey=api2demo&query=*:*&media=true&thumbnail=true&rows=${COUNT}`)
       const data = await res.json()
       const items = (data.items || []).filter((item) => isPermissive(item.rights))
-      const urls = items.map(extractUrl).filter(Boolean)
+      const meta = items
+        .map((item) => {
+          const url = extractUrl(item)
+          if (!url) return null
+          return {
+            url,
+            title: Array.isArray(item.title) ? item.title[0] : (item.title || ''),
+            artist: Array.isArray(item.dataProvider) ? item.dataProvider[0] : (item.dataProvider || ''),
+            date: Array.isArray(item.year) ? item.year[0] : '',
+            place: Array.isArray(item.country) ? item.country[0] : '',
+          }
+        })
+        .filter(Boolean)
+      const urls = meta.map((m) => m.url)
       if (urls.length < 10) return { urls: [], meta: [] }
-      return { urls, meta: urls.map((url) => ({ url })) }
+      return { urls, meta }
     },
-    getMetaFn: () => ({ title: 'Europeana', artist: 'Cultural Heritage' }),
+    getMetaFn: (meta) => meta ? { title: meta.title, artist: meta.artist, date: meta.date, place: meta.place } : null,
   })
 }
