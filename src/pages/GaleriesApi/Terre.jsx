@@ -17,7 +17,7 @@ import useCooperData from '../../composants/data/CooperData'
 import useChicagoData from '../../composants/data/ChicagoData'
 
 function Terre() {
-  const { ready, textures, getImageUrl, getMeta } = useClevelandData()
+  const { ready, textures, getImageUrl, getMeta } = useTerreData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {

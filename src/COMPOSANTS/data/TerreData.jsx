@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import * as THREE from 'three'
+import useTextureLoader from './TextureLoader'
 
 const COUNT = 100
 const ERROR_LOAD_MSG = 'NASA Earthdata GIBS'
@@ -64,61 +63,19 @@ function generateEarthData(count) {
 }
 
 export default function useTerreData() {
-  const [textures, setTextures] = useState([])
-  const [ready, setReady] = useState(false)
-  const [imageMeta, setImageMeta] = useState([])
-
-  useEffect(() => {
-    const loader = new THREE.TextureLoader()
-    loader.crossOrigin = 'anonymous'
-
-    const earthData = generateEarthData(COUNT)
-    const urls = earthData.map((d) => d.url)
-
-    Promise.resolve().then(() => setImageMeta(earthData))
-
-    let loaded = 0
-    let successCount = 0
-    const tex = []
-    const onLoad = () => {
-      loaded++
-      if (loaded >= urls.length) {
-        setTextures(tex)
-        setReady(true)
-      }
-    }
-
-    urls.forEach((url, i) => {
-      loader.load(
-        url,
-        (t) => { tex[i] = t; onLoad(); successCount++ },
-        undefined,
-        () => onLoad()
-      )
-    })
-
-    const timer = setTimeout(() => {
-      if (successCount > 0 && !ready) {
-        setTextures(tex)
-        setReady(true)
-      }
-    }, 20000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  return {
-    ready,
-    textures,
+  return useTextureLoader({
+    cacheKey: 'terre',
     count: COUNT,
-    getImageUrl: (i) => imageMeta[i]?.url || null,
-    getMeta: (i) => {
-      const meta = imageMeta[i]
+    loadFn: () => {
+      const data = generateEarthData(COUNT)
+      return { urls: data.map((d) => d.url), meta: data }
+    },
+    getMetaFn: (meta) => {
       if (!meta) return null
       return {
         title: formatLayer(meta.layer),
         artist: meta.bbox.length ? formatBbox(meta.bbox) : ERROR_LOAD_MSG,
       }
     },
-  }
+  })
 }
