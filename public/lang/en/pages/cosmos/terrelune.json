@@ -1,4 +1,4 @@
 {
   "title": "Earth",
-  "description": "Our blue planet accompanied by its natural satellite in the black immensity of the cosmos. Realistic textures and solar lighting restore the beauty of this celestial duo."
+  "description": "3D spheres with high-resolution textures (Earth and Moon) applied via useTexture, differential rotation via useFrame, stars as bufferGeometry with pointsMaterial, animated elliptical orbit."
 }

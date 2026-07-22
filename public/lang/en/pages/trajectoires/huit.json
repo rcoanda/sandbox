@@ -1,4 +1,4 @@
 {
   "title": "Figure Eight",
-  "description": "A figure-eight curve traced by a point in permanent motion. This symbolic figure of infinity explores the continuous passage between two opposite poles."
+  "description": "Parametric figure-eight curve traced by a point moving along its path, continuous animation via useFrame, rendered with bufferGeometry and LineBasicMaterial in Three.js."
 }

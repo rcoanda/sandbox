@@ -1,4 +1,4 @@
 {
   "title": "Cleveland",
-  "description": "Treasures from the Cleveland Museum of Art displayed in an interactive and modern interface. The richness of Asian and contemporary collections dialogues with Western classics."
+  "description": "REST API client for the Cleveland Museum of Art with pagination, CSS grid rendering, artwork details (artist, date, material) displayed in a modal."
 }

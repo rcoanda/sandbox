@@ -1,4 +1,4 @@
 {
   "title": "Bezier",
-  "description": "Courbe de Bézier définie par des points de contrôle influençant sa forme finale. Outil essentiel en conception graphique et en animation vectorielle pour des tracés fluides."
+  "description": "Courbe de Bézier cubique calculée par l'algorithme de Casteljau avec points de contrôle interactifs, visualisation des tangentes et animation du point parcourant la courbe."
 }

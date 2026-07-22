@@ -1,4 +1,4 @@
 {
   "title": "Hypocycloïde",
-  "description": "Courbe tracée par un point fixé sur un cercle roulant à l'intérieur d'un cercle plus grand. Les dents et boucles créent des motifs étoilés d'une grande beauté."
+  "description": "Courbe hypocycloïdale générée par un point sur un cercle roulant à l'intérieur d'un cercle fixe, rapport des rayons paramétrable, animation du tracé en temps réel."
 }

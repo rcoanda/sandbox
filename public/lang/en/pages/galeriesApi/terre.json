@@ -1,4 +1,4 @@
 {
   "title": "Earth",
-  "description": "Satellite photographs of our planet captured from space by space agencies. Each image reveals the beauty and fragility of diverse terrestrial landscapes."
+  "description": "Satellite image gallery displayed in a responsive CSS grid with lazy loading, data fetched from a REST API (JSON), viewing overlay with keyboard navigation."
 }

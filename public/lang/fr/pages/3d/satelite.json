@@ -1,4 +1,4 @@
 {
   "title": "Satellite",
-  "description": "Corps céleste artificiel en orbite autour d'un point central de l'espace. La trajectoire circulaire et la rotation créent un ballet mécanique hypnotique et continu."
+  "description": "Sphères 3D avec wireframe et matériau standard animées par orbite via useFrame, déplacement par drag sur toute la page avec transformation CSS, contrôles OrbitControls pour l'exploration."
 }

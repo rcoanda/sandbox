@@ -1,4 +1,4 @@
 {
   "title": "Lemniscate",
-  "description": "An infinite ribbon-shaped curve analogous to the infinity symbol in three dimensions. Its intertwined loops suggest a graceful and enveloping perpetual motion."
+  "description": "Bernoulli lemniscate curve in 3D parameterized by polar equation, follower point with trail, smooth animation via useFrame in a lit Three.js scene."
 }

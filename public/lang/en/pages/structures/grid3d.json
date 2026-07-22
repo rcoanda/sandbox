@@ -1,4 +1,4 @@
 {
   "title": "Grid3D",
-  "description": "A three-dimensional structure composed of cubic cells animated by a digital breath. Deformations and undulations travel through the volume like a wave in a crystal."
+  "description": "3D grid of colored cubes in Three.js with mouse-driven group rotation, click-to-expand with transition animation, standard materials with directional lighting."
 }

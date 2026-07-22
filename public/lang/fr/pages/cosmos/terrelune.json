@@ -1,4 +1,4 @@
 {
   "title": "Terre",
-  "description": "Notre planète bleue accompagnée de son satellite naturel dans l'immensité noire du cosmos. Les textures réalistes et l'éclairage solaire restituent la beauté de ce duo céleste."
+  "description": "Sphères 3D avec textures haute résolution (planète Terre et Lune) appliquées via useTexture, rotation différentielle par useFrame, étoiles en bufferGeometry avec pointsMaterial, Orbite elliptique animée."
 }

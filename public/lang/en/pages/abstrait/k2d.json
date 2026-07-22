@@ -1,4 +1,4 @@
 {
   "title": "K2D",
-  "description": "An abstract two-dimensional composition playing with geometric shapes and colors. The elements assemble and disassemble in a captivating visual dance."
+  "description": "Vector SVG composition with gradients, blur filters and CSS animations (transform, opacity) applied to polygons, circles and paths in a centered flex layout."
 }

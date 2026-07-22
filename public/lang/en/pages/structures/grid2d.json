@@ -1,4 +1,4 @@
 {
   "title": "Grid2D",
-  "description": "A two-dimensional grid where each cell reacts to programmed external stimuli. The emerging patterns illustrate the complexity arising from very simple local rules."
+  "description": "2D grid of HSL-colored cells with mouse-based parallax effect, GSAP ticker smoothing, click-to-expand animation with overlay showing color name."
 }

@@ -1,4 +1,4 @@
 {
   "title": "Networks",
-  "description": "A set of interconnected nodes forming a complex and hierarchical mesh in space. Each connection represents a link between the elements of a distributed system."
+  "description": "3D graph of interconnected nodes with dynamically generated edges, physics simulation animation (repulsion/attraction forces), Three.js rendering with emissive materials."
 }

@@ -1,4 +1,4 @@
 {
   "title": "Oscillation",
-  "description": "A perpetual pendulum motion captured in an endless visual loop. The regular back-and-forth generates a sense of rhythm conducive to meditation."
+  "description": "Sphere oscillating vertically on a sine wave with pulsed scaling, surrounded by a rotating torus animated via useFrame, all lit by ambient, directional and point lights."
 }

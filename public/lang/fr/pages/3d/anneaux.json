@@ -1,4 +1,4 @@
 {
   "title": "Anneaux",
-  "description": "Cercles concentriques tournoyant dans l'espace à des vitesses différentes. Leurs interactions produisent des motifs moirés et des illusions de profondeur fascinantes."
+  "description": "Anneau planétaire texturé avec une carte issue d'une image satellite, animé en rotation et inclinaison via requestAnimationFrame dans une scène Three.js avec éclairage directionnel et orbital."
 }

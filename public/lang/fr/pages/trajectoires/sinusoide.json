@@ -1,4 +1,4 @@
 {
   "title": "Sinusoïde",
-  "description": "Onde sinusoïdale pure se propageant dans l'espace et le temps de façon continue. Cette fonction mathématique fondamentale illustre les phénomènes périodiques naturels les plus courants."
+  "description": "Onde sinusoïdale 3D générée par échantillonnage de points sur une fonction sinusoïdale, animation de propagation avec défilement, rendu par bufferGeometry et LineBasicMaterial."
 }

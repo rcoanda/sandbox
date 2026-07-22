@@ -1,4 +1,4 @@
 {
   "title": "Spirale",
-  "description": "Courbe qui s'éloigne progressivement de son centre en tournant régulièrement. La croissance du rayon illustre les concepts mathématiques de progression et d'expansion géométrique."
+  "description": "Spirale d'Archimède en 3D avec paramétrage du rayon et du pas, animation de la croissance et rotation continue, rendu filaire avec LineBasicMaterial dans Three.js."
 }

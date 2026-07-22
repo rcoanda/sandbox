@@ -1,4 +1,4 @@
 {
   "title": "K4D",
-  "description": "Installation abstraite tridimensionnelle où les volumes et les transparences s'entremêlent harmonieusement. La caméra tourne autour de la structure pour en révéler toutes les facettes."
+  "description": "Scène Three.js avec formes géométriques 3D (cône, tore, cercle, sphères) animées en rotation et flottaison via requestAnimationFrame, éclairage ambiant et ponctuel, interaction souris avec raycaster."
 }

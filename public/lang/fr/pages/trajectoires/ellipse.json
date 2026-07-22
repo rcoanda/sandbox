@@ -1,4 +1,4 @@
 {
   "title": "Ellipse",
-  "description": "Orbite elliptique parcourue par un point focal dans un plan défini. Les deux foyers de l'ellipse créent une tension visuelle entre attraction et répulsion."
+  "description": "Trajectoire elliptique générée par équations paramétriques (cos, sin) avec point focal animé, rendu vectoriel via LineBasicMaterial en 3D avec animation de la trace persistante."
 }

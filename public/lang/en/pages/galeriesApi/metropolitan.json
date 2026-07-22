@@ -1,4 +1,4 @@
 {
   "title": "Metropolitan",
-  "description": "Masterpieces from the Metropolitan Museum of Art in New York presented in a virtual gallery. The works span eras and civilizations with timeless elegance."
+  "description": "Metropolitan Museum of Art API integration with async artwork loading, dynamic grid, department search, metadata display and HD image viewing."
 }

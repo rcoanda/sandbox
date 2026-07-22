@@ -1,4 +1,4 @@
 {
   "title": "Grid2D",
-  "description": "Grille bidimensionnelle dont chaque cellule réagit à des stimuli extérieurs programmés. Les motifs émergents illustrent la complexité issue de règles locales pourtant très simples."
+  "description": "Grille 2D de cellules colorées en HSL avec effet de parallaxe basé sur la position de la souris, animation GSAP ticker pour le lissage, zoom et rotation au clic avec overlay."
 }

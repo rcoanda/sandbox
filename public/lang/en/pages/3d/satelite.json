@@ -1,4 +1,4 @@
 {
   "title": "Satellite",
-  "description": "An artificial celestial body orbiting a central point in space. The circular trajectory and rotation create a hypnotic and continuous mechanical ballet."
+  "description": "3D spheres with wireframe and standard material animated by orbit via useFrame, full-page drag with CSS transform, OrbitControls for exploration."
 }

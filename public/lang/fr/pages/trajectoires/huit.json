@@ -1,4 +1,4 @@
 {
   "title": "Huit",
-  "description": "Courbe en forme de huit tracée par un point en mouvement permanent. Cette figure symbolique de l'infini explore le passage continu entre deux pôles opposés."
+  "description": "Courbe paramétrique en forme de huit tracée par un point se déplaçant sur son chemin, animation continue via useFrame, rendu avec bufferGeometry et LineBasicMaterial dans Three.js."
 }

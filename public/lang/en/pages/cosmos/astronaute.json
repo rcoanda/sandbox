@@ -1,4 +1,4 @@
 {
   "title": "Astronaut",
-  "description": "A human figure floating in the void of space connected to their ship by a tether. The immaculate white suit contrasts with the infinite darkness of space."
+  "description": "Articulated 3D model loaded from a GLTF file with skeletal animation played via useFrame, starfield particles, scene rotation following mouse movement."
 }

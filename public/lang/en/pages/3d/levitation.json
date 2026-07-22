@@ -1,4 +1,4 @@
 {
   "title": "Levitation",
-  "description": "An object suspended in digital space defying the laws of gravity. The illusion of lightness is reinforced by subtle lighting and meticulous drop shadows."
+  "description": "3D geometric shapes (icosahedron, torus, dodecahedron, octahedron) animated by a slow-rotating parent group and individual rotations via useFrame, lit by three light sources."
 }

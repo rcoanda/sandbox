@@ -1,4 +1,4 @@
 {
   "title": "Lissajous",
-  "description": "Figures de Lissajous générées par deux oscillations sinusoïdales perpendiculaires combinées. Les paramètres variables produisent des motifs complexes, variés et souvent surprenants."
+  "description": "Figures de Lissajous générées par deux oscillations sinusoïdales perpendiculaires, contrôle des fréquences et phases en temps réel, rendu avec matériau luminescent animé."
 }

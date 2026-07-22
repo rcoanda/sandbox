@@ -1,4 +1,4 @@
 {
   "title": "Metropolitan",
-  "description": "Chefs-d'œuvre du Metropolitan Museum of Art de New York présentés dans une galerie virtuelle. Les œuvres traversent les époques et les civilisations avec une élégance intemporelle."
+  "description": "Intégration API du Metropolitan Museum of Art avec chargement asynchrone des œuvres, grille dynamique, recherche par département, affichage des métadonnées et de l'image HD."
 }

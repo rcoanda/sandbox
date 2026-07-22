@@ -1,4 +1,4 @@
 {
   "title": "Oscillation",
-  "description": "Mouvement de balancier perpétuel capturé dans une boucle visuelle sans fin. Les allers-retours réguliers génèrent une sensation de rythme propice à la méditation."
+  "description": "Sphère oscillant verticalement sur un sinus avec mise à l'échelle pulsée, entourée d'un tore en rotation animé via useFrame, le tout éclairé par lumières ambiante, directionnelle et ponctuelle."
 }

@@ -1,4 +1,4 @@
 {
   "title": "Lune",
-  "description": "Satellite naturel de la Terre dont la surface cratérisée est reproduite avec fidélité. Les phases lunaires défilent au rythme d'une rotation lente et apaisante."
+  "description": "Sphère 3D avec texture lunaire haute résolution, rotation lente animée via useFrame, ciel étoilé en bufferGeometry, éclairage directionnel simulant la lumière solaire."
 }

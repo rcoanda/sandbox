@@ -1,4 +1,4 @@
 {
   "title": "K4D",
-  "description": "An abstract three-dimensional installation where volumes and transparencies intertwine harmoniously. The camera orbits the structure to reveal all its facets."
+  "description": "Three.js scene with 3D geometric shapes (cone, torus, circle, spheres) animated with rotation and floating via requestAnimationFrame, ambient and point lighting, mouse interaction with raycaster."
 }

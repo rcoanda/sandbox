@@ -1,4 +1,4 @@
 {
   "title": "Grid3D",
-  "description": "Structure tridimensionnelle composée de cellules cubiques animées par un souffle numérique. Les déformations et ondulations parcourent le volume telle une onde dans un cristal."
+  "description": "Grille 3D de cubes colorés en Three.js avec rotation de groupe au mouvement souris, agrandissement au clic avec animation de transition, matériaux standard avec éclairage directionnel."
 }

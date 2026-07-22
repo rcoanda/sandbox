@@ -1,4 +1,4 @@
 {
   "title": "Épicycloïde",
-  "description": "Courbe produite par un point situé sur un cercle roulant à l'extérieur d'un cercle fixe. Les pétales obtenus varient en nombre selon le rapport des rayons."
+  "description": "Courbe épicycloïdale produite par un cercle roulant à l'extérieur d'un cercle fixe, pétales paramétrables, animation avec traînée lumineuse et dégradé de couleurs."
 }

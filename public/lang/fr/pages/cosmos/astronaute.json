@@ -1,4 +1,4 @@
 {
   "title": "Astronaute",
-  "description": "Figure humaine flottant dans le vide spatial reliée à son vaisseau par un cordon. Le costume blanc immaculé contraste avec l'obscurité infinie de l'espace."
+  "description": "Modèle 3D articulé chargé depuis un fichier GLTF avec animation squelettique jouée via useFrame, ciel étoilé en particules, rotation de la scène au mouvement de la souris."
 }

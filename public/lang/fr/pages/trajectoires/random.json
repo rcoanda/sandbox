@@ -1,4 +1,4 @@
 {
   "title": "Random",
-  "description": "Trajectoire aléatoire générée par des déplacements successifs totalement imprévisibles. Chaque chemin est unique et explore le chaos apparent dans un cadre maîtrisé."
+  "description": "Marche aléatoire en 3D avec segments générés par déplacements vectoriels aléatoires, animation pas à pas du tracé, rendu avec matériau à couleur changeante."
 }

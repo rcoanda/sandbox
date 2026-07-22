@@ -1,4 +1,4 @@
 {
   "title": "Sphère",
-  "description": "Sphère lisse et parfaite dont la surface réfléchit l'environnement numérique avec précision. Les courbures et les reflets déforment la perception de l'espace environnant."
+  "description": "Sphère 3D avec matériau réfléchissant (metalness + roughness) animée en rotation et pulsation, environnement mappé pour les reflets, rendu Three.js avec éclairage multiple."
 }

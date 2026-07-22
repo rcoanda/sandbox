@@ -1,4 +1,4 @@
 {
   "title": "Rings",
-  "description": "Concentric circles spinning in space at different speeds. Their interactions produce moiré patterns and fascinating depth illusions."
+  "description": "Textured planetary ring using a satellite image map, animated with rotation and tilt via requestAnimationFrame in a Three.js scene with directional and orbital lighting."
 }

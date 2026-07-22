@@ -1,4 +1,4 @@
 {
   "title": "K2D",
-  "description": "Composition abstraite en deux dimensions jouant sur les formes géométriques et les couleurs. Les éléments s'assemblent et se désassemblent dans une danse visuelle captivante."
+  "description": "Composition SVG vectorielle avec dégradés, filtres de flou et animations CSS (transform, opacity) appliquées aux polygones, cercles et chemins dans une structure flex centrée."
 }

@@ -1,4 +1,4 @@
 {
   "title": "Bezier",
-  "description": "A Bézier curve defined by control points influencing its final shape. An essential tool in graphic design and vector animation for smooth paths."
+  "description": "Cubic Bézier curve computed by the Casteljau algorithm with interactive control points, tangent visualization and animated point traversing the curve."
 }

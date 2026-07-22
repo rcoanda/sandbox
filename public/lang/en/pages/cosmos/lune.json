@@ -1,4 +1,4 @@
 {
   "title": "Moon",
-  "description": "Earth's natural satellite whose cratered surface is faithfully reproduced. The lunar phases scroll at the pace of a slow and soothing rotation."
+  "description": "3D sphere with high-resolution lunar texture, slow rotation animated via useFrame, starfield as bufferGeometry, directional lighting simulating sunlight."
 }

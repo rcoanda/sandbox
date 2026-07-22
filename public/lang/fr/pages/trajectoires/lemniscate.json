@@ -1,4 +1,4 @@
 {
   "title": "Lemniscate",
-  "description": "Courbe en forme de ruban infini analogue au symbole de l'infini en trois dimensions. Ses boucles entrelacées suggèrent un mouvement perpétuel gracieux et enveloppant."
+  "description": "Courbe de Lemniscate de Bernoulli en 3D paramétrée par équation polaire, point suiveur avec traînée, animation fluide via useFrame dans une scène Three.js éclairée."
 }

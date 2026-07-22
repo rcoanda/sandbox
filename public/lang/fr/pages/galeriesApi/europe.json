@@ -1,4 +1,4 @@
 {
   "title": "Europe",
-  "description": "Collections des plus grands musées européens réunies dans un espace de contemplation commun. La diversité artistique du continent s'exprime à travers des siècles de créativité."
+  "description": "Agrégation d'œuvres issues de plusieurs API de musées européens, normalisation des données, grille de visualisation avec filtres par musée et période."
 }

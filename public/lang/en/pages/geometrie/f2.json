@@ -1,4 +1,4 @@
 {
   "title": "F2",
-  "description": "A two-dimensional geometric construction exploring the relationships between circles and polygons. A visual study of symmetries and repeating patterns on an organized plane."
+  "description": "Parametric SVG geometric pattern generator with continuous animation via requestAnimationFrame, modifying color, opacity and position of elements in real time."
 }

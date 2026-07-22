@@ -1,4 +1,4 @@
 {
   "title": "Matrice",
-  "description": "Tableau multidimensionnel de points lumineux dont l'intensité varie dans le temps réel. Les données abstraites deviennent une expérience visuelle immersive, dynamique et changeante."
+  "description": "Matrice lumineuse 3D de points animés avec variation d'intensité sinusoïdale, interpolation de couleurs dans l'espace HSV, rendu via bufferGeometry et pointsMaterial."
 }
