@@ -30,6 +30,7 @@ export default defineConfig({
       '/chicago-img': {
         target: 'https://www.artic.edu',
         changeOrigin: true,
+        headers: { Referer: 'https://www.artic.edu/' },
         rewrite: (path) => path.replace(/^\/chicago-img/, ''),
       },
       '/roboflow-img': {
