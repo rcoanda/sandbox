@@ -38,6 +38,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/roboflow-img/, ''),
       },
+      '/met-api': {
+        target: 'https://collectionapi.metmuseum.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/met-api/, '/public/collection/v1'),
+      },
     },
   },
 })
