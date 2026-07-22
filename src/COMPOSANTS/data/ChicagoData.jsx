@@ -2,7 +2,11 @@ import { useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
 const N = 3
+const TOTAL = N * N * N
+const BATCH_SIZE = 100
 const DELAY_BETWEEN_IMAGES = 1000
+const REFILL_INTERVAL = 30000
+const REFILL_THRESHOLD = 10
 
 function preloadTexture(url) {
   return new Promise((resolve) => {
@@ -10,13 +14,35 @@ function preloadTexture(url) {
   })
 }
 
-function searchUrl(limit, page) {
+async function fetchCandidates(count = BATCH_SIZE) {
   const p = new URLSearchParams()
-  p.set('limit', limit)
-  p.set('page', page)
+  p.set('limit', count)
+  p.set('page', 1)
   p.set('fields', 'id,image_id,title,artist_display,date_display')
   p.set('query[term][is_public_domain]', 'true')
-  return `/chicago-api/api/v1/artworks/search?${p}`
+  const res = await fetch(`/chicago-api/api/v1/artworks/search?${p}`)
+  if (!res.ok) throw new Error(`API returned ${res.status}`)
+  const d = await res.json()
+  return (d?.data || []).filter(item => item.image_id)
+}
+
+function makeMeta(item) {
+  return {
+    title: item.title || 'Untitled',
+    artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
+    year: item.date_display || 'Unknown Year',
+  }
+}
+
+function imgUrl(imageId) {
+  return `/chicago-img/iiif/2/${imageId}/full/843,/0/default.jpg`
+}
+
+function pickFromPool(pool) {
+  const avail = pool.slice(TOTAL)
+  if (avail.length === 0) return null
+  const idx = Math.floor(Math.random() * avail.length)
+  return { item: avail[idx], poolIdx: TOTAL + idx }
 }
 
 export default function useChicagoData() {
@@ -25,72 +51,65 @@ export default function useChicagoData() {
   const [artworkMetas, setArtworkMetas] = useState([])
   const [loadingError, setLoadingError] = useState(null)
   const swapCancelled = useRef(false)
-  const ready = textures.length >= N * N * N
+  const pool = useRef([])
+  const ready = textures.length === TOTAL
 
   useEffect(() => {
-    const page = Math.floor(Math.random() * 1000) + 1
-    fetch(searchUrl(27, page))
-      .then(r => {
-        if (!r.ok) throw new Error(`API returned ${r.status}`)
-        return r.json()
+    let cancelled = false
+    fetchCandidates(BATCH_SIZE)
+      .then(candidates => {
+        if (cancelled) return
+        if (candidates.length < TOTAL) throw new Error('Not enough public domain artworks')
+        pool.current = candidates
+        const selected = candidates.slice(0, TOTAL)
+        setImageUrls(selected.map(item => imgUrl(item.image_id)))
+        setArtworkMetas(selected.map(makeMeta))
+        return Promise.all(selected.map(item => preloadTexture(imgUrl(item.image_id))))
       })
-      .then(d => {
-        if (!d?.data) throw new Error('API response missing data')
-        const items = d.data.filter(item => item.image_id)
-        if (items.length < N * N * N) throw new Error('Not enough public domain artworks')
-        const selected = items.slice(0, N * N * N)
-        setImageUrls(selected.map(item => `/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))
-        setArtworkMetas(selected.map(item => ({
-          title: item.title || 'Untitled',
-          artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
-          year: item.date_display || 'Unknown Year',
-        })))
-        Promise.all(selected.map(item => preloadTexture(`/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))).then(setTextures)
-      })
-      .catch(e => setLoadingError(e.message))
+      .then(texs => { if (!cancelled && texs) setTextures(texs) })
+      .catch(e => { if (!cancelled) setLoadingError(e.message) })
+    return () => { cancelled = true }
   }, [])
 
   useEffect(() => {
-    if (textures.length < N * N * N) return
+    if (!ready) return
+    const id = setInterval(async () => {
+      if (pool.current.length - TOTAL < REFILL_THRESHOLD) {
+        try {
+          const fresh = await fetchCandidates()
+          pool.current = pool.current.slice(0, TOTAL).concat(fresh)
+        } catch {}
+      }
+    }, REFILL_INTERVAL)
+    return () => clearInterval(id)
+  }, [ready])
+
+  useEffect(() => {
+    if (textures.length < TOTAL) return
     swapCancelled.current = false
 
     const swapLoop = async () => {
       while (!swapCancelled.current) {
-        const idx = Math.floor(Math.random() * N * N * N)
-        const page = Math.floor(Math.random() * 1000) + 1
-        try {
-          const res = await fetch(searchUrl(1, page))
-          const d = await res.json()
-          const item = d.data.find((i) => i.image_id)
-          if (item && !swapCancelled.current) {
-            const url = `/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`
-            const tex = await preloadTexture(url)
-            if (!swapCancelled.current) {
-              setImageUrls((prev) => {
-                const next = [...prev]
-                next[idx] = url
-                return next
-              })
-              setArtworkMetas((prev) => {
-                const next = [...prev]
-                next[idx] = {
-                  title: item.title || 'Untitled',
-                  artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
-                  year: item.date_display || 'Unknown Year',
-                }
-                return next
-              })
-              setTextures((prev) => {
-                const next = [...prev]
-                if (next[idx]) next[idx].dispose()
-                next[idx] = tex
-                return next
-              })
-            }
-          }
-        } catch {}
-        if (swapCancelled.current) return
-        await new Promise((r) => setTimeout(r, DELAY_BETWEEN_IMAGES))
+        const idx = Math.floor(Math.random() * TOTAL)
+        const pick = pickFromPool(pool.current)
+        if (!pick) {
+          await new Promise(r => setTimeout(r, DELAY_BETWEEN_IMAGES))
+          continue
+        }
+        pool.current.splice(pick.poolIdx, 1)
+        const url = imgUrl(pick.item.image_id)
+        const tex = await preloadTexture(url)
+        if (!swapCancelled.current) {
+          setImageUrls(prev => { const next = [...prev]; next[idx] = url; return next })
+          setArtworkMetas(prev => { const next = [...prev]; next[idx] = makeMeta(pick.item); return next })
+          setTextures(prev => {
+            const next = [...prev]
+            if (next[idx]) next[idx].dispose()
+            next[idx] = tex
+            return next
+          })
+        }
+        await new Promise(r => setTimeout(r, DELAY_BETWEEN_IMAGES))
       }
     }
 
@@ -101,7 +120,7 @@ export default function useChicagoData() {
   return {
     ready,
     textures,
-    count: N * N * N,
+    count: TOTAL,
     getImageUrl: (i) => imageUrls[i] || null,
     getMeta: (i) => artworkMetas[i] || null,
     loadingError,
