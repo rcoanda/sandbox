@@ -6,7 +6,7 @@ import EllipseScene, { setPaused } from '../../composants/trajectoires/EllipseSc
 import Overlay from '../../composants/Overlay'
 import '../../styles/trajectoires/Ellipse.css'
 import Informations from '../../composants/Informations'
-import useTextureCosmiqueData from '../../composants/data/TextureCosmiqueData'
+import useTextureCosmiqueData from '../../composants/data/local/TextureCosmiqueData'
 
 function Ellipse() {
   const { ready, textures, getImageUrl, getMeta } = useTextureCosmiqueData()

@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Cooper.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useCooperData from '../../composants/data/CooperData'
+import useCooperData from '../../composants/data/dist/CooperData'
 
 function Cooper() {
   const { ready, textures, getImageUrl, getMeta, loadingError } = useCooperData()

@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Aquatique.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useAquatiqueData from '../../composants/data/AquatiqueData'
+import useAquatiqueData from '../../composants/data/dist/AquatiqueData'
 
 function Aquatique() {
   const { ready, texturePool, getMeta } = useAquatiqueData()
