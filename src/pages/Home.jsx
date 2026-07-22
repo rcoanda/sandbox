@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import LevitationScene from '../composants/3d/LevitationScene'
 
 import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
@@ -21,21 +21,33 @@ const categories = [
   { id: 'cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
   { id: 'abstrait', label: '05', Scene: K2Scene, bgClass: 'home-cell--abstrait', is2D: true, transparent: true },
   { id: 'structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
-  { id: 'galeriesApi', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true },
+  { id: 'galeriesApi', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true, transparent: true },
 ]
+
+function CameraController({ id }) {
+  const { camera } = useThree()
+  useEffect(() => {
+    camera.position.z = id === 'cosmos' ? 8 : 4
+  }, [id, camera])
+  return null
+}
 
 function Preview({ activeCat }) {
   if (!activeCat) return null
   const { Scene, is2D, id, transparent } = activeCat
 
-  if (is2D) {
-    return <Scene transparent={transparent} />
-  }
-
   return (
-    <Canvas camera={{ position: [0, 0, id === 'cosmos' ? 6 : 4], fov: 50 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
-      <Scene />
-    </Canvas>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.5]} gl={{ antialias: true }}>
+        <CameraController id={id} />
+        {!is2D && <Scene />}
+      </Canvas>
+      {is2D && (
+        <div style={{ position: 'absolute', inset: 0 }}>
+          <Scene transparent={transparent} />
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -51,17 +51,7 @@
   height: 70vh;
   z-index: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.home-preview canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.home-preview canvas {
-  width: 100% !important;
-  height: 100% !important;
+  overflow: hidden;
 }
 
 .home-grid {
