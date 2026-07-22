@@ -26,6 +26,12 @@
   display: block;
 }
 
+.k2d-svg--preview {
+  width: calc(70vh * 4 / 3);
+  max-width: 70vw;
+  height: auto;
+}
+
 .animated-triangle {
   transform-origin: 380px 450px;
   opacity: 0.75;
