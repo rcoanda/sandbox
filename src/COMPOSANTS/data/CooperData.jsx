@@ -56,7 +56,7 @@ export default function useCooperData() {
     loadInitial: async () => {
       const items = await fetchCooperObjects()
       const valid = items.filter(isValid)
-      if (valid.length < 10) throw new Error('API Cooper Hewitt ne répond pas.')
+      if (valid.length < 10) throw new Error("API Cooper Hewitt ne répond pas. Réitérez votre demande.")
       const selected = valid.slice(0, COUNT)
       return { items: selected, total: selected.length }
     },

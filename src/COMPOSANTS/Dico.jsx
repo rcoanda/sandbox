@@ -2,10 +2,22 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const DicoContext = createContext()
 const STORAGE_KEY = 'app-lang'
-
+//doublon de secours
 const fallback = {
-  fr: { loading: 'Chargement...', loadingError: 'L\'API ne répond pas.', nav: { about: 'A propos', contact: 'Contact', archive: 'Archive' } },
-  en: { loading: 'Loading...', loadingError: 'API is not responding.', nav: { about: 'About', contact: 'Contact', archive: 'Archive' } },
+  fr: {
+    nav: { about: 'A propos', contact: 'Contact', archive: 'Archive' },
+    categories: { geometrie: 'Géométrie', '3d': '3D', trajectoires: 'Trajectoires', cosmos: 'Cosmos', abstrait: 'Abstrait', structures: 'Structures', galeriesApi: 'Galeries API' },
+    loading: 'Chargement...',
+    loadingError: "L'API ne répond pas. Réitérez votre demande.",
+    subtitle: { geometrie: 'Formes et figures', '3d': 'Volume et relief', trajectoires: 'Chemins et courbes', cosmos: 'Étoiles et planètes', abstrait: 'Couleurs et formes', structures: 'Nœuds et liens', galeriesApi: 'Images et données' },
+  },
+  en: {
+    nav: { about: 'About', contact: 'Contact', archive: 'Archive' },
+    categories: { geometrie: 'Geometry', '3d': '3D', trajectoires: 'Trajectories', cosmos: 'Cosmos', abstrait: 'Abstract', structures: 'Structures', galeriesApi: 'API Galleries' },
+    loading: 'Loading...',
+    loadingError: 'API is not responding. Retry your request.',
+    subtitle: { geometrie: 'Shapes & figures', '3d': 'Volume & depth', trajectoires: 'Paths & curves', cosmos: 'Stars & planets', abstrait: 'Colors & forms', structures: 'Nodes & links', galeriesApi: 'Images & data' },
+  },
 }
 
 // Mappe une clé de page (ex: "f0", "levitation") vers le chemin du fichier JSON

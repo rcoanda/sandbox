@@ -14,7 +14,7 @@
     "galeriesApi": "Galeries API"
   },
   "loading": "Chargement...",
-  "loadingError": "L'API ne répond pas.",
+  "loadingError": "L'API ne répond pas. Réitérez votre demande.",
   "subtitle": {
     "geometrie": "Formes et figures",
     "3d": "Volume et relief",
