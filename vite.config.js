@@ -22,6 +22,16 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/cooper-img/, ''),
       },
+      '/chicago-api': {
+        target: 'https://api.artic.edu',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/chicago-api/, ''),
+      },
+      '/chicago-img': {
+        target: 'https://www.artic.edu',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/chicago-img/, ''),
+      },
       '/roboflow-img': {
         target: 'https://source.roboflow.com',
         changeOrigin: true,

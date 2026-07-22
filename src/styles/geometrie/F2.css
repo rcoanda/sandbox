@@ -11,6 +11,6 @@
 }
 
 .f2-svg {
-  width: 500px;
-  height: 500px;
+  width: min(500px, 80vw);
+  height: min(500px, 80vh);
 }
