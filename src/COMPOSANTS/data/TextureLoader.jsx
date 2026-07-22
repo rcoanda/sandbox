@@ -73,11 +73,10 @@ export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn })
   }, [cacheKey])
 
   return {
-    ready,
-    textures,
-    count,
-    loadingError,
-    getImageUrl: (i) => imageMeta[i]?.url || null,
-    getMeta: (i) => getMetaFn(imageMeta[i], i),
+    ready,        // Booléen — vrai quand toutes les textures sont chargées
+    textures,     // Tableau de THREE.Texture
+    loadingError, // String | null — message d'erreur si le chargement a échoué
+    getImageUrl: (i) => imageMeta[i]?.url || null, // (i) => string | null — URL de l'image
+    getMeta: (i) => getMetaFn(imageMeta[i], i),     // (i) => { title, artist, year } | null
   }
 }

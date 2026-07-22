@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 import useSwappableData from './useSwappableData'
 
 const N = 3
-const TOTAL = N * N * N
+const COUNT = N * N * N
 const BATCH_SIZE = 100
 const REFILL_INTERVAL = 30000
 const REFILL_THRESHOLD = 10
@@ -37,18 +37,18 @@ export default function useChicagoData() {
     cacheKey: 'chicago',
     loadInitial: async () => {
       const candidates = await fetchCandidates(BATCH_SIZE)
-      if (candidates.length < TOTAL) throw new Error('Not enough public domain artworks')
+      if (candidates.length < COUNT) throw new Error('Not enough public domain artworks')
       pool.current = candidates
-      return { items: candidates.slice(0, TOTAL), total: TOTAL }
+      return { items: candidates.slice(0, COUNT), total: COUNT }
     },
     getImageUrl: item => imgUrl(item.image_id),
     getMeta: item => makeMeta(item),
     getOne: async () => {
-      const avail = pool.current.slice(TOTAL)
+      const avail = pool.current.slice(COUNT)
       if (avail.length === 0) return null
       const i = Math.floor(Math.random() * avail.length)
       const item = avail[i]
-      pool.current.splice(TOTAL + i, 1)
+      pool.current.splice(COUNT + i, 1)
       return item
     },
   })
@@ -56,10 +56,10 @@ export default function useChicagoData() {
   useEffect(() => {
     if (!hook.ready) return
     const id = setInterval(async () => {
-      if (pool.current.length - TOTAL < REFILL_THRESHOLD) {
+      if (pool.current.length - COUNT < REFILL_THRESHOLD) {
         try {
           const fresh = await fetchCandidates()
-          pool.current = pool.current.slice(0, TOTAL).concat(fresh)
+          pool.current = pool.current.slice(0, COUNT).concat(fresh)
         } catch {}
       }
     }, REFILL_INTERVAL)

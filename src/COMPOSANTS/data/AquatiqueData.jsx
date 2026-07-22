@@ -11,6 +11,7 @@ const IMAGE_IDS = [
   '081bL1irbNI5QXkg9EBG',
   '0901LJmYlO2UVfXRoaMh',
 ]
+const COUNT = IMAGE_IDS.length
 const IMAGE_URLS = IMAGE_IDS.map(
   (id) => `/roboflow-img/${ROBOFLOW_WORKSPACE}/${id}/thumb.jpg`,
 )
@@ -37,14 +38,14 @@ export default function useAquatiqueData() {
   }, [])
 
   return {
-    ready,
-    texturePool,
-    textures: texturePool.map((e) => e.texture),
-    count: IMAGE_IDS.length,
-    getImageUrl: (i) => IMAGE_URLS[i] || null,
+    ready,        // Booléen — vrai quand toutes les textures sont chargées
+    texturePool,  // Tableau de { texture: THREE.Texture, url: string }
+    textures: texturePool.map((e) => e.texture), // Tableau de THREE.Texture
+    loadingError: null,       // null ici (URLs statiques, pas de fetch)
+    getImageUrl: (i) => IMAGE_URLS[i] || null, // (i) => string | null
     getMeta: (i) => ({
       title: `Aquatique #${i + 1}`,
       artist: IMAGE_IDS[i] || '',
-    }),
+    }), // (i) => { title, artist }
   }
 }

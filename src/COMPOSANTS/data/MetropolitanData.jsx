@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 
 const ROWS = 8
 const COLS = 14
-const TOTAL = ROWS * COLS
+const COUNT = ROWS * COLS
 const API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1'
-const FETCH_LIMIT = 10//ROWS * COLS
+const PARALLEL_BATCH = 5
+const DISPLAY_BATCH = 10
 
 let cachedArtworks = null
 let cachedReady = false
@@ -27,9 +28,11 @@ export default function useMetropolitanData() {
         const searchData = await searchRes.json()
         const ids = searchData.objectIDs || []
 
-        const items = []
-        for (let i = 0; i < ids.length && items.length < TOTAL; i += 5) {
-          const batch = ids.slice(i, i + 5)
+        const allItems = []
+        let lastUpdate = 0
+
+        for (let i = 0; i < ids.length && allItems.length < COUNT && !cancelled; i += PARALLEL_BATCH) {
+          const batch = ids.slice(i, i + PARALLEL_BATCH)
           const results = await Promise.allSettled(
             batch.map((id) =>
               fetch(`${API_BASE}/objects/${id}`).then((r) => r.json())
@@ -37,21 +40,28 @@ export default function useMetropolitanData() {
           )
           for (const r of results) {
             if (r.status === 'fulfilled' && r.value.primaryImageSmall) {
-              items.push({
+              allItems.push({
                 imageUrl: r.value.primaryImageSmall,
                 title: r.value.title || 'Untitled',
                 artist: r.value.artistDisplayName || 'Unknown Artist',
                 year: r.value.objectDate || 'Unknown Year',
               })
-              if (items.length >= FETCH_LIMIT) break
             }
+          }
+
+          if (!cancelled && allItems.length - lastUpdate >= DISPLAY_BATCH) {
+            lastUpdate = allItems.length
+            cachedArtworks = [...allItems]
+            cachedReady = true
+            setArtworks([...allItems])
+            setReady(true)
           }
         }
 
         if (!cancelled) {
-          cachedArtworks = items
+          cachedArtworks = allItems
           cachedReady = true
-          setArtworks(items)
+          setArtworks(allItems)
           setReady(true)
         }
       } catch (e) {
@@ -64,14 +74,13 @@ export default function useMetropolitanData() {
   }, [])
 
   return {
-    ready,
-    artworks,
-    textures: [],
-    count: TOTAL,
-    loadingError,
-    getImageUrl: (i) => artworks[i]?.imageUrl || null,
+    ready,        // Booléen — vrai quand toutes les données sont chargées
+    artworks,     // Tableau des œuvres (objet complet)
+    textures: [], // Tableau de THREE.Texture (vide ici, utilisation DOM)
+    loadingError, // String | null — message d'erreur si le chargement a échoué
+    getImageUrl: (i) => artworks[i]?.imageUrl || null,              // (i) => string | null
     getMeta: (i) => artworks[i]
       ? { title: artworks[i].title, artist: artworks[i].artist, year: artworks[i].year }
-      : null,
+      : null,                                                       // (i) => { title, artist, year } | null
   }
 }

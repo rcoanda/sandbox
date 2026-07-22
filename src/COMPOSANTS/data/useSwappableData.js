@@ -92,11 +92,10 @@ export default function useSwappableData({
   }, [textures.length, total])
 
   return {
-    ready,
-    textures,
-    count: total,
-    getImageUrl: (i) => imageUrls[i] || null,
-    getMeta: (i) => artworkMetas[i] || null,
-    loadingError,
+    ready,        // Booléen — vrai quand toutes les textures sont chargées
+    textures,     // Tableau de THREE.Texture
+    loadingError, // String | null — message d'erreur si le chargement a échoué
+    getImageUrl: (i) => imageUrls[i] || null,       // (i) => string | null — URL de l'image
+    getMeta: (i) => artworkMetas[i] || null,        // (i) => { title, artist, year } | null
   }
 }

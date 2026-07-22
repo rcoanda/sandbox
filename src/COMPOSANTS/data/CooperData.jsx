@@ -1,9 +1,9 @@
 import useSwappableData from './useSwappableData'
 
-const COOPER_LIMIT = 120
+const COUNT = 120
 
 const COOPER_QUERY = `{
-  object(hasImages: true, size: ${COOPER_LIMIT}) {
+  object(hasImages: true, size: ${COUNT}) {
     id
     summary
     date
@@ -57,7 +57,7 @@ export default function useCooperData() {
       const items = await fetchCooperObjects()
       const valid = items.filter(isValid)
       if (valid.length < 10) throw new Error('API Cooper Hewitt ne répond pas.')
-      const selected = valid.slice(0, COOPER_LIMIT)
+      const selected = valid.slice(0, COUNT)
       return { items: selected, total: selected.length }
     },
     getImageUrl: item => getMediaUrl(item),
