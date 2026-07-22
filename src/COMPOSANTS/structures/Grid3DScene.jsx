@@ -35,6 +35,7 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
       curPos.current[2] += (0 - curPos.current[2]) * 0.06
       curScale.current += (SEL_SCALE - curScale.current) * 0.06
       curOpacity.current += (1 - curOpacity.current) * 0.06
+      mesh.material.transparent = curOpacity.current < 0.999
       mesh.rotation.x = clock.getElapsedTime() * 0.4
       mesh.rotation.y = clock.getElapsedTime() * 0.6
     } else {
@@ -43,6 +44,7 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
       curPos.current[2] += (initPos[2] - curPos.current[2]) * 0.06
       curScale.current += (1 - curScale.current) * 0.06
       curOpacity.current += (selectionActive ? 0 - curOpacity.current : 1 - curOpacity.current) * 0.06
+      mesh.material.transparent = curOpacity.current < 0.999
       mesh.rotation.x += (0 - mesh.rotation.x) * 0.06
       mesh.rotation.y += (0 - mesh.rotation.y) * 0.06
     }
@@ -61,7 +63,7 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
         color={`hsl(${hue}, 70%, 60%)`}
         roughness={0.3}
         metalness={0.1}
-        transparent
+        transparent={false}
         opacity={1}
         side={THREE.DoubleSide}
       />
