@@ -4,7 +4,7 @@ import SateliteScene from '../../composants/3d/SateliteScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
-import { useDragPan, DragHandle } from '../../composants/cosmos/DragHandle'
+import { useDragPan, DragHandle } from '../../composants/DragHandle'
 import '../../styles/cosmos/Satelite.css'
 
 function Satelite() {

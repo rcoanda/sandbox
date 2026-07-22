@@ -4,7 +4,7 @@ import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
 import LuneScene from '../../composants/cosmos/LuneScene'
-import { useDragPan, DragHandle } from '../../composants/cosmos/DragHandle'
+import { useDragPan, DragHandle } from '../../composants/DragHandle'
 import '../../styles/cosmos/Lune.css'
 
 function Lune() {
