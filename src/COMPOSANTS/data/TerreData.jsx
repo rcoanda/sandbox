@@ -35,11 +35,47 @@ function randomBbox() {
   return kinds[Math.floor(Math.random() * kinds.length)]()
 }
 
-function formatLayer(layer) {
-  return layer
-    .replace(/_/g, ' ')
-    .replace(/([A-Z])/g, ' $1')
-    .trim()
+const LAYER_META = {
+  BlueMarble_ShadedRelief_Bathymetry: {
+    title: 'Blue Marble Shaded Relief with Bathymetry',
+    artist: 'NASA Earth Observatory',
+    date: 'MODIS composite 2004',
+  },
+  MODIS_Terra_CorrectedReflectance_TrueColor: {
+    title: 'Corrected Reflectance True Color',
+    artist: 'MODIS / Terra (EOS AM-1)',
+    date: 'Daily satellite imagery',
+  },
+  VIIRS_SNPP_CorrectedReflectance_TrueColor: {
+    title: 'Corrected Reflectance True Color',
+    artist: 'VIIRS / Suomi NPP',
+    date: 'Daily satellite imagery',
+  },
+  BlueMarble_NextGeneration: {
+    title: 'Blue Marble Next Generation',
+    artist: 'NASA Earth Observatory',
+    date: 'Monthly composite 2004',
+  },
+  'VIIRS_SNPP_CorrectedReflectance_BandsM11-I2-I1': {
+    title: 'Corrected Reflectance Bands M11-I2-I1',
+    artist: 'VIIRS / Suomi NPP',
+    date: 'Daily satellite imagery',
+  },
+  VIIRS_NOAA20_CorrectedReflectance_TrueColor: {
+    title: 'Corrected Reflectance True Color',
+    artist: 'VIIRS / NOAA-20 (JPSS-1)',
+    date: 'Daily satellite imagery',
+  },
+  MODIS_Aqua_CorrectedReflectance_TrueColor: {
+    title: 'Corrected Reflectance True Color',
+    artist: 'MODIS / Aqua (EOS PM-1)',
+    date: 'Daily satellite imagery',
+  },
+  BlueMarble_ShadedRelief: {
+    title: 'Blue Marble Shaded Relief',
+    artist: 'NASA Earth Observatory',
+    date: 'MODIS composite 2004',
+  },
 }
 
 function formatCoord(v, pos, neg) {
@@ -72,9 +108,12 @@ export default function useTerreData() {
     },
     getMetaFn: (meta) => {
       if (!meta) return null
+      const info = LAYER_META[meta.layer] || {}
       return {
-        title: formatLayer(meta.layer),
-        artist: meta.bbox.length ? formatBbox(meta.bbox) : ERROR_LOAD_MSG,
+        title: info.title || meta.layer,
+        artist: info.artist || ERROR_LOAD_MSG,
+        date: info.date || '',
+        place: meta.bbox.length ? formatBbox(meta.bbox) : ERROR_LOAD_MSG,
       }
     },
   })
