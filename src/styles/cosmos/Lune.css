@@ -26,7 +26,3 @@
 .sphere-handle--dragging {
   cursor: grabbing;
 }
-
-canvas {
-  cursor: grab;
-}

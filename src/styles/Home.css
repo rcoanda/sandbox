@@ -28,7 +28,6 @@
   font-weight: 400;
   color: rgba(0, 0, 0, 0.45);
   letter-spacing: 0.05em;
-  cursor: pointer;
   pointer-events: auto;
   transition: color 0.2s;
   padding: 0;
@@ -84,7 +83,6 @@
   background: rgba(240, 240, 240, 0.50);
   border: 1px solid #d8d8d8;
   border-width: 0 1px 1px 0;
-  cursor: pointer;
   transition: background 0.3s ease;
 }
 
