@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Chicago.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useChicagoData from '../../composants/data/dist/ChicagoData'
+import useChicagoData from '../../composants/data/api/ChicagoData'
 
 const N = 3
 

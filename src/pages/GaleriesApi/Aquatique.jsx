@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Aquatique.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useAquatiqueData from '../../composants/data/dist/AquatiqueData'
+import useAquatiqueData from '../../composants/data/api/AquatiqueData'
 
 function Aquatique() {
   const { ready, texturePool, getMeta } = useAquatiqueData()
@@ -25,6 +25,15 @@ function Aquatique() {
     setPaused(false)
   }, [])
 
+  if (!ready) return (
+    <div className="aquatique-page">
+      <BackArrow />
+      <Informations />
+      <CategoryMenu category="galeriesApi" />
+      <Loading />
+    </div>
+  )
+
   return (
     <div className="aquatique-page">
       <BackArrow />
@@ -35,7 +44,6 @@ function Aquatique() {
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <AquatiqueScene texturePool={texturePool} onImageClick={handleImageClick} />
       </Canvas>
-      {!ready && <Loading />}
       {expandedIndex !== null && expandedUrl && (() => {
         const meta = getMeta(expandedIndex)
         return (

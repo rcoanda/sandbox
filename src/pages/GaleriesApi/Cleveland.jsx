@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Cleveland.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useClevelandData from '../../composants/data/dist/ClevelandData'
+import useClevelandData from '../../composants/data/api/ClevelandData'
 
 function Cleveland() {
   const { ready, textures, getImageUrl, getMeta, loadingError } = useClevelandData()

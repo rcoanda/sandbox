@@ -7,7 +7,7 @@ import Overlay from '../../composants/Overlay'
 import '../../styles/galeriesApi/Europe.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useEuropeData from '../../composants/data/dist/EuropeData'
+import useEuropeData from '../../composants/data/api/EuropeData'
 
 function Europe() {
   const { ready, textures, getImageUrl, getMeta, loadingError } = useEuropeData()

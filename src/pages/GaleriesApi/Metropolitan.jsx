@@ -6,7 +6,7 @@ import OverlayGrid from '../../composants/OverlayGrid'
 import '../../styles/galeriesApi/Metropolitan.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
-import useMetropolitanData from '../../composants/data/dist/MetropolitanData'
+import useMetropolitanData from '../../composants/data/api/MetropolitanData'
 
 function Metropolitan() {
   const { ready, artworks, loadingError } = useMetropolitanData()
