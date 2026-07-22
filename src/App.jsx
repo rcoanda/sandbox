@@ -35,7 +35,6 @@ import Europe from './pages/GaleriesApi/Europe'
 import Lune from './pages/Cosmos/Lune'
 import Astronaute from './pages/Cosmos/Astronaute'
 import K2D from './pages/Abstrait/K2D'
-import K3D from './pages/Abstrait/K3D'
 import K4D from './pages/Abstrait/K4D'
 import Cleveland from './pages/GaleriesApi/Cleveland'
 import Chicago from './pages/GaleriesApi/Chicago'
@@ -81,7 +80,6 @@ function App() {
         <Route path="/lune" element={<Lune />} />
         <Route path="/astronaute" element={<Astronaute />} />
         <Route path="/k2d" element={<K2D />} />
-        <Route path="/k3d" element={<K3D />} />
         <Route path="/k4d" element={<K4D />} />
         <Route path="/cleveland" element={<Cleveland />} />
         <Route path="/chicago" element={<Chicago />} />
