@@ -65,15 +65,9 @@ function Archive() {
             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1 mb-3">
               {catLabels?.[key] || key}
             </h2>
-            {/* deux colonnes checkbox (Rev. Technique / Conception) mises en commentaire
-                car le suivi est désormais fait via un fichier externe et non plus dans l'app */}
             <div className="grid grid-cols-[1fr] gap-x-6 gap-y-1 items-center text-sm">
               <span className="font-semibold text-gray-600 text-xs uppercase tracking-wider">{dico?.columnPage}</span>
-              {/* <span className="font-semibold text-gray-600 text-xs uppercase tracking-wider text-center">{dico?.columnRevTechnique}</span>
-              <span className="font-semibold text-gray-600 text-xs uppercase tracking-wider text-center">{dico?.columnConception}</span> */}
               {paths.map((path) => {
-                // const rtChecked = revisionTechnique.includes(path)
-                // const cpChecked = conception.includes(path)
                 return (
                   <div key={path} className="contents">
                     <a
@@ -82,38 +76,6 @@ function Archive() {
                     >
                       {labels[path] || path.slice(1)}
                     </a>
-                    {/* <label className="flex justify-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        defaultChecked={rtChecked}
-                        onChange={(e) => {
-                          const arr = loadArray(STORAGE_RT)
-                          if (e.target.checked) arr.push(path)
-                          else {
-                            const i = arr.indexOf(path)
-                            if (i !== -1) arr.splice(i, 1)
-                          }
-                          saveArray(STORAGE_RT, arr)
-                        }}
-                        className="accent-blue-600"
-                      />
-                    </label>
-                    <label className="flex justify-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        defaultChecked={cpChecked}
-                        onChange={(e) => {
-                          const arr = loadArray(STORAGE_CP)
-                          if (e.target.checked) arr.push(path)
-                          else {
-                            const i = arr.indexOf(path)
-                            if (i !== -1) arr.splice(i, 1)
-                          }
-                          saveArray(STORAGE_CP, arr)
-                        }}
-                        className="accent-green-600"
-                      />
-                    </label> */}
                   </div>
                 )
               })}
