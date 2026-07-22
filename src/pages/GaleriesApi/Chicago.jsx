@@ -12,7 +12,7 @@ import useChicagoData from '../../composants/data/ChicagoData'
 const N = 3
 
 function Chicago() {
-  const { ready, textures, getImageUrl, getMeta } = useChicagoData()
+  const { ready, textures, getImageUrl, getMeta, loadingError } = useChicagoData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {
@@ -25,7 +25,14 @@ function Chicago() {
     setPaused(false)
   }, [])
 
-  if (!ready) return <div className="chicago-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
+  if (!ready) {
+    return (
+      <div className="chicago-page">
+        <BackArrow /><Informations /><CategoryMenu category="galeriesApi" />
+        <Loading error={!!loadingError} />
+      </div>
+    )
+  }
 
   const meta = expandedIndex !== null ? getMeta(expandedIndex) : null
 

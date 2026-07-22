@@ -12,6 +12,7 @@ export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn })
   const [textures, setTextures] = useState(cache.textures || [])
   const [ready, setReady] = useState(!!cache.textures)
   const [imageMeta, setImageMeta] = useState(cache.meta || [])
+  const [loadingError, setLoadingError] = useState(null)
   const timerRef = useRef(null)
 
   useEffect(() => {
@@ -60,7 +61,9 @@ export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn })
           setReady(true)
         }
       }, 20000)
-    }).catch(() => {})
+    }).catch((e) => {
+      if (mounted.current) setLoadingError(e?.message)
+    })
 
     return () => {
       mounted.current = false
@@ -73,6 +76,7 @@ export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn })
     ready,
     textures,
     count,
+    loadingError,
     getImageUrl: (i) => imageMeta[i]?.url || null,
     getMeta: (i) => getMetaFn(imageMeta[i], i),
   }

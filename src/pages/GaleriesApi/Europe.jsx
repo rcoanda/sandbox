@@ -10,7 +10,7 @@ import Loading from '../../composants/Loading'
 import useEuropeData from '../../composants/data/EuropeData'
 
 function Europe() {
-  const { ready, textures, getImageUrl, getMeta } = useEuropeData()
+  const { ready, textures, getImageUrl, getMeta, loadingError } = useEuropeData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {
@@ -23,7 +23,7 @@ function Europe() {
     setPaused(false)
   }, [])
 
-  if (!ready) return <div className="europe-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
+  if (!ready) return <div className="europe-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading error={!!loadingError} /></div>
 
   const meta = expandedIndex !== null ? getMeta(expandedIndex) : null
 

@@ -10,31 +10,44 @@ function preloadTexture(url) {
   })
 }
 
+function searchUrl(limit, page) {
+  const p = new URLSearchParams()
+  p.set('limit', limit)
+  p.set('page', page)
+  p.set('fields', 'id,image_id,title,artist_display,date_display')
+  p.set('query[term][is_public_domain]', 'true')
+  return `/chicago-api/api/v1/artworks/search?${p}`
+}
+
 export default function useChicagoData() {
   const [textures, setTextures] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
+  const [loadingError, setLoadingError] = useState(null)
   const swapCancelled = useRef(false)
   const ready = textures.length >= N * N * N
 
   useEffect(() => {
     const page = Math.floor(Math.random() * 1000) + 1
-    fetch(`/chicago-api/api/v1/artworks/search?limit=27&page=${page}&fields=id,image_id,title,artist_display,date_display&query[term][is_public_domain]=true`)
-      .then(r => r.json())
-      .then(d => {
-        if (!d?.data) return
-        const items = d.data.filter(item => item.image_id)
-        if (items.length >= N * N * N) {
-          const selected = items.slice(0, N * N * N)
-          setImageUrls(selected.map(item => `/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))
-          setArtworkMetas(selected.map(item => ({
-            title: item.title || 'Untitled',
-            artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
-            year: item.date_display || 'Unknown Year',
-          })))
-          Promise.all(selected.map(item => preloadTexture(`/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))).then(setTextures)
-        }
+    fetch(searchUrl(27, page))
+      .then(r => {
+        if (!r.ok) throw new Error(`API returned ${r.status}`)
+        return r.json()
       })
+      .then(d => {
+        if (!d?.data) throw new Error('API response missing data')
+        const items = d.data.filter(item => item.image_id)
+        if (items.length < N * N * N) throw new Error('Not enough public domain artworks')
+        const selected = items.slice(0, N * N * N)
+        setImageUrls(selected.map(item => `/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))
+        setArtworkMetas(selected.map(item => ({
+          title: item.title || 'Untitled',
+          artist: (item.artist_display || '').split('\n')[0].trim() || 'Unknown Artist',
+          year: item.date_display || 'Unknown Year',
+        })))
+        Promise.all(selected.map(item => preloadTexture(`/chicago-img/iiif/2/${item.image_id}/full/400,/0/default.jpg`))).then(setTextures)
+      })
+      .catch(e => setLoadingError(e.message))
   }, [])
 
   useEffect(() => {
@@ -46,9 +59,7 @@ export default function useChicagoData() {
         const idx = Math.floor(Math.random() * N * N * N)
         const page = Math.floor(Math.random() * 1000) + 1
         try {
-          const res = await fetch(
-            `/chicago-api/api/v1/artworks/search?limit=1&page=${page}&fields=id,image_id,title,artist_display,date_display&query[term][is_public_domain]=true`
-          )
+          const res = await fetch(searchUrl(1, page))
           const d = await res.json()
           const item = d.data.find((i) => i.image_id)
           if (item && !swapCancelled.current) {
@@ -93,5 +104,6 @@ export default function useChicagoData() {
     count: N * N * N,
     getImageUrl: (i) => imageUrls[i] || null,
     getMeta: (i) => artworkMetas[i] || null,
+    loadingError,
   }
 }

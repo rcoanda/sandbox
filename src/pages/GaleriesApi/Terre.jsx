@@ -17,7 +17,7 @@ import useCooperData from '../../composants/data/CooperData'
 import useChicagoData from '../../composants/data/ChicagoData'
 
 function Terre() {
-  const { ready, textures, getImageUrl, getMeta } = useTerreData()
+  const { ready, textures, getImageUrl, getMeta, loadingError } = useTerreData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {
@@ -30,7 +30,7 @@ function Terre() {
     setPaused(false)
   }, [])
 
-  if (!ready) return <div className="terre-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
+  if (!ready) return <div className="terre-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading error={!!loadingError} /></div>
 
   const meta = expandedIndex !== null ? getMeta(expandedIndex) : null
 

@@ -1,6 +1,6 @@
 import { useDico } from './Dico'
 
-function Loading() {
+function Loading({ error }) {
   const { t } = useDico()
 
   return (
@@ -15,8 +15,8 @@ function Loading() {
         pointerEvents: 'none',
       }}
     >
-      <span style={{ color: '#888', fontSize: 18, letterSpacing: '0.05em' }}>
-        {t('loading')}
+      <span style={{ color: error ? '#c44' : '#888', fontSize: 18, letterSpacing: '0.05em' }}>
+        {error ? t('loadingError') : t('loading')}
       </span>
     </div>
   )

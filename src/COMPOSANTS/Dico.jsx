@@ -4,8 +4,8 @@ const DicoContext = createContext()
 const STORAGE_KEY = 'app-lang'
 
 const fallback = {
-  fr: { loading: 'Chargement...', nav: { about: 'A propos', contact: 'Contact', archive: 'Archive' } },
-  en: { loading: 'Loading...', nav: { about: 'About', contact: 'Contact', archive: 'Archive' } },
+  fr: { loading: 'Chargement...', loadingError: 'L\'API ne répond pas.', nav: { about: 'A propos', contact: 'Contact', archive: 'Archive' } },
+  en: { loading: 'Loading...', loadingError: 'API is not responding.', nav: { about: 'About', contact: 'Contact', archive: 'Archive' } },
 }
 
 // Mappe une clé de page (ex: "f0", "levitation") vers le chemin du fichier JSON

@@ -41,6 +41,7 @@ export default function useCooperData() {
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
   const [actualCount, setActualCount] = useState(0)
+  const [loadingError, setLoadingError] = useState(null)
   const swapCancelled = useRef(false)
   const ready = textures.length > 0 && textures.length >= actualCount
 
@@ -52,7 +53,7 @@ export default function useCooperData() {
           return media.length > 0 && media[0].preview && media[0].preview.url && media[0].cc0 === true
         })
         const selected = valid.slice(0, COUNT)
-        if (selected.length < 10) return
+        if (selected.length < 10) throw new Error('API Cooper Hewitt ne répond pas.')
         const n = selected.length
         setActualCount(n)
         setImageUrls(selected.map((item) => proxyImg(item.multimedia[0].preview.url)))
@@ -65,6 +66,7 @@ export default function useCooperData() {
           selected.map((item) => preloadTexture(item.multimedia[0].preview.url))
         ).then(setTextures)
       })
+      .catch((e) => setLoadingError(e.message))
   }, [])
 
   useEffect(() => {
@@ -122,5 +124,6 @@ export default function useCooperData() {
     count: actualCount || COUNT,
     getImageUrl: (i) => imageUrls[i] || null,
     getMeta: (i) => artworkMetas[i] || null,
+    loadingError,
   }
 }

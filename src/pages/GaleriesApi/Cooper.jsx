@@ -10,7 +10,7 @@ import Loading from '../../composants/Loading'
 import useCooperData from '../../composants/data/CooperData'
 
 function Cooper() {
-  const { ready, textures, getImageUrl, getMeta } = useCooperData()
+  const { ready, textures, getImageUrl, getMeta, loadingError } = useCooperData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {
@@ -23,7 +23,9 @@ function Cooper() {
     setPaused(false)
   }, [])
 
-  if (!ready) return <div className="cooper-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
+  if (!ready) {
+    return <div className="cooper-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading error={!!loadingError} /></div>
+  }
 
   const meta = expandedIndex !== null ? getMeta(expandedIndex) : null
 

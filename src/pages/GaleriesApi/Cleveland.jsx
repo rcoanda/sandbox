@@ -10,7 +10,7 @@ import Loading from '../../composants/Loading'
 import useClevelandData from '../../composants/data/ClevelandData'
 
 function Cleveland() {
-  const { ready, textures, getImageUrl, getMeta } = useClevelandData()
+  const { ready, textures, getImageUrl, getMeta, loadingError } = useClevelandData()
   const [expandedIndex, setExpandedIndex] = useState(null)
 
   const handleImageClick = useCallback((index) => {
@@ -23,7 +23,7 @@ function Cleveland() {
     setPaused(false)
   }, [])
 
-  if (!ready) return <div className="cleveland-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading /></div>
+  if (!ready) return <div className="cleveland-page"><BackArrow /><Informations /><CategoryMenu category="galeriesApi" /><Loading error={!!loadingError} /></div>
 
   const meta = expandedIndex !== null ? getMeta(expandedIndex) : null
 

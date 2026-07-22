@@ -13,6 +13,8 @@
     "structures": "Structures",
     "galeriesApi": "API Galleries"
   },
+  "loading": "Loading...",
+  "loadingError": "API is not responding.",
   "subtitle": {
     "geometrie": "Shapes & figures",
     "3d": "Volume & depth",

@@ -9,7 +9,7 @@ import Loading from '../../composants/Loading'
 import useMetropolitanData from '../../composants/data/MetropolitanData'
 
 function Metropolitan() {
-  const { ready, artworks } = useMetropolitanData()
+  const { ready, artworks, loadingError } = useMetropolitanData()
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [originRect, setOriginRect] = useState(null)
 
@@ -36,7 +36,7 @@ function Metropolitan() {
           onImageClick={handleImageClick}
         />
       ) : (
-        <Loading />
+        <Loading error={!!loadingError} />
       )}
       <OverlayGrid
         isOpen={expandedIndex !== null && artworks[expandedIndex]}

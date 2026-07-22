@@ -12,6 +12,7 @@ let cachedReady = false
 export default function useMetropolitanData() {
   const [artworks, setArtworks] = useState(() => cachedArtworks || [])
   const [ready, setReady] = useState(() => cachedReady || false)
+  const [loadingError, setLoadingError] = useState(null)
 
   useEffect(() => {
     if (cachedArtworks) return
@@ -53,8 +54,8 @@ export default function useMetropolitanData() {
           setArtworks(items)
           setReady(true)
         }
-      } catch {
-        if (!cancelled) { setReady(true) }
+      } catch (e) {
+        if (!cancelled) { setReady(true); setLoadingError(e?.message) }
       }
     }
 
@@ -67,6 +68,7 @@ export default function useMetropolitanData() {
     artworks,
     textures: [],
     count: TOTAL,
+    loadingError,
     getImageUrl: (i) => artworks[i]?.imageUrl || null,
     getMeta: (i) => artworks[i]
       ? { title: artworks[i].title, artist: artworks[i].artist, year: artworks[i].year }
