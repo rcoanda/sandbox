@@ -1,18 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
-import * as THREE from 'three'
+import { useRef, useEffect } from 'react'
+import useSwappableData from './useSwappableData'
 
 const N = 3
 const TOTAL = N * N * N
 const BATCH_SIZE = 100
-const DELAY_BETWEEN_IMAGES = 1000
 const REFILL_INTERVAL = 30000
 const REFILL_THRESHOLD = 10
-
-function preloadTexture(url) {
-  return new Promise((resolve) => {
-    new THREE.TextureLoader().load(url, (t) => resolve(t), undefined, () => resolve(null))
-  })
-}
 
 async function fetchCandidates(count = BATCH_SIZE) {
   const p = new URLSearchParams()
@@ -38,41 +31,30 @@ function imgUrl(imageId) {
   return `/chicago-img/iiif/2/${imageId}/full/843,/0/default.jpg`
 }
 
-function pickFromPool(pool) {
-  const avail = pool.slice(TOTAL)
-  if (avail.length === 0) return null
-  const idx = Math.floor(Math.random() * avail.length)
-  return { item: avail[idx], poolIdx: TOTAL + idx }
-}
-
 export default function useChicagoData() {
-  const [textures, setTextures] = useState([])
-  const [imageUrls, setImageUrls] = useState([])
-  const [artworkMetas, setArtworkMetas] = useState([])
-  const [loadingError, setLoadingError] = useState(null)
-  const swapCancelled = useRef(false)
   const pool = useRef([])
-  const ready = textures.length === TOTAL
+  const hook = useSwappableData({
+    cacheKey: 'chicago',
+    loadInitial: async () => {
+      const candidates = await fetchCandidates(BATCH_SIZE)
+      if (candidates.length < TOTAL) throw new Error('Not enough public domain artworks')
+      pool.current = candidates
+      return { items: candidates.slice(0, TOTAL), total: TOTAL }
+    },
+    getImageUrl: item => imgUrl(item.image_id),
+    getMeta: item => makeMeta(item),
+    getOne: async () => {
+      const avail = pool.current.slice(TOTAL)
+      if (avail.length === 0) return null
+      const i = Math.floor(Math.random() * avail.length)
+      const item = avail[i]
+      pool.current.splice(TOTAL + i, 1)
+      return item
+    },
+  })
 
   useEffect(() => {
-    let cancelled = false
-    fetchCandidates(BATCH_SIZE)
-      .then(candidates => {
-        if (cancelled) return
-        if (candidates.length < TOTAL) throw new Error('Not enough public domain artworks')
-        pool.current = candidates
-        const selected = candidates.slice(0, TOTAL)
-        setImageUrls(selected.map(item => imgUrl(item.image_id)))
-        setArtworkMetas(selected.map(makeMeta))
-        return Promise.all(selected.map(item => preloadTexture(imgUrl(item.image_id))))
-      })
-      .then(texs => { if (!cancelled && texs) setTextures(texs) })
-      .catch(e => { if (!cancelled) setLoadingError(e.message) })
-    return () => { cancelled = true }
-  }, [])
-
-  useEffect(() => {
-    if (!ready) return
+    if (!hook.ready) return
     const id = setInterval(async () => {
       if (pool.current.length - TOTAL < REFILL_THRESHOLD) {
         try {
@@ -82,47 +64,7 @@ export default function useChicagoData() {
       }
     }, REFILL_INTERVAL)
     return () => clearInterval(id)
-  }, [ready])
+  }, [hook.ready])
 
-  useEffect(() => {
-    if (textures.length < TOTAL) return
-    swapCancelled.current = false
-
-    const swapLoop = async () => {
-      while (!swapCancelled.current) {
-        const idx = Math.floor(Math.random() * TOTAL)
-        const pick = pickFromPool(pool.current)
-        if (!pick) {
-          await new Promise(r => setTimeout(r, DELAY_BETWEEN_IMAGES))
-          continue
-        }
-        pool.current.splice(pick.poolIdx, 1)
-        const url = imgUrl(pick.item.image_id)
-        const tex = await preloadTexture(url)
-        if (!swapCancelled.current) {
-          setImageUrls(prev => { const next = [...prev]; next[idx] = url; return next })
-          setArtworkMetas(prev => { const next = [...prev]; next[idx] = makeMeta(pick.item); return next })
-          setTextures(prev => {
-            const next = [...prev]
-            if (next[idx]) next[idx].dispose()
-            next[idx] = tex
-            return next
-          })
-        }
-        await new Promise(r => setTimeout(r, DELAY_BETWEEN_IMAGES))
-      }
-    }
-
-    swapLoop()
-    return () => { swapCancelled.current = true }
-  }, [textures.length])
-
-  return {
-    ready,
-    textures,
-    count: TOTAL,
-    getImageUrl: (i) => imageUrls[i] || null,
-    getMeta: (i) => artworkMetas[i] || null,
-    loadingError,
-  }
+  return hook
 }
