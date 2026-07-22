@@ -4,6 +4,20 @@ import gsap from 'gsap'
 const ROWS = 8
 const COLS = 14
 
+const HUE_NAMES = [
+  [0, 'Rouge'], [15, 'Rouge orangé'], [30, 'Orange'], [45, 'Orange jaune'],
+  [60, 'Jaune'], [90, 'Jaune vert'], [120, 'Vert'], [150, 'Vert cyan'],
+  [180, 'Cyan'], [210, 'Bleu'], [240, 'Bleu foncé'], [270, 'Violet'],
+  [300, 'Magenta'], [330, 'Rose'], [360, 'Rouge'],
+]
+
+function hueToName(hue) {
+  for (const [h, name] of HUE_NAMES) {
+    if (hue <= h) return name
+  }
+  return 'Rouge'
+}
+
 function Grid2DLayout() {
   const gridRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -184,6 +198,7 @@ function Grid2DLayout() {
       {expandedIndex !== null && (
         <div ref={expandedRef} className="expanded-rect">
           <button className="close-btn" onClick={handleClose}>✕</button>
+          <div className="color-name">{hueToName(rects[expandedIndex].hue)}</div>
         </div>
       )}
     </>
