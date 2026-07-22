@@ -21,10 +21,7 @@ const COOPER_QUERY = `{
     id
     summary
     date
-    multimedia {
-      cc0
-      preview { url }
-    }
+    multimedia
     agent { summary }
   }
 }`
@@ -43,17 +40,21 @@ export default function useCooperData() {
   const [textures, setTextures] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [artworkMetas, setArtworkMetas] = useState([])
+  const [actualCount, setActualCount] = useState(0)
   const swapCancelled = useRef(false)
-  const ready = textures.length >= COUNT
+  const ready = textures.length > 0 && textures.length >= actualCount
 
   useEffect(() => {
-    fetchCooperObjects().then((items) => {
-      const valid = items.filter((item) => {
-        const media = item.multimedia || []
-        return media.length > 0 && media[0].preview && media[0].preview.url && media[0].cc0 === true
-      })
-      if (valid.length >= COUNT) {
+    fetchCooperObjects()
+      .then((items) => {
+        const valid = items.filter((item) => {
+          const media = item.multimedia || []
+          return media.length > 0 && media[0].preview && media[0].preview.url && media[0].cc0 === true
+        })
         const selected = valid.slice(0, COUNT)
+        if (selected.length < 10) return
+        const n = selected.length
+        setActualCount(n)
         setImageUrls(selected.map((item) => proxyImg(item.multimedia[0].preview.url)))
         setArtworkMetas(selected.map((item) => ({
           title: (item.summary && item.summary.title) || 'Untitled',
@@ -63,17 +64,16 @@ export default function useCooperData() {
         Promise.all(
           selected.map((item) => preloadTexture(item.multimedia[0].preview.url))
         ).then(setTextures)
-      }
-    })
+      })
   }, [])
 
   useEffect(() => {
-    if (textures.length < COUNT) return
+    if (textures.length < actualCount || actualCount === 0) return
     swapCancelled.current = false
 
     const swapLoop = async () => {
       while (!swapCancelled.current) {
-        const idx = Math.floor(Math.random() * COUNT)
+        const idx = Math.floor(Math.random() * actualCount)
         try {
           const items = await fetchCooperObjects()
           const item = items.find((i) => {
@@ -119,7 +119,7 @@ export default function useCooperData() {
   return {
     ready,
     textures,
-    count: COUNT,
+    count: actualCount || COUNT,
     getImageUrl: (i) => imageUrls[i] || null,
     getMeta: (i) => artworkMetas[i] || null,
   }

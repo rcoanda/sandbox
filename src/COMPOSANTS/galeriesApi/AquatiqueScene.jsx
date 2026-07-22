@@ -76,15 +76,17 @@ function RectTile({ index, texturePoolRef, tileUrlsRef, onClick }) {
   const visibleRef = useRef(true)
   const posArr = useRef(new Float32Array(18))
   const uvArr = useRef(new Float32Array([0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1]))
+  const initialized = useRef(false)
   const i = index
 
-  useEffect(() => {
-    const geom = meshRef.current.geometry
-    geom.setAttribute('position', new THREE.BufferAttribute(posArr.current, 3))
-    geom.setAttribute('uv', new THREE.BufferAttribute(uvArr.current, 2))
-  }, [])
-
   useFrame(({ clock }) => {
+    const geom = meshRef.current.geometry
+
+    if (!initialized.current) {
+      initialized.current = true
+      geom.setAttribute('position', new THREE.BufferAttribute(posArr.current, 3))
+      geom.setAttribute('uv', new THREE.BufferAttribute(uvArr.current, 2))
+    }
     if (!paused) {
       const offset = clock.getElapsedTime() * SPEED
       const rawA = i / N + offset

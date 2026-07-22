@@ -22,6 +22,7 @@ export default function useChicagoData() {
     fetch(`https://api.artic.edu/api/v1/artworks/search?limit=27&page=${page}&fields=id,image_id,title,artist_display,date_display&query[term][is_public_domain]=true`)
       .then(r => r.json())
       .then(d => {
+        if (!d?.data) return
         const items = d.data.filter(item => item.image_id)
         if (items.length >= N * N * N) {
           const selected = items.slice(0, N * N * N)
