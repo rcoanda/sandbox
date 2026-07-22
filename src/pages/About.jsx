@@ -9,6 +9,7 @@ function About() {
       <BackArrow />
       <h1 className="text-3xl font-bold">{dico?.title}</h1>
       <p className="mt-4 text-gray-600">{dico?.subtitle}</p>
+      <p className="mt-4 text-gray-600">{dico?.version}</p>
     </div>
   )
 }
