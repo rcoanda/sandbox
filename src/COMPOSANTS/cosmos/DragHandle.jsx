@@ -55,7 +55,7 @@ export function DragHandle({ dragging, pos, onMouseDown }) {
         height: 300,
         borderRadius: '50%',
         cursor: dragging ? 'grabbing' : 'grab',
-        pointerEvents: 'auto',
+        pointerEvents: onMouseDown ? 'auto' : 'none',
         transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
       }}
       onMouseDown={onMouseDown}
