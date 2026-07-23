@@ -75,7 +75,7 @@ export function DicoProvider({ children }) {
   }, [lang])
 
   useEffect(() => {
-    fetch(`/lang/${lang}/pages/home.json`)
+    fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/home.json`)
       .then((r) => r.json())
       .then(setCommon)
       .catch(() => setCommon(null))
@@ -127,7 +127,7 @@ export default function usePageDico(pageKey) {
     }
     const path = pageToPath[pageKey] || pageKey
     let cancelled = false
-    fetch(`/lang/${lang}/pages/${path}.json`)
+    fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/${path}.json`)
       .then((r) => r.json())
       .then((data) => {
         if (!cancelled) setDico(data)
