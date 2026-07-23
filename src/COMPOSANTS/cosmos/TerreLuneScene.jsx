@@ -2,8 +2,8 @@ import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 
-import earthMap from '../../assets/cosmos/earth_atmos_2048.jpg'
-import moonMap from '../../assets/cosmos/moon_1024.jpg'
+import earthMap from '../../assets/cosmos/earth_texture.jpg'
+import moonMap from '../../assets/cosmos/moon_texture.jpg'
 
 function seededRandom(seed) {
   let s = seed

@@ -1,4 +1,4 @@
 {
   "title": "Rings",
-  "description": "Textured planetary ring using a satellite image map, animated with rotation and tilt via requestAnimationFrame in a Three.js scene with directional and orbital lighting."
+  "description": "Planetary ring animated with rotation and tilt via requestAnimationFrame in a Three.js scene with directional and orbital lighting."
 }

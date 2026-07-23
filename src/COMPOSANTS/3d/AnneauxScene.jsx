@@ -1,10 +1,9 @@
 import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
+
 import { DoubleSide } from 'three'
 
-import earthMap from '../../assets/cosmos/earth_atmos_2048.jpg'
-import moonMap from '../../assets/cosmos/moon_1024.jpg'
+
 
 function seededRandom(seed) {
   let s = seed
@@ -41,25 +40,9 @@ function Stars({ spread = 50, size = 0.15 }) {
   )
 }
 
-function Earth({ size }) {
-  const texture = useTexture(earthMap)
-  return (
-    <mesh>
-      <sphereGeometry args={[size, 48, 48]} />
-      <meshStandardMaterial map={texture} metalness={0.1} roughness={0.6} />
-    </mesh>
-  )
-}
 
-function Moon({ size }) {
-  const texture = useTexture(moonMap)
-  return (
-    <mesh>
-      <sphereGeometry args={[size, 32, 32]} />
-      <meshStandardMaterial map={texture} metalness={0.05} roughness={0.8} />
-    </mesh>
-  )
-}
+
+
 
 export function AnneauxScene() {
   const planetRef = useRef()
