@@ -1,4 +1,4 @@
 {
-  "title": "K4D",
+  "title": "3D",
   "description": "Three.js scene with 3D geometric shapes (cone, torus, circle, spheres) animated with rotation and floating via requestAnimationFrame, ambient and point lighting, mouse interaction with raycaster."
 }

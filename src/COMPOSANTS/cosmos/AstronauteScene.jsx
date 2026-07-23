@@ -3,8 +3,9 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 
+
 function AstronauteScene() {
-  const { scene, animations } = useGLTF('src/assets/cosmos/moon_walk.gltf')
+  const { scene, animations } = useGLTF('/assets/cosmos/moon_walk.gltf')
   const { ref } = useAnimations(animations)
   const cosmoRef = useRef()
 

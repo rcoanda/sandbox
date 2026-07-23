@@ -1,4 +1,4 @@
 {
-  "title": "F2",
+  "title": "Bloc",
   "description": "Générateur SVG de motifs géométriques paramétriques avec animation continue via requestAnimationFrame, modifiant la couleur, l'opacité et la position des éléments en temps réel."
 }

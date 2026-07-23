@@ -1,4 +1,4 @@
 {
-  "title": "F2",
+  "title": "Block",
   "description": "Parametric SVG geometric pattern generator with continuous animation via requestAnimationFrame, modifying color, opacity and position of elements in real time."
 }
