@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { DoubleSide } from 'three'
-import '../../styles/abstrait/K4D.css'
+import '../../styles/abstrait/Abstrait3D.css'
 
 function YellowTriangle() {
   const ref = useRef()
@@ -150,7 +150,7 @@ function BackgroundBlobs() {
   )
 }
 
-function K4DScene() {
+function Abstrait3DScene() {
   const mouse = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
 
@@ -191,4 +191,4 @@ function K4DScene() {
   )
 }
 
-export default K4DScene
+export default Abstrait3DScene

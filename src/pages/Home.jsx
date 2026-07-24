@@ -4,7 +4,7 @@ import { Canvas, useThree } from '@react-three/fiber'
 import LevitationScene from '../composants/3d/LevitationScene'
 
 import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
-import K2Scene from '../composants/abstrait/K2Scene'
+import Abstrait2DScene from '../composants/abstrait/Abstrait2DScene'
 import HuitScene from '../composants/trajectoires/HuitScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
@@ -19,7 +19,7 @@ const categories = [
   { id: '3d', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
   { id: 'trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
-  { id: 'abstrait', label: '05', Scene: K2Scene, bgClass: 'home-cell--abstrait', is2D: true, transparent: true },
+  { id: 'abstrait', label: '05', Scene: Abstrait2DScene, bgClass: 'home-cell--abstrait', is2D: true, transparent: true },
   { id: 'structures', label: '06', Scene: ReseauxScene, bgClass: 'home-cell--structures' },
   { id: 'galeriesApi', label: '07', Scene: ApiScene, bgClass: 'home-cell--galeriesApi', is2D: true, transparent: true },
 ]
@@ -136,7 +136,7 @@ function Home() {
       '3d': '/levitation',
       trajectoires: '/huit',
       cosmos: '/terrelune',
-      abstrait: '/k2d',
+      abstrait: '/abstrait2D',
       structures: '/reseaux',
       galeriesApi: '/terre',
     }

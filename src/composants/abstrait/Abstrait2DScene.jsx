@@ -1,10 +1,10 @@
-import '../../styles/abstrait/K2D.css'
+import '../../styles/abstrait/Abstrait2D.css'
 
-function K2Scene({ transparent }) {
+function Abstrait2DScene({ transparent }) {
   return (
-    <div className="k2d-layout" style={{ background: transparent ? 'transparent' : undefined }}>
-      <div className="k2d-container" style={transparent ? { background: 'transparent', border: 'none', boxShadow: 'none' } : undefined}>
-        <svg className={`k2d-svg${transparent ? ' k2d-svg--preview' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750">
+    <div className="abstrait2D-layout" style={{ background: transparent ? 'transparent' : undefined }}>
+      <div className="abstrait2D-container" style={transparent ? { background: 'transparent', border: 'none', boxShadow: 'none' } : undefined}>
+        <svg className={`abstrait2D-svg${transparent ? ' abstrait2D-svg--preview' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750">
           <defs>
             <radialGradient id="bg-grad-1" cx="40%" cy="40%" r="60%">
               <stop offset="0%" stopColor="#1e3d59" />
@@ -100,4 +100,4 @@ function K2Scene({ transparent }) {
   )
 }
 
-export default K2Scene
+export default Abstrait2DScene

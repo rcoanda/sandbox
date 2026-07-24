@@ -1,21 +1,21 @@
 import { Canvas } from '@react-three/fiber'
-import K4DScene from '../../composants/abstrait/K4DScene'
+import Abstrait3DScene from '../../composants/abstrait/Abstrait3DScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
-import '../../styles/abstrait/K4D.css'
+import '../../styles/abstrait/Abstrait3D.css'
 
-function K4D() {
+function Abstrait3D() {
   return (
-    <div className="k4d-layout">
+    <div className="abstrait3D-layout">
       <BackArrow />
       <Informations />
       <CategoryMenu category="abstrait" />
       <Canvas camera={{ position: [0, 0, 45], fov: 60 }} dpr={[1, 2]}>
-        <K4DScene />
+        <Abstrait3DScene />
       </Canvas>
     </div>
   )
 }
 
-export default K4D
+export default Abstrait3D

@@ -34,8 +34,8 @@ import Metropolitan from './pages/GaleriesApi/Metropolitan'
 import Europe from './pages/GaleriesApi/Europe'
 import Lune from './pages/Cosmos/Lune'
 import Astronaute from './pages/Cosmos/Astronaute'
-import K2D from './pages/Abstrait/K2D'
-import K4D from './pages/Abstrait/K4D'
+import Abstrait2D from './pages/Abstrait/Abstrait2D'
+import Abstrait3D from './pages/Abstrait/Abstrait3D'
 import Cleveland from './pages/GaleriesApi/Cleveland'
 import Chicago from './pages/GaleriesApi/Chicago'
 import Cooper from './pages/GaleriesApi/Cooper'
@@ -79,8 +79,8 @@ function App() {
         <Route path="/europe" element={<Europe />} />
         <Route path="/lune" element={<Lune />} />
         <Route path="/astronaute" element={<Astronaute />} />
-        <Route path="/k2d" element={<K2D />} />
-        <Route path="/k4d" element={<K4D />} />
+        <Route path="/abstrait2D" element={<Abstrait2D />} />
+        <Route path="/abstrait3D" element={<Abstrait3D />} />
         <Route path="/cleveland" element={<Cleveland />} />
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/cooper" element={<Cooper />} />

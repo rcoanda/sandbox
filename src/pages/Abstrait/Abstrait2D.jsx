@@ -1,17 +1,17 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import K2Scene from '../../composants/abstrait/K2Scene'
+import Abstrait2DScene from '../../composants/abstrait/Abstrait2DScene'
 import Informations from '../../composants/Informations'
 
-function K2D() {
+function Abstrait2D() {
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="abstrait" />
-      <K2Scene />
+      <Abstrait2DScene />
     </div>
   )
 }
 
-export default K2D
+export default Abstrait2D
