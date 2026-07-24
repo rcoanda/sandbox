@@ -1,17 +1,17 @@
+import SynchroScene from '../../composants/geometrie/SynchroScene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
-import F3Scene from '../../composants/geometrie/F3Scene'
 import Informations from '../../composants/Informations'
 
-function F3() {
+function Synchro() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative', background: '#0b1522' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="geometrie" />
-      <F3Scene />
+      <SynchroScene />
     </div>
   )
 }
 
-export default F3
+export default Synchro

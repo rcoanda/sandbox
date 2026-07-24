@@ -25,10 +25,10 @@ import Ruban from './pages/Trajectoires/Ruban'
 import Huit from './pages/Trajectoires/Huit'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
-import F0 from './pages/Geometrie/F0'
+import Synchro from './pages/Geometrie/Synchro'
 import Matrice from './pages/Structures/Matrice'
-import F2 from './pages/Geometrie/F2'
-import F3 from './pages/Geometrie/F3'
+import Bloc from './pages/Geometrie/Bloc'
+import Suite from './pages/Geometrie/Suite'
 import TerreLune from './pages/Cosmos/TerreLune'
 import Metropolitan from './pages/GaleriesApi/Metropolitan'
 import Europe from './pages/GaleriesApi/Europe'
@@ -55,10 +55,10 @@ function App() {
         <Route path="/satelite" element={<Satelite />} />
         <Route path="/huit" element={<Huit />} />
         <Route path="/random" element={<Random />} />
-        <Route path="/f0" element={<F0 />} />
+        <Route path="/synchro" element={<Synchro />} />
         <Route path="/matrice" element={<Matrice />} />
-        <Route path="/f2" element={<F2 />} />
-        <Route path="/f3" element={<F3 />} />
+        <Route path="/bloc" element={<Bloc />} />
+        <Route path="/suite" element={<Suite />} />
         <Route path="/terre" element={<Terre />} />
         <Route path="/ellipse" element={<Ellipse />} />
         <Route path="/lemniscate" element={<Lemniscate />} />

@@ -8,7 +8,7 @@ const shapes2D = [
   { type: 'rect', x: 0.5, y: 0.5, w: 0.1, h: 0.1, color: '#8b5cf6', speed: 0.5 },
 ]
 
-function drawTriangle(ctx, cx, cy, size, angle) {
+function drawTriangle(ctx, cx, cy, size) {
   const h = size * 1.5
   ctx.beginPath()
   ctx.moveTo(cx, cy - h / 2)
@@ -18,7 +18,7 @@ function drawTriangle(ctx, cx, cy, size, angle) {
   ctx.fill()
 }
 
-function F0Scene() {
+function SynchroScene() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -82,4 +82,4 @@ function F0Scene() {
   return <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
 }
 
-export default F0Scene
+export default SynchroScene

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
-import '../../styles/geometrie/F3.css'
+import '../../styles/geometrie/Suite.css'
 
-function F3Scene() {
+function SuiteScene() {
   const cardsRef = useRef([])
 
   useEffect(() => {
@@ -42,29 +42,29 @@ function F3Scene() {
   }, [])
 
   return (
-    <div className="f3-layout">
-      <div className="f3-grid">
-        <div className="f3-card" ref={(el) => (cardsRef.current[0] = el)}>
+    <div className="suite-layout">
+      <div className="suite-grid">
+        <div className="suite-card" ref={(el) => (cardsRef.current[0] = el)}>
           <svg viewBox="0 0 100 100">
             <rect x="25" y="25" width="50" height="50" fill="#e63946" />
           </svg>
         </div>
-        <div className="f3-card" ref={(el) => (cardsRef.current[1] = el)}>
+        <div className="suite-card" ref={(el) => (cardsRef.current[1] = el)}>
           <svg viewBox="0 0 100 100">
             <polygon points="50,20 80,80 20,80" fill="#ffb703" />
           </svg>
         </div>
-        <div className="f3-card" ref={(el) => (cardsRef.current[2] = el)}>
+        <div className="suite-card" ref={(el) => (cardsRef.current[2] = el)}>
           <svg viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="25" fill="#4cc9f0" />
           </svg>
         </div>
-        <div className="f3-card" ref={(el) => (cardsRef.current[3] = el)}>
+        <div className="suite-card" ref={(el) => (cardsRef.current[3] = el)}>
           <svg viewBox="0 0 100 100">
             <rect x="30" y="30" width="40" height="40" fill="#fff" transform="rotate(45 50 50)" />
           </svg>
         </div>
-        <div className="f3-card" ref={(el) => (cardsRef.current[4] = el)}>
+        <div className="suite-card" ref={(el) => (cardsRef.current[4] = el)}>
           <svg viewBox="0 0 100 100">
             <polygon points="50,10 90,50 50,90 10,50" fill="#a0710b" />
           </svg>
@@ -74,4 +74,4 @@ function F3Scene() {
   )
 }
 
-export default F3Scene
+export default SuiteScene

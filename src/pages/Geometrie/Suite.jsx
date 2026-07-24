@@ -1,17 +1,17 @@
-import F0Scene from '../../composants/geometrie/F0Scene'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
+import SuiteScene from '../../composants/geometrie/SuiteScene'
 import Informations from '../../composants/Informations'
 
-function F0() {
+function Suite() {
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative', background: '#0b1522' }}>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <BackArrow />
       <Informations />
       <CategoryMenu category="geometrie" />
-      <F0Scene />
+      <SuiteScene />
     </div>
   )
 }
 
-export default F0
+export default Suite

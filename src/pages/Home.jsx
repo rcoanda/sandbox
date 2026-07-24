@@ -8,14 +8,14 @@ import K2Scene from '../composants/abstrait/K2Scene'
 import HuitScene from '../composants/trajectoires/HuitScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
-import F0Scene from '../composants/geometrie/F0Scene'
+import SynchroScene from '../composants/geometrie/SynchroScene'
 import { useDico } from '../composants/Dico'
 import Navigation from '../composants/Navigation'
 import gsap from 'gsap'
 import '../styles/Home.css'
 
 const categories = [
-  { id: 'geometrie', label: '01', Scene: F0Scene, bgClass: 'home-cell--geometrie', is2D: true },
+  { id: 'geometrie', label: '01', Scene: SynchroScene, bgClass: 'home-cell--geometrie', is2D: true },
   { id: '3d', label: '02', Scene: LevitationScene, bgClass: 'home-cell--3d' },
   { id: 'trajectoires', label: '03', Scene: HuitScene, bgClass: 'home-cell--trajectoires' },
   { id: 'cosmos', label: '04', Scene: TerreLuneScene, bgClass: 'home-cell--cosmos' },
@@ -132,7 +132,7 @@ function Home() {
 
   const handleCellClick = useCallback((id) => {
     const routes = {
-      geometrie: '/f0',
+      geometrie: '/synchro',
       '3d': '/levitation',
       trajectoires: '/huit',
       cosmos: '/terrelune',

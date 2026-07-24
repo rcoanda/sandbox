@@ -1,4 +1,4 @@
-.f2-layout {
+.bloc-layout {
   position: absolute;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   background: #000000;
 }
 
-.f2-svg {
+.bloc-svg {
   width: min(500px, 80vw);
   height: min(500px, 80vh);
 }

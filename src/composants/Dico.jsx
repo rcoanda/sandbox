@@ -20,17 +20,17 @@ const fallback = {
   },
 }
 
-// Mappe une clé de page (ex: "f0", "levitation") vers le chemin du fichier JSON
-// dans /lang/{lang}/pages/ (ex: "geometrie/f0" → pages/geometrie/f0.json)
+// Mappe une clé de page (ex: "synchro", "levitation") vers le chemin du fichier JSON
+// dans /lang/{lang}/pages/ (ex: "geometrie/synchro" → pages/geometrie/synchro.json)
 // Utilisé par usePageDico pour charger les traductions spécifiques à chaque page
 export const pageToPath = {
   home: 'home',
   about: 'about',
   contact: 'contact',
   archive: 'archive',
-  f0: 'geometrie/f0',
-  f2: 'geometrie/f2',
-  f3: 'geometrie/f3',
+  synchro: 'geometrie/synchro',
+  bloc: 'geometrie/bloc',
+  suite: 'geometrie/suite',
   levitation: '3d/levitation',
   satelite: '3d/satelite',
   oscillation: '3d/oscillation',

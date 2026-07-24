@@ -1,9 +1,9 @@
-import '../../styles/geometrie/F2.css'
+import '../../styles/geometrie/Bloc.css'
 
-function F2Scene() {
+function BlocScene() {
   return (
-    <div className="f2-layout">
-      <svg viewBox="-80 -80 660 660" className="f2-svg">
+    <div className="bloc-layout">
+      <svg viewBox="-80 -80 660 660" className="bloc-svg">
         <circle cx="100" cy="100" r="40" fill="#ff6b6b">
           <animateTransform attributeName="transform" type="translate" values="0,0; 50,50; 0,0" dur="4s" repeatCount="indefinite" />
           <animateTransform attributeName="transform" type="rotate" values="0; 20; 0" dur="4s" repeatCount="indefinite" additive="sum" />
@@ -29,4 +29,4 @@ function F2Scene() {
   )
 }
 
-export default F2Scene
+export default BlocScene

@@ -5,7 +5,7 @@ import { useDico, pageToPath } from './Dico'
 // Regroupe les routes par catégorie pour le menu latéral et la page Archive
 // Chaque clé est un slug de catégorie, la valeur est la liste des routes associées
 export const categoryLinks = {
-  geometrie: ['/f0', '/f2', '/f3'],
+  geometrie: ['/synchro', '/bloc', '/suite'],
   '3d': ['/levitation', '/satelite', '/oscillation', '/anneaux'],
   trajectoires: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban'],
   cosmos: ['/terrelune', '/lune', '/astronaute'],
