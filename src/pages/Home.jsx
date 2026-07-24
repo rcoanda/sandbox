@@ -57,7 +57,7 @@ function Home() {
   const [commonJson, setCommonJson] = useState(null)
 
   useEffect(() => {
-    fetch(`/lang/${lang}/pages/home.json`)
+    fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/home.json`)
       .then((r) => r.json())
       .then((data) => setCommonJson(data))
       .catch(() => setCommonJson(null))

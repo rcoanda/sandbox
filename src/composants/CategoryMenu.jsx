@@ -28,7 +28,7 @@ function CategoryMenu({ category }) {
     }
     Promise.all(
       paths.map((route) =>
-        fetch(`/lang/${lang}/pages/${routeToFile(route)}.json`)
+        fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/${routeToFile(route)}.json`)
           .then((r) => r.json())
           .then((data) => ({ route, title: data.title }))
           .catch(() => ({ route, title: null }))
