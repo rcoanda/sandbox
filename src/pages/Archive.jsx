@@ -3,6 +3,7 @@ import { categoryLinks } from '../composants/CategoryMenu'
 import { pageToPath, useDico } from '../composants/Dico'
 import usePageDico from '../composants/Dico'
 import BackArrow from '../composants/BackArrow'
+import { Link } from 'react-router-dom'
 
 
 
@@ -59,12 +60,12 @@ function Archive() {
                 return (
 
                   <div key={path} className="contents">
-                    <a
-                      href={`${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`}
+                    <Link
+                      to={path}
                       className="text-gray-600 hover:text-black transition-colors"
                     >
                       {labels[path] || path.slice(1)}
-                    </a>
+                    </Link>
                   </div>
                 )
               })}
