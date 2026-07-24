@@ -4,21 +4,10 @@ import { pageToPath, useDico } from '../composants/Dico'
 import usePageDico from '../composants/Dico'
 import BackArrow from '../composants/BackArrow'
 
-const STORAGE_RT = 'archive-revision-technique'
-const STORAGE_CP = 'archive-conception'
 
-function loadArray(key) {
-  try {
-    const v = localStorage.getItem(key)
-    return v ? JSON.parse(v) : []
-  } catch {
-    return []
-  }
-}
 
-function saveArray(key, arr) {
-  localStorage.setItem(key, JSON.stringify(arr))
-}
+
+
 
 function Archive() {
   const { lang } = useDico()
@@ -52,8 +41,7 @@ function Archive() {
       .catch(() => setCatLabels({}))
   }, [lang])
 
-  const revisionTechnique = loadArray(STORAGE_RT)
-  const conception = loadArray(STORAGE_CP)
+
 
   return (
     <div className="p-8 pt-20">
@@ -69,9 +57,10 @@ function Archive() {
               <span className="font-semibold text-gray-600 text-xs uppercase tracking-wider">{dico?.columnPage}</span>
               {paths.map((path) => {
                 return (
+
                   <div key={path} className="contents">
                     <a
-                      href={path}
+                      href={`${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`}
                       className="text-gray-600 hover:text-black transition-colors"
                     >
                       {labels[path] || path.slice(1)}
