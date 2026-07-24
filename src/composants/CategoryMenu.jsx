@@ -1,18 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDico, pageToPath } from './Dico'
-
-// Regroupe les routes par catégorie pour le menu latéral et la page Archive
-// Chaque clé est un slug de catégorie, la valeur est la liste des routes associées
-export const categoryLinks = {
-  geometrie: ['/synchro', '/bloc', '/suite'],
-  '3d': ['/levitation', '/satelite', '/oscillation', '/anneaux'],
-  trajectoires: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban'],
-  cosmos: ['/terrelune', '/lune', '/astronaute'],
-  abstrait: ['/abstrait2D', '/abstrait3D'],
-  structure: ['/reseaux', '/grid2d', '/grid3d', '/matrice', '/cube', '/sfere'],
-  galeriesApi: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
-}
+import { useDico } from './Dico'
+import { pageToPath } from './keys'
+import { categoryLinks } from './keys'
 
 function CategoryMenu({ category }) {
   const { lang } = useDico()

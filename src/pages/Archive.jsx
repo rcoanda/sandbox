@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { categoryLinks } from '../composants/CategoryMenu'
-import { pageToPath, useDico } from '../composants/Dico'
+import { categoryLinks, pageToPath } from '../composants/keys'
+import { useDico } from '../composants/Dico'
 import usePageDico from '../composants/Dico'
 import BackArrow from '../composants/BackArrow'
 import { Link } from 'react-router-dom'
