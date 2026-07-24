@@ -35,7 +35,7 @@ function Archive() {
     }
     Promise.all(
       allPaths.map((route) =>
-        fetch(`/lang/${lang}/pages/${routeToFile(route)}.json`)
+        fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/${routeToFile(route)}.json`)
           .then((r) => r.json())
           .then((data) => ({ route, title: data.title }))
           .catch(() => ({ route, title: null }))
@@ -46,7 +46,7 @@ function Archive() {
       setLabels(map)
     })
 
-    fetch(`/lang/${lang}/pages/home.json`)
+    fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/home.json`)
       .then((r) => r.json())
       .then((data) => setCatLabels(data.categories || {}))
       .catch(() => setCatLabels({}))
