@@ -3,6 +3,11 @@ import * as THREE from 'three'
 
 const caches = {}
 
+function getCache(key) {
+  if (!caches[key]) caches[key] = {}
+  return caches[key]
+}
+
 function defaultPreload(url) {
   return new Promise((resolve) => {
     new THREE.TextureLoader().load(url, (t) => resolve(t), undefined, () => resolve(null))
@@ -18,9 +23,7 @@ export default function useSwappableData({
   preload = defaultPreload,
   swapDelay = 1000,
 }) {
-  if (!caches[cacheKey]) caches[cacheKey] = {}
-  const cache = caches[cacheKey]
-
+  const cache = getCache(cacheKey)
   const [textures, setTextures] = useState(cache.textures || [])
   const [imageUrls, setImageUrls] = useState(cache.imageUrls || [])
   const [artworkMetas, setArtworkMetas] = useState(cache.artworkMetas || [])
@@ -55,7 +58,7 @@ export default function useSwappableData({
       })
       .catch(e => { if (!cancelled) { console.error(e); setLoadingError(e.message) } })
     return () => { cancelled = true }
-  }, [])
+  }, [cache, getImageUrl, getMeta, loadInitial, preload])
 
   useEffect(() => {
     if (textures.length < total || total === 0) return
@@ -81,7 +84,7 @@ export default function useSwappableData({
               })
             }
           }
-        } catch {}
+        } catch { /* empty */ }
         if (swapCancelled.current) return
         await new Promise(r => setTimeout(r, swapDelay))
       }
@@ -89,7 +92,7 @@ export default function useSwappableData({
 
     loop()
     return () => { swapCancelled.current = true }
-  }, [textures.length, total])
+  }, [cache, getImageUrl, getMeta, getOne, preload, swapDelay, textures.length, total])
 
   return {
     ready,        // Booléen — vrai quand toutes les textures sont chargées

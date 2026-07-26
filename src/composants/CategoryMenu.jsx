@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDico } from './Dico'
 import { pageToPath } from './keys'
@@ -9,7 +9,7 @@ function CategoryMenu({ category }) {
   const [labels, setLabels] = useState({})
   const location = useLocation()
   const navigate = useNavigate()
-  const paths = categoryLinks[category] || []
+  const paths = useMemo(() => categoryLinks[category] || [], [category])
 
   useEffect(() => {
     const routeToFile = (route) => {

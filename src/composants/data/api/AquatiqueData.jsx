@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import * as THREE from 'three'
 import useTextureLoader from './TextureLoader'
 
@@ -168,8 +168,7 @@ const ENTRIES = [
 ]
 
 export default function useAquatiqueData() {
-  const fallbackRef = useRef(null)
-  if (!fallbackRef.current) fallbackRef.current = createFallbackTexture()
+  const fallbackTexture = createFallbackTexture()
 
   const { ready, textures, loadingError, getImageUrl, getMeta } = useTextureLoader({
     cacheKey: 'aquatique',
@@ -187,12 +186,12 @@ export default function useAquatiqueData() {
     const pool = []
     for (let i = 0; i < COUNT; i++) {
       pool.push({
-        texture: textures[i] || fallbackRef.current,
+        texture: textures[i] || fallbackTexture,
         url: getImageUrl(i) || '',
       })
     }
     return pool
-  }, [textures, getImageUrl])
+  }, [textures, getImageUrl, fallbackTexture])
 
   return { ready, texturePool, textures, loadingError, getImageUrl, getMeta }
 }

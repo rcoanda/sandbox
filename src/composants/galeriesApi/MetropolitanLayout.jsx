@@ -114,7 +114,7 @@ function MetropolitanLayout({ artworks, ready, expandedIndex, onImageClick }) {
           <div
             key={i}
             className={`rect${expandedIndex === i && artworks[i] ? ' rect--hidden' : ''}${!ready ? ' rect--loading' : ''}`}
-            onClick={(e) => {
+            onClick={() => {
               if (expandedIndex !== null) return
               if (!artworks[i]) return
               const originEl = gridRef.current.querySelectorAll('.rect')[i]

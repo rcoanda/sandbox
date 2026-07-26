@@ -9,8 +9,6 @@ import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
 import useChicagoData from '../../composants/data/api/ChicagoData'
 
-const N = 3
-
 function Chicago() {
   const { ready, textures, getImageUrl, getMeta, loadingError } = useChicagoData()
   const [expandedIndex, setExpandedIndex] = useState(null)

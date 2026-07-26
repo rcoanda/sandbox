@@ -10,8 +10,10 @@ import '../styles/Home.css'
 function CameraController({ id }) {
   const { camera } = useThree()
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
     camera.position.z = id === 'cosmos' ? 8 : 4
-  }, [id, camera])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
   return null
 }
 
@@ -115,7 +117,7 @@ function Home() {
 
   const handleCellClick = useCallback((id) => {
     navigate(defaultRoute[id] || '/')
-  }, [])
+  }, [navigate])
 
   const gridCats = categories.filter((c) => c.id !== 'galeriesApi')
   const col1 = gridCats.filter((_, i) => i % 2 === 0)

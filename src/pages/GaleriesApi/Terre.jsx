@@ -8,12 +8,6 @@ import '../../styles/galeriesApi/Terre.css'
 import Informations from '../../composants/Informations'
 import Loading from '../../composants/Loading'
 import useTerreData from '../../composants/data/api/TerreData'
-import useEuropeData from '../../composants/data/api/EuropeData'
-import useMetropolitanData from '../../composants/data/api/MetropolitanData'
-import useAquatiqueData from '../../composants/data/api/AquatiqueData'
-import useClevelandData from '../../composants/data/api/ClevelandData'
-import useCooperData from '../../composants/data/api/CooperData'
-import useChicagoData from '../../composants/data/api/ChicagoData'
 
 function Terre() {
   const { ready, textures, getImageUrl, getMeta, loadingError } = useTerreData()

@@ -10,7 +10,7 @@ function Reseaux() {
     <div className="w-full h-screen" style={{ background: '#0b1522' }}>
       <BackArrow />
       <Informations />
-      <CategoryMenu category="structure" />
+      <CategoryMenu category="structures" />
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
         <ReseauxScene />
       </Canvas>

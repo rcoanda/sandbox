@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDragPan() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const isDragging = useRef(false)

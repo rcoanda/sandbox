@@ -35,7 +35,7 @@ function OverlayGrid({ isOpen, imageSrc, onClose, originRect, title, author, pla
       duration: 0.6,
       ease: 'power3.out',
     })
-  }, [isOpen])
+  }, [isOpen, originRect])
 
   const handleClose = () => {
     const targetEl = expandedRef.current

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useRef } from 'react'
 import { fallback, pageToPath } from './keys'
 
 const DicoContext = createContext()
@@ -46,6 +46,7 @@ export function DicoProvider({ children }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDico() {
   const ctx = useContext(DicoContext)
   if (!ctx) {
@@ -54,15 +55,18 @@ export function useDico() {
   return ctx
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default function usePageDico(pageKey) {
   const { lang } = useDico()
   const [dico, setDico] = useState(null)
+  const prevKey = useRef(pageKey)
 
   useEffect(() => {
-    if (!pageKey) {
+    if (prevKey.current !== pageKey) {
       setDico(null)
-      return
+      prevKey.current = pageKey
     }
+    if (!pageKey) return
     const path = pageToPath[pageKey] || pageKey
     let cancelled = false
     fetch(`${import.meta.env.BASE_URL}lang/${lang}/pages/${path}.json`)

@@ -11,7 +11,7 @@ function Matrice() {
     }}>
       <BackArrow />
       <Informations />
-      <CategoryMenu category="structure" />
+      <CategoryMenu category="structures" />
       <MatriceLayout />
     </div>
   )

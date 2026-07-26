@@ -9,7 +9,7 @@ function Grid2D() {
     <div className="grid-page">
       <BackArrow />
       <Informations />
-      <CategoryMenu category="structure" />
+      <CategoryMenu category="structures" />
       <Grid2DLayout />
     </div>
   )

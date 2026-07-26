@@ -8,6 +8,7 @@ const SPEED = 0.25
 
 let paused = false
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function setPaused(v) {
   paused = v
 }
@@ -15,11 +16,11 @@ export function setPaused(v) {
 function Rect({ index, total, texture, onClick }) {
   const meshRef = useRef()
   const phase = (index / total) * Math.PI * 2
-  const clockOffset = useRef(Math.random() * 1000)
-  const gsapRef = useRef(null)
+  const clockOffset = useRef(0)
 
   useEffect(() => {
-    gsapRef.current = gsap.to(meshRef.current.scale, {
+    clockOffset.current = Math.random() * 1000
+    gsap.to(meshRef.current.scale, {
       x: 1.15 + Math.random() * 0.2,
       y: 1.15 + Math.random() * 0.2,
       duration: 0.6 + Math.random() * 0.4,

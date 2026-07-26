@@ -60,7 +60,7 @@ export default function useChicagoData() {
         try {
           const fresh = await fetchCandidates()
           pool.current = pool.current.slice(0, COUNT).concat(fresh)
-        } catch {}
+        } catch { /* empty */ }
       }
     }, REFILL_INTERVAL)
     return () => clearInterval(id)

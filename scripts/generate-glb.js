@@ -1,3 +1,4 @@
+/* global Buffer */
 import * as THREE from 'three'
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js'
 import { writeFileSync } from 'fs'
@@ -121,14 +122,12 @@ scene.add(cosmonaut)
 
 // --- Animation ---
 // Cosmonaut orbits the moon: position rotates around Y axis
-const times = [0, 10] // 0s and 10s
 const positions = []
 const rotations = [] // quaternions
 const steps = 60
 for (let i = 0; i <= steps; i++) {
   const frac = i / steps
   const angle = frac * Math.PI * 2
-  const t = frac * 10
 
   // Position on orbit
   const x = Math.cos(angle) * orbitRadius

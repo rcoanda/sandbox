@@ -3,11 +3,13 @@ import * as THREE from 'three'
 
 const caches = {}
 
-export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn }) {
-  if (!caches[cacheKey]) {
-    caches[cacheKey] = { textures: null, meta: null }
-  }
-  const cache = caches[cacheKey]
+function getCache(key) {
+  if (!caches[key]) caches[key] = { textures: null, meta: null }
+  return caches[key]
+}
+
+export default function useTextureLoader({ cacheKey, loadFn, getMetaFn }) {
+  const cache = getCache(cacheKey)
 
   const [textures, setTextures] = useState(cache.textures || [])
   const [ready, setReady] = useState(!!cache.textures)
@@ -70,7 +72,7 @@ export default function useTextureLoader({ cacheKey, count, loadFn, getMetaFn })
       controller.abort()
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [cacheKey])
+  }, [cacheKey, loadFn, cache])
 
   return {
     ready,        // Booléen — vrai quand toutes les textures sont chargées

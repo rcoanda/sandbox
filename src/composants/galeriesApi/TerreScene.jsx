@@ -10,6 +10,7 @@ const RECT_H = 0.25
 
 let paused = false
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function setPaused(v) {
   paused = v
 }

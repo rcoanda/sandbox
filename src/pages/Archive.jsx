@@ -40,7 +40,7 @@ function Archive() {
       .then((r) => r.json())
       .then((data) => setCatLabels(data.categories || {}))
       .catch(() => setCatLabels({}))
-  }, [lang])
+  }, [lang, categories])
 
 
 

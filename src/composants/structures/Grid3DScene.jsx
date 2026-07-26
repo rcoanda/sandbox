@@ -3,17 +3,12 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
 
-const ROWS = 8
-const COLS = 14
-const SPACING = 1.05
 const CUBE_SIZE = 0.75
-const OFFSET_X = ((COLS - 1) * SPACING) / 2
-const OFFSET_Z = ((ROWS - 1) * SPACING) / 2
 const SEL_SCALE = 3
 
 function Cube({ position, hue, selected, selectionActive, index, onClick }) {
   const meshRef = useRef()
-  const initPos = useMemo(() => [position[0], position[1], position[2]], [])
+  const initPos = useMemo(() => [position[0], position[1], position[2]], [position])
   const curPos = useRef([...initPos])
   const curScale = useRef(1)
   const curOpacity = useRef(1)
@@ -25,7 +20,7 @@ function Cube({ position, hue, selected, selectionActive, index, onClick }) {
       ease: 'back.out(1.7)',
       delay: (Math.abs(position[0]) + Math.abs(position[2])) * 0.003,
     })
-  }, [])
+  }, [position])
 
   useFrame(({ clock }) => {
     const mesh = meshRef.current

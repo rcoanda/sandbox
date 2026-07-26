@@ -9,6 +9,7 @@ const OFFSET = (N - 1) * SPACING / 2
 
 let paused = false
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function setPaused(v) {
   paused = v
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
@@ -21,7 +21,7 @@ function Grid3D() {
       for (let c = 0; c < COLS; c++) {
         result.push({
           position: [c * SPACING - OFFSET_X, 0, r * SPACING - OFFSET_Z],
-          hue: Math.random() * 360,
+          hue: ((r * COLS + c) * 27 + 180) % 360,
         })
       }
     }
@@ -44,7 +44,7 @@ function Grid3D() {
     <div className="grid-page">
       <BackArrow />
       <Informations />
-      <CategoryMenu category="structure" />
+      <CategoryMenu category="structures" />
       <Canvas camera={{ position: [0, 12, 12], fov: 45 }} dpr={[1, 2]}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[10, 15, 10]} intensity={1} />

@@ -85,10 +85,11 @@ function FloatingShapes() {
   const meshRefs = useRef([])
 
   const shapes = useMemo(() => {
+    const seeded = [0.08, 0.10, 0.09, 0.12, 0.11]
     return SHAPE_TYPES.map((type, i) => ({
       geo: createShapeGeometry(type, SIZES[i]),
       color: COLORS[i],
-      speed: 0.08 + Math.random() * 0.06,
+      speed: seeded[i],
       offset: (i / SHAPE_TYPES.length) * Math.PI * 2,
     }))
   }, [])

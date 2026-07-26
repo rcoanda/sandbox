@@ -11,6 +11,7 @@ const P1 = [-8, 0, -8]
 const P2 = [8, 0, 8]
 const P3 = [8, 0, -5]
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CAM_POS = [0, 5, 14]
 
 function bezier(t) {
@@ -21,15 +22,6 @@ function bezier(t) {
     u2 * u * P0[0] + 3 * u2 * t * P1[0] + 3 * u * t2 * P2[0] + t2 * t * P3[0],
     0,
     u2 * u * P0[2] + 3 * u2 * t * P1[2] + 3 * u * t2 * P2[2] + t2 * t * P3[2],
-  ]
-}
-
-function dbezier(t) {
-  const u = 1 - t
-  return [
-    -3 * u * u * P0[0] + 3 * u * (1 - 3 * t) * P1[0] + 3 * t * (2 - 3 * t) * P2[0] + 3 * t * t * P3[0],
-    0,
-    -3 * u * u * P0[2] + 3 * u * (1 - 3 * t) * P1[2] + 3 * t * (2 - 3 * t) * P2[2] + 3 * t * t * P3[2],
   ]
 }
 
