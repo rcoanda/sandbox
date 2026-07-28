@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
 
+// Détecter si on est en local ou sur GitHub Pages
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+
 const ROWS = 8
 const COLS = 14
 const COUNT = ROWS * COLS
-const API_BASE = '/met-api'
+const API_BASE = isDevelopment
+  ? '/met-api'
+  : 'https://collectionapi.metmuseum.org/public/collection/v1';
 const PARALLEL_BATCH = 8
 const DISPLAY_BATCH = 10
 const MAX_ITERATIONS = 200
@@ -35,8 +41,8 @@ async function fetchAllIds(apiBase) {
   }
   const ids = [...seen]
   ids.sort(() => Math.random() - 0.5)
-  cachedIds = ids
-  return ids
+  cachedIds = ids.slice(0, COUNT * 2)
+  return cachedIds
 }
 
 export default function useMetropolitanData() {
@@ -57,24 +63,20 @@ export default function useMetropolitanData() {
         let lastUpdate = 0
 
         const maxIdIndex = Math.min(ids.length, MAX_ITERATIONS * PARALLEL_BATCH)
-        for (let i = 0; i < maxIdIndex && allItems.length < COUNT && !cancelled; i += PARALLEL_BATCH) {
-          const batch = ids.slice(i, i + PARALLEL_BATCH)
-          const results = await Promise.allSettled(
-            batch.map((id) =>
-              fetch(`${API_BASE}/objects/${id}`).then((r) => r.json())
-            )
-          )
+        for (let i = 0; i < maxIdIndex && allItems.length < COUNT && !cancelled; i++) {
+          const id = ids[i]
+          const data = await fetch(`${API_BASE}/objects/${id}`)
+            .then((r) => r.json())
+            .catch(() => null)
           await new Promise((r) => setTimeout(r, BATCH_DELAY))
-          for (const r of results) {
-            const img = r.value?.primaryImageSmall || r.value?.primaryImage
-            if (r.status === 'fulfilled' && img) {
-              allItems.push({
-                imageUrl: img,
-                title: r.value.title || 'Untitled',
-                artist: r.value.artistDisplayName || 'Unknown Artist',
-                year: r.value.objectDate || 'Unknown Year',
-              })
-            }
+          const img = data?.primaryImageSmall || data?.primaryImage
+          if (data && img) {
+            allItems.push({
+              imageUrl: img,
+              title: data.title || 'Untitled',
+              artist: data.artistDisplayName || 'Unknown Artist',
+              year: data.objectDate || 'Unknown Year',
+            })
           }
 
           if (!cancelled && allItems.length - lastUpdate >= DISPLAY_BATCH) {
