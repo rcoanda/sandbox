@@ -17,8 +17,8 @@ const BATCH_DELAY = 200
 
 let cachedArtworks = null
 let cachedReady = false
-
 let cachedIds = null
+let cachedIdIndex = 0
 
 async function fetchAllIds(apiBase) {
   if (cachedIds) return cachedIds
@@ -51,7 +51,7 @@ export default function useMetropolitanData() {
   const [loadingError, setLoadingError] = useState(null)
 
   useEffect(() => {
-    if (cachedArtworks) return
+    if (cachedArtworks?.length >= COUNT) return
 
     let cancelled = false
 
@@ -59,11 +59,12 @@ export default function useMetropolitanData() {
       try {
         const ids = await fetchAllIds(API_BASE)
 
-        const allItems = []
-        let lastUpdate = 0
+        const allItems = cachedArtworks ? [...cachedArtworks] : []
+        let lastUpdate = allItems.length
 
         const maxIdIndex = Math.min(ids.length, MAX_ITERATIONS * PARALLEL_BATCH)
-        for (let i = 0; i < maxIdIndex && allItems.length < COUNT && !cancelled; i++) {
+        for (let i = cachedIdIndex; i < maxIdIndex && allItems.length < COUNT && !cancelled; i++) {
+          cachedIdIndex = i + 1
           const id = ids[i]
           const data = await fetch(`${API_BASE}/objects/${id}`)
             .then((r) => r.json())
