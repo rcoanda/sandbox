@@ -1,16 +1,20 @@
-# React + Vite
+# Projet 1 : Sandbox - Phase « Do-Like »
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Titre / Thème général
+Premier projet d'une suite de projets ayant pour but d'expérimenter le codage par IA (*AI-assisted development*), pour développer des sites web artistiques (React, Three.js, WebGL / Vite, Node.js).
 
-Currently, two official plugins are available:
+## 2. L'approche 
+* **Méthodologie 1 :** Sélection de pages web sur des sites existants en tant que modèles, puis sollicitation de l'IA pour les reproduire, tout en appliquant des modifications précises pour obtenir le résultat visé.
+* **Méthodologie 2 :** Réalisation de pages ou de composants à partir de descriptions textuelles en mots simples, définissant les grandes lignes à environ 70%, sans préciser des détails tels que : choix des palettes de couleurs, textures, micro-interactions, dimensions, espacements et choix ergonomiques secondaires.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 3. Techniques & Génération
+* *Prompt engineering* itératif basé sur l'analyse structurelle des références.
+* Génération rapide de composants front-end assemblés en flux continus.
+* Ajustements structurels par boucles de rétroaction ciblées.
+  
+## 4. Conclusions
+* **Points forts / Résultats :** La reproduction des pages référencées est correcte et s'approche du résultat attendu à environ **80%**, ce qui est très satisfaisant pour un premier essai. Cela a permis de tester plusieurs idées et techniques dans un temps record.
+* **Points faibles / Limites :** En raison du grand nombre de demandes effectuées, une quantité importante de code a été générée rapidement sans se soucier du *refactoring* (nettoyage et restructuration). Par conséquent, le code est devenu difficile à parcourir, vérifier et maintenir à la main.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 5. La suite
+* **Évolution de la démarche :** Intégration systématique de demandes de *refactoring* et de propositions alternatives dès les phases de production.
