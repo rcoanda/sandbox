@@ -17,4 +17,5 @@ Premier projet d'une suite de projets ayant pour but d'expérimenter le codage p
 * **Points faibles / Limites :** En raison du grand nombre de demandes effectuées, une quantité importante de code a été générée rapidement sans se soucier du *refactoring* (nettoyage et restructuration). Par conséquent, le code est devenu difficile à parcourir, vérifier et maintenir à la main.
 
 ## 5. La suite
-* **Évolution de la démarche :** Intégration systématique de demandes de *refactoring* et de propositions alternatives dès les phases de production.
+* **Évolution de la démarche :** En raison des limites de maintenabilité identifiées dans ce premier projet, il est apparu préférable de repartir de zéro sur un nouveau projet plutôt que de continuer à patcher l'existant. 
+* **Nouveaux objectifs :** Démarrer une nouvelle base propre pour appliquer d'autres démarches, intégrer des demandes de *refactoring* dès la production et faire évoluer la méthode de travail avec l'IA.
