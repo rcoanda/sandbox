@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { isDevelopment } from './env'
 
 const caches = {}
 
@@ -23,7 +24,7 @@ export default function useTextureLoader({ cacheKey, loadFn, getMetaFn }) {
     const mounted = { current: true }
     const controller = new AbortController()
     const loader = new THREE.TextureLoader()
-    loader.crossOrigin = 'anonymous'
+    if (isDevelopment) loader.crossOrigin = 'anonymous'
 
     Promise.resolve(loadFn(controller.signal)).then(({ urls, meta }) => {
       if (cache.textures) return

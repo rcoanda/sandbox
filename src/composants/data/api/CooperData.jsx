@@ -1,6 +1,10 @@
 import useSwappableData from '../useSwappableData'
+import { isDevelopment } from './env'
 
 const COUNT = 120
+
+const COOPER_API = isDevelopment ? '/cooper-api' : 'https://apidocs.cooperhewitt.org/graphql-api'
+const COOPER_IMG = isDevelopment ? '/cooper-img' : 'https://ciim-static-media.s3.us-east-1.amazonaws.com'
 
 const COOPER_QUERY = `{
   object(hasImages: true, size: ${COUNT}) {
@@ -13,7 +17,7 @@ const COOPER_QUERY = `{
 }`
 
 function fetchCooperObjects() {
-  return fetch('/cooper-api', {
+  return fetch(COOPER_API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query: COOPER_QUERY }),
@@ -33,9 +37,9 @@ function getMediaUrl(item) {
   const path = preview.url || preview.location
   if (!path) return null
   if (path.includes('://')) {
-    return path.replace('https://ciim-static-media.s3.us-east-1.amazonaws.com', '/cooper-img')
+    return path.replace('https://ciim-static-media.s3.us-east-1.amazonaws.com', COOPER_IMG)
   }
-  return `/cooper-img/${path}`
+  return `${COOPER_IMG}/${path}`
 }
 
 function isValid(item) {

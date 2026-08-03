@@ -1,5 +1,9 @@
 import { useRef, useEffect } from 'react'
 import useSwappableData from '../useSwappableData'
+import { isDevelopment } from './env'
+
+const CHICAGO_API = isDevelopment ? '/chicago-api' : 'https://api.artic.edu'
+const CHICAGO_IMG = isDevelopment ? '/chicago-img' : 'https://www.artic.edu'
 
 const N = 3
 const COUNT = N * N * N
@@ -13,7 +17,7 @@ async function fetchCandidates(count = BATCH_SIZE) {
   p.set('page', 1)
   p.set('fields', 'id,image_id,title,artist_display,date_display')
   p.set('query[term][is_public_domain]', 'true')
-  const res = await fetch(`/chicago-api/api/v1/artworks/search?${p}`)
+  const res = await fetch(`${CHICAGO_API}/api/v1/artworks/search?${p}`)
   if (!res.ok) throw new Error(`API returned ${res.status}`)
   const d = await res.json()
   return (d?.data || []).filter(item => item.image_id)
@@ -28,7 +32,7 @@ function makeMeta(item) {
 }
 
 function imgUrl(imageId) {
-  return `/chicago-img/iiif/2/${imageId}/full/843,/0/default.jpg`
+  return `${CHICAGO_IMG}/iiif/2/${imageId}/full/843,/0/default.jpg`
 }
 
 export default function useChicagoData() {

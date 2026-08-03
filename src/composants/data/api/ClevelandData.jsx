@@ -1,6 +1,9 @@
 import useTextureLoader from './TextureLoader'
+import { isDevelopment } from './env'
 
 const COUNT = 60
+
+const CLEVELAND_IMG = isDevelopment ? '/cma' : 'https://openaccess-cdn.clevelandart.org'
 
 export default function useClevelandData() {
   return useTextureLoader({
@@ -16,7 +19,7 @@ export default function useClevelandData() {
         const print = item.images?.print?.url
         const original = web || print
         return {
-          url: original ? original.replace('https://openaccess-cdn.clevelandart.org', '/cma') : null,
+          url: original ? original.replace('https://openaccess-cdn.clevelandart.org', CLEVELAND_IMG) : null,
           title: item.title || 'Untitled',
           artist: item.creators?.[0]?.description || 'Unknown Artist',
           year: item.creation_date || 'Unknown Year',

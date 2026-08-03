@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
-
-// Détecter si on est en local ou sur GitHub Pages
-const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+import { isDevelopment } from './env'
 
 
 const ROWS = 8
