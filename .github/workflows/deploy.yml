@@ -1,8 +1,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [ main ] # ou master selon le nom de votre branche principale
   workflow_dispatch:
 permissions:
   contents: read
