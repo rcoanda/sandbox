@@ -11,7 +11,9 @@
     "cosmos": "Cosmos",
     "abstrait": "Abstract",
     "structures": "Structures",
-    "galeriesApi": "API Galleries"
+    "galeriesApi": "API Galleries",
+    "graphisme": "Graphisme",
+    "design": "Design"
   },
   "loading": "Loading...",
   "loadingError": "API is not responding. Retry your request.",
@@ -22,6 +24,8 @@
     "cosmos": "Stars & planets",
     "abstrait": "Colors & forms",
     "structures": "Nodes & links",
-    "galeriesApi": "Images & data"
+    "galeriesApi": "Images & data",
+    "graphisme": "Coming soon",
+    "design": "Coming soon"
   }
 }

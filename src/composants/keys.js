@@ -61,6 +61,18 @@ export const categories = [
     is2D: true,
     transparent: true,
   },
+  {
+    id: 'graphisme',
+    label: '08',
+    routes: [],
+    bgClass: 'home-cell--graphisme',
+  },
+  {
+    id: 'design',
+    label: '09',
+    routes: [],
+    bgClass: 'home-cell--design',
+  },
 ]
 
 export const navigation = [

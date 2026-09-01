@@ -20,6 +20,7 @@ function CameraController({ id }) {
 function Preview({ activeCat }) {
   if (!activeCat) return null
   const { Scene, is2D, id, transparent } = activeCat
+  if (!Scene) return null
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -116,12 +117,15 @@ function Home() {
   }, [])
 
   const handleCellClick = useCallback((id) => {
-    navigate(defaultRoute[id] || '/')
+    const route = defaultRoute[id]
+    if (route) navigate(route)
+    else setActiveId(id)
   }, [navigate])
 
-  const gridCats = categories.filter((c) => c.id !== 'galeriesApi')
+  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.routes.length > 0)
   const col1 = gridCats.filter((_, i) => i % 2 === 0)
   const col2 = gridCats.filter((_, i) => i % 2 === 1)
+  const bottomCats = categories.filter((c) => c.id === 'galeriesApi' || c.routes.length === 0)
   const galeriesApiCat = categories.find((c) => c.id === 'galeriesApi')
 
   return (
@@ -164,6 +168,17 @@ function Home() {
             </div>
           </div>
           <div className="home-diagonal" />
+        </div>
+        <div className="home-row-split">
+          {bottomCats.slice(1).map((cat) => (
+            <div key={cat.id} className={`home-cell home-cell--full ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
+              <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
+              <div className="home-cell-footer">
+                <span>{commonJson?.subtitle?.[cat.id]}</span>
+                <span>{cat.label}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

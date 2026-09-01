@@ -73,6 +73,20 @@
   position: relative;
 }
 
+.home-row-split {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.home-row-split .home-cell--graphisme {
+  width: 40%;
+}
+
+.home-row-split .home-cell--design {
+  width: 60%;
+}
+
 .home-cell {
   position: relative;
   overflow: hidden;
