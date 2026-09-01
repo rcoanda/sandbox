@@ -65,7 +65,7 @@ export const categories = [
   {
     id: 'graphisme',
     label: '08',
-    routes: [],
+    routes: ['/phoenix'],
     bgClass: 'home-cell--graphisme',
   },
   {
