@@ -10,7 +10,7 @@ export const categories = [
   {
     id: 'geometrie',
     label: '01',
-    routes: ['/synchro', '/bloc', '/suite'],
+    routes: ['/synchro', '/bloc', '/suite', '/polygone'],
     Scene: SynchroScene,
     bgClass: 'home-cell--geometrie',
     is2D: true,

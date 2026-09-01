@@ -1,0 +1,4 @@
+{
+  "title": "Polygon",
+  "description": "Animated SVG regular polygon with a fixed top vertex: the triangle's bottom side becomes two sides (square), the square's bottom vertex makes way for a side (pentagon), the pentagon's bottom side splits in two (hexagon), then it returns to the triangle."
+}

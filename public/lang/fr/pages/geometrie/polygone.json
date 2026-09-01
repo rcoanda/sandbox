@@ -1,0 +1,4 @@
+{
+  "title": "Polygone",
+  "description": "Polygone régulier SVG animé, sommet supérieur fixe : le côté bas du triangle se remplace par deux côtés (carré), le point bas du carré laisse place à un côté (pentagone), le côté bas du pentagone se divise en deux (hexagone), puis retour au triangle."
+}

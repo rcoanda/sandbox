@@ -31,6 +31,7 @@ import Synchro from './pages/Geometrie/Synchro'
 import Matrice from './pages/Structures/Matrice'
 import Bloc from './pages/Geometrie/Bloc'
 import Suite from './pages/Geometrie/Suite'
+import Polygone from './pages/Geometrie/Polygone'
 import TerreLune from './pages/Cosmos/TerreLune'
 import Metropolitan from './pages/GaleriesApi/Metropolitan'
 import Europe from './pages/GaleriesApi/Europe'
@@ -61,6 +62,7 @@ function App() {
         <Route path="/matrice" element={<Matrice />} />
         <Route path="/bloc" element={<Bloc />} />
         <Route path="/suite" element={<Suite />} />
+        <Route path="/polygone" element={<Polygone />} />
         <Route path="/terre" element={<Terre />} />
         <Route path="/ellipse" element={<Ellipse />} />
         <Route path="/lemniscate" element={<Lemniscate />} />
