@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuit 2D à Tuyaux Entrelacés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        svg {
+            background-color: #f0f2f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .options {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .options a {
+            color: #0066cc;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Circuit 2D à Tuyaux Entrelacés</h1>
+
+        <svg width="700" height="500" viewBox="0 0 700 500">
+            <defs>
+                <!-- Dégradé Tuyau 1 (Bleu / Industriel) -->
+                <linearGradient id="pipeBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#2a5298" />
+                    <stop offset="50%" stop-color="#1e3c72" />
+                    <stop offset="100%" stop-color="#102042" />
+                </linearGradient>
+
+                <!-- Dégradé Tuyau 2 (Argenté / Acier) -->
+                <linearGradient id="pipeSilver" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="30%" stop-color="#b0bec5" />
+                    <stop offset="70%" stop-color="#78909c" />
+                    <stop offset="100%" stop-color="#455a64" />
+                </linearGradient>
+
+                <!-- Dégradé Tuyau 3 (Cuivre / Rouille) -->
+                <linearGradient id="pipeCopper" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#d35400" />
+                    <stop offset="50%" stop-color="#a04000" />
+                    <stop offset="100%" stop-color="#6e2c00" />
+                </linearGradient>
+
+                <!-- Ombre portée pour donner du relief -->
+                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.3" />
+                </filter>
+            </defs>
+
+            <!-- Grille de fond optionnelle -->
+            <g stroke="#e0e0e0" stroke-width="0.5">
+                <path
+                    d="M 0 50 H 700 M 0 100 H 700 M 0 150 H 700 M 0 200 H 700 M 0 250 H 700 M 0 300 H 700 M 0 350 H 700 M 0 400 H 700 M 0 450 H 700" />
+                <path
+                    d="M 50 0 V 500 M 100 0 V 500 M 150 0 V 500 M 200 0 V 500 M 250 0 V 500 M 300 0 V 500 M 350 0 V 500 M 400 0 V 500 M 450 0 V 500 M 500 0 V 500 M 550 0 V 500 M 600 0 V 500 M 650 0 V 500" />
+            </g>
+
+            <!-- Tuyau 1 (Bleu) -->
+            <g filter="url(#shadow)">
+                <path d="M 150 200 H 250 V 150 H 350 V 250 H 450 V 350 H 300 V 400 H 200 V 300 H 100 V 200 Z"
+                    fill="none" stroke="url(#pipeBlue)" stroke-width="24" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </g>
+
+            <!-- Tuyau 2 (Argenté) -->
+            <g filter="url(#shadow)">
+                <path
+                    d="M 220 100 H 400 V 200 H 500 V 100 H 600 V 250 H 550 V 350 H 400 V 450 H 300 V 350 H 200 V 250 H 300 V 180"
+                    fill="none" stroke="url(#pipeSilver)" stroke-width="24" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </g>
+
+            <!-- Tuyau 3 (Cuivre) -->
+            <g filter="url(#shadow)">
+                <path d="M 500 250 H 400 V 300 H 250 V 400 H 150 V 300 H 200 V 200 H 350 V 100 H 500 V 150" fill="none"
+                    stroke="url(#pipeCopper)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+
+            <!-- Texte des Entrées / Sorties -->
+            <text x="100" y="190" font-size="12" font-weight="bold" fill="#333">Départ 1</text>
+            <text x="210" y="85" font-size="12" font-weight="bold" fill="#333">Départ 2</text>
+            <text x="510" y="235" font-size="12" font-weight="bold" fill="#333">Départ 3</text>
+
+            <text x="600" y="85" font-size="12" font-weight="bold" fill="#333">Arrivée 1</text>
+            <text x="480" y="465" font-size="12" font-weight="bold" fill="#333">Arrivée 2</text>
+            <text x="90" y="465" font-size="12" font-weight="bold" fill="#333">Arrivée 3</text>
+        </svg>
+
+        <div class="options">
+            Options de visualisation:
+            <a href="#">[Afficher les grilles]</a>
+            <a href="#">[Zoom In/Out]</a>
+            <a href="#">[Recommencer]</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

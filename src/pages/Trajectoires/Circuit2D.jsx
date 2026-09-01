@@ -1,20 +1,20 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
-import LabyrintheScene from '../../composants/trajectoires/LabyrintheScene'
-import '../../styles/trajectoires/Labyrinthe.css'
+import Circuit2DScene from '../../composants/trajectoires/Circuit2DScene'
+import '../../styles/trajectoires/Circuit2D.css'
 
-function Labyrinthe() {
+function Circuit2D() {
   return (
-    <div className="labyrinthe-page">
+    <div className="circuit-page">
       <BackArrow />
       <Informations />
       <CategoryMenu category="trajectoires" />
-      <div className="labyrinthe-stage">
-        <LabyrintheScene />
+      <div className="circuit-stage">
+        <Circuit2DScene />
       </div>
     </div>
   )
 }
 
-export default Labyrinthe
+export default Circuit2D
