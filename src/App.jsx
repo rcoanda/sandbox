@@ -23,6 +23,7 @@ import Sinusoide from './pages/Trajectoires/Sinusoide'
 import Bezier from './pages/Trajectoires/Bezier'
 import Ruban from './pages/Trajectoires/Ruban'
 import Huit from './pages/Trajectoires/Huit'
+import Labyrinthe from './pages/Trajectoires/Labyrinthe'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
 import Synchro from './pages/Geometrie/Synchro'
@@ -69,6 +70,7 @@ function App() {
         <Route path="/sinusoide" element={<Sinusoide />} />
         <Route path="/bezier" element={<Bezier />} />
         <Route path="/ruban" element={<Ruban />} />
+        <Route path="/labyrinthe" element={<Labyrinthe />} />
         <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid2d" element={<Grid2D />} />

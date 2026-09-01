@@ -25,7 +25,7 @@ export const categories = [
   {
     id: 'trajectoires',
     label: '03',
-    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban'],
+    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban', '/labyrinthe'],
     Scene: HuitScene,
     bgClass: 'home-cell--trajectoires',
   },
