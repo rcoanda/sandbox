@@ -5,6 +5,7 @@ import TerreLuneScene from './cosmos/TerreLuneScene'
 import Abstrait2DScene from './abstrait/Abstrait2DScene'
 import ReseauxScene from './structures/ReseauxScene'
 import ApiScene from './galeriesApi/ApiScene'
+import ParfumScene from './design/ParfumScene'
 
 export const categories = [
   {
@@ -70,7 +71,8 @@ export const categories = [
   {
     id: 'design',
     label: '09',
-    routes: [],
+    routes: ['/parfum'],
+    Scene: ParfumScene,
     bgClass: 'home-cell--design',
   },
 ]

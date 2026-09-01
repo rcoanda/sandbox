@@ -43,6 +43,7 @@ import Cleveland from './pages/GaleriesApi/Cleveland'
 import Chicago from './pages/GaleriesApi/Chicago'
 import Cooper from './pages/GaleriesApi/Cooper'
 import Aquatique from './pages/GaleriesApi/Aquatique'
+import Parfum from './pages/Design/Parfum'
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/cooper" element={<Cooper />} />
         <Route path="/aquatique" element={<Aquatique />} />
+        <Route path="/parfum" element={<Parfum />} />
       </Routes>
     </DicoProvider>
   )

@@ -122,10 +122,10 @@ function Home() {
     else setActiveId(id)
   }, [navigate])
 
-  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.routes.length > 0)
+  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.id !== 'graphisme' && c.id !== 'design')
   const col1 = gridCats.filter((_, i) => i % 2 === 0)
   const col2 = gridCats.filter((_, i) => i % 2 === 1)
-  const bottomCats = categories.filter((c) => c.id === 'galeriesApi' || c.routes.length === 0)
+  const bottomCats = categories.filter((c) => c.id === 'galeriesApi' || c.id === 'graphisme' || c.id === 'design')
   const galeriesApiCat = categories.find((c) => c.id === 'galeriesApi')
 
   return (
