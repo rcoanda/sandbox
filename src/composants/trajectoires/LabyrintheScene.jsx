@@ -43,6 +43,8 @@ function LabyrintheScene() {
     {
       id: 'tube-1',
       color: '#1f77b4',
+      duration: '3.2s',
+      delay: '0s',
       d: buildTube([
         [45, 15], [150, 35], [85, 75], [210, 80], [300, 65], [255, 120],
         [150, 125], [100, 165],
@@ -57,6 +59,8 @@ function LabyrintheScene() {
     {
       id: 'tube-2',
       color: '#2ca02c',
+      duration: '4.1s',
+      delay: '0.6s',
       d: buildTube([
         [12, 55], [105, 75], [55, 125], [165, 118], [225, 150],
         loop(245, 150, 40),
@@ -72,6 +76,8 @@ function LabyrintheScene() {
     {
       id: 'tube-3',
       color: '#d62728',
+      duration: '3.7s',
+      delay: '1.2s',
       d: buildTube([
         [355, 12], [265, 45], [330, 90], [240, 110], [305, 160],
         loop(285, 172, 42, -1),
@@ -105,16 +111,38 @@ function LabyrintheScene() {
         stroke="none"
       />
 
+      <style>{`
+        .labyrinthe-flow {
+          stroke-dasharray: 48 96;
+          animation: labyrinthe-fill 3s linear infinite;
+        }
+        @keyframes labyrinthe-fill {
+          from { stroke-dashoffset: 144; }
+          to { stroke-dashoffset: -144; }
+        }
+      `}</style>
+
       {tubes.map((t) => (
-        <path
-          key={t.id}
-          d={t.d}
-          fill="none"
-          stroke={t.color}
-          strokeWidth="12"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <g key={t.id}>
+          <path
+            d={t.d}
+            fill="none"
+            stroke={frameColor}
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            className="labyrinthe-flow"
+            d={t.d}
+            fill="none"
+            stroke={t.color}
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ animationDuration: t.duration, animationDelay: t.delay }}
+          />
+        </g>
       ))}
     </svg>
   )
