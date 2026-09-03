@@ -12,7 +12,7 @@ import { phoenixVersoSvg } from '../graphisme/pheonixVersoSvg'
 
 const ROTATION_SPEED = 0.5
 const TURN_TIME = (2 * Math.PI) / ROTATION_SPEED
-const COHESIVE_TIME = 2 * TURN_TIME
+const COHESIVE_TIME = TURN_TIME
 const DISSOLVE_TIME = 3
 const ASH_TIME = 4
 const REFORM_TIME = 3
@@ -237,8 +237,8 @@ function ParfumScene() {
     let cancelled = false
     const load = async () => {
       if (document.fonts?.load) {
-        await document.fonts.load(`400 84px ${PHOENIX_BRAND_FONT}`).catch(() => {})
-        await document.fonts.ready.catch(() => {})
+        await document.fonts.load(`400 84px ${PHOENIX_BRAND_FONT}`).catch(() => { })
+        await document.fonts.ready.catch(() => { })
         if (cancelled) return
       }
       const tex = await svgToTexture(rectoSvgString)

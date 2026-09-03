@@ -6,6 +6,7 @@ import Abstrait2DScene from './abstrait/Abstrait2DScene'
 import ReseauxScene from './structures/ReseauxScene'
 import ApiScene from './galeriesApi/ApiScene'
 import ParfumScene from './design/ParfumScene'
+import PhoenixLabel from './graphisme/PhoenixLabel'
 
 export const categories = [
   {
@@ -66,7 +67,10 @@ export const categories = [
     id: 'graphisme',
     label: '08',
     routes: ['/phoenix'],
+    Scene: PhoenixLabel,
     bgClass: 'home-cell--graphisme',
+    is2D: true,
+    transparent: true,
   },
   {
     id: 'design',

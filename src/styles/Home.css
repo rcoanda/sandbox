@@ -272,6 +272,16 @@
   background: linear-gradient(135deg, rgba(255, 228, 230, 0.75) 0%, rgba(254, 205, 211, 0.75) 50%, rgba(255, 214, 219, 0.75) 100%);
 }
 
+.home-cell--graphisme:hover,
+.home-cell--graphisme.home-cell--active {
+  background: linear-gradient(135deg, rgba(253, 244, 220, 0.85) 0%, rgba(244, 220, 154, 0.85) 50%, rgba(244, 231, 199, 0.85) 100%);
+}
+
+.home-cell--design:hover,
+.home-cell--design.home-cell--active {
+  background: linear-gradient(135deg, rgba(255, 237, 213, 0.85) 0%, rgba(251, 207, 145, 0.85) 50%, rgba(253, 224, 184, 0.85) 100%);
+}
+
 .home-cell--geometrie:hover .home-cell-title,
 .home-cell--geometrie.home-cell--active .home-cell-title,
 .home-cell--3d:hover .home-cell-title,
@@ -285,7 +295,11 @@
 .home-cell--structures:hover .home-cell-title,
 .home-cell--structures.home-cell--active .home-cell-title,
 .home-cell--collections:hover .home-cell-title,
-.home-cell--collections.home-cell--active .home-cell-title {
+.home-cell--collections.home-cell--active .home-cell-title,
+.home-cell--graphisme:hover .home-cell-title,
+.home-cell--graphisme.home-cell--active .home-cell-title,
+.home-cell--design:hover .home-cell-title,
+.home-cell--design.home-cell--active .home-cell-title {
   color: #1a1a1a;
 }
 
@@ -302,7 +316,11 @@
 .home-cell--structures:hover .home-cell-footer,
 .home-cell--structures.home-cell--active .home-cell-footer,
 .home-cell--collections:hover .home-cell-footer,
-.home-cell--collections.home-cell--active .home-cell-footer {
+.home-cell--collections.home-cell--active .home-cell-footer,
+.home-cell--graphisme:hover .home-cell-footer,
+.home-cell--graphisme.home-cell--active .home-cell-footer,
+.home-cell--design:hover .home-cell-footer,
+.home-cell--design.home-cell--active .home-cell-footer {
   color: rgba(0, 0, 0, 0.5);
 }
 

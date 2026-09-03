@@ -1,8 +1,7 @@
 import BackArrow from '../../composants/BackArrow'
 import CategoryMenu from '../../composants/CategoryMenu'
 import Informations from '../../composants/Informations'
-import PhoenixRectoLabel from '../../composants/graphisme/PhoenixRectoLabel'
-import PhoenixVersoLabel from '../../composants/graphisme/PhoenixVersoLabel'
+import PhoenixLabel from '../../composants/graphisme/PhoenixLabel'
 
 function Phoenix() {
   return (
@@ -21,18 +20,7 @@ function Phoenix() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="graphisme" />
-      <div
-        style={{
-          display: 'flex',
-          gap: '32px',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <PhoenixRectoLabel />
-        <PhoenixVersoLabel />
-      </div>
+      <PhoenixLabel />
     </div>
   )
 }

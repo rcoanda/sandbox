@@ -31,6 +31,7 @@ export const PHOENIX_VERSO_INNER = `
 
   <text x="210" y="132" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="26" fill="${PHOENIX_COLORS.brown}">— · —</text>
   <text x="210" y="172" text-anchor="middle" font-family="Georgia, serif" font-weight="600" font-size="28" fill="${PHOENIX_COLORS.dark}">EAU DE PARFUM</text>
+ //oiseaux
   <line x1="120" y1="212" x2="300" y2="212" stroke="${PHOENIX_COLORS.gold}" stroke-width="2" />
   <circle cx="210" cy="212" r="2.5" fill="${PHOENIX_COLORS.gold}" />
 
@@ -70,10 +71,10 @@ export const PHOENIX_VERSO_INNER = `
     <path d="M -12 150 C -18 142 -16 130 -10 124 C -2 130 8 136 2 148 C -4 142 -10 148 -12 150 Z" fill="url(#flameGrad)" opacity="0.9" />
     <path d="M 6 158 C 10 148 12 138 9 130 C 5 138 3 146 6 158 Z" fill="url(#flameGrad)" opacity="0.8" />
   </g>
-
+//fin oiseaux
   <line x1="95" y1="425" x2="325" y2="425" stroke="${PHOENIX_COLORS.gold}" stroke-width="2" />
   <text x="210" y="475" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="${PHOENIX_COLORS.brown}">Paris · 50 ml</text>
-  <text x="210" y="505" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="26" fill="${PHOENIX_COLORS.brown}">— · —</text>
+
 `
 
 export function phoenixVersoSvg() {
