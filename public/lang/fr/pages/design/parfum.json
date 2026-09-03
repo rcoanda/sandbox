@@ -1,7 +1,4 @@
 {
   "title": "Parfum",
-  "description": "Flacon de parfum 3D en WebGL : corps de verre arrondi teinté avec liquide ambré à l'intérieur, collier et bouchon métalliques, le tout en rotation lente autour de l'axe vertical.",
-  "marque": "Phoenix",
-  "type": "EAU DE PARFUM",
-  "details": "Paris · 50 ml"
+  "description": "Flacon de parfum 3D en WebGL : corps de verre arrondi teinté avec liquide ambré à l'intérieur, collier et bouchon métalliques, le tout en rotation lente autour de l'axe vertical."
 }

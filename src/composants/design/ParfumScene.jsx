@@ -2,7 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
-import { phoenixLabelSvg } from '../graphisme/phoenixSvg'
+import {
+  PHOENIX_BRAND_FONT,
+  PHOENIX_HEIGHT,
+  PHOENIX_WIDTH,
+} from '../graphisme/phoenixLabelDesign.js'
+import { usePhoenixRectoSvg } from '../graphisme/phoenixRectoSvg'
+import { phoenixVersoSvg } from '../graphisme/pheonixVersoSvg'
 
 const ROTATION_SPEED = 0.5
 const TURN_TIME = (2 * Math.PI) / ROTATION_SPEED
@@ -21,81 +27,36 @@ const METAL = [232, 200, 107]
 const GOLD = [212, 175, 55]
 const GREY = [0.55, 0.53, 0.5]
 
-function roundedRectPath(ctx, x, y, w, h, r) {
-  ctx.beginPath()
-  ctx.moveTo(x + r, y)
-  ctx.lineTo(x + w - r, y)
-  ctx.arcTo(x + w, y, x + w, y + r, r)
-  ctx.lineTo(x + w, y + h - r)
-  ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
-  ctx.lineTo(x + r, y + h)
-  ctx.arcTo(x, y + h, x, y + h - r, r)
-  ctx.lineTo(x, y + r)
-  ctx.arcTo(x, y, x + r, y, r)
-  ctx.closePath()
+const LABEL_W = PHOENIX_WIDTH
+const LABEL_H = PHOENIX_HEIGHT
+
+function svgToTexture(svgString, { fill } = {}) {
+  return new Promise((resolve) => {
+    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString)
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = LABEL_W
+      canvas.height = LABEL_H
+      const ctx = canvas.getContext('2d')
+      if (fill) {
+        ctx.fillStyle = fill
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      }
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      const texture = new THREE.CanvasTexture(canvas)
+      texture.colorSpace = THREE.SRGBColorSpace
+      texture.anisotropy = 8
+      resolve(texture)
+    }
+    img.onerror = () => resolve(null)
+    img.src = url
+  })
 }
 
-function fitFont(ctx, text, baseSize, fontFamily, weight, maxWidth) {
-  let size = baseSize
-  while (size > 10) {
-    ctx.font = `${weight} ${size}px ${fontFamily}`
-    if (ctx.measureText(text).width <= maxWidth) break
-    size -= 2
-  }
-  return `${weight} ${size}px ${fontFamily}`
-}
 
-function createLabelTexture({ brand, kind, details, brandFont }) {
-  const W = 420
-  const H = 580
-  const canvas = document.createElement('canvas')
-  canvas.width = W
-  canvas.height = H
-  const ctx = canvas.getContext('2d')
-
-  ctx.clearRect(0, 0, W, H)
-
-  const m = 45
-  const r = 40
-  ctx.fillStyle = '#f6ecd9'
-  roundedRectPath(ctx, m, m, W - 2 * m, H - 2 * m, r)
-  ctx.fill()
-
-  ctx.strokeStyle = '#c9a44a'
-  ctx.lineWidth = 7
-  roundedRectPath(ctx, m + 10, m + 10, W - 2 * m - 20, H - 2 * m - 20, r - 8)
-  ctx.stroke()
-
-  ctx.textAlign = 'center'
-  ctx.fillStyle = '#8a6d3b'
-  ctx.font = 'italic 26px Georgia, serif'
-  ctx.fillText('— · —', W / 2, 132)
-
-  ctx.fillStyle = '#3a2e20'
-  ctx.font = '600 28px Georgia, serif'
-  ctx.fillText(kind ?? 'EAU DE PARFUM', W / 2, 172)
-
-  ctx.fillStyle = '#1f1a12'
-  ctx.font = fitFont(ctx, brand ?? 'Phoenix', 84, brandFont ?? '"Great Vibes", cursive', 400, W - 2 * m - 80)
-  ctx.fillText(brand ?? 'Phoenix', W / 2, 330)
-
-  ctx.strokeStyle = '#c9a44a'
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  ctx.moveTo(m + 50, 425)
-  ctx.lineTo(W - m - 50, 425)
-  ctx.stroke()
-
-  ctx.fillStyle = '#8a6d3b'
-  ctx.font = 'italic 24px Georgia, serif'
-  ctx.fillText(details ?? 'Paris · 50 ml', W / 2, 475)
-
-  const texture = new THREE.CanvasTexture(canvas)
-  texture.colorSpace = THREE.SRGBColorSpace
-  texture.anisotropy = 8
-
-  return texture
-}
 
 function applyDissolve(material, uniforms) {
   material.onBeforeCompile = (shader) => {
@@ -252,49 +213,47 @@ function phaseParams(t) {
   return { s, a }
 }
 
-const BRAND_FONT = '"Allura", cursive'
-
-function rasterizeBackLabel() {
-  const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(phoenixLabelSvg())
-  return new Promise((resolve) => {
-    const img = new Image()
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      canvas.width = 420
-      canvas.height = 580
-      const ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.fillStyle = '#f6ecd9'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      const texture = new THREE.CanvasTexture(canvas)
-      texture.colorSpace = THREE.SRGBColorSpace
-      texture.anisotropy = 8
-      resolve(texture)
-    }
-    img.onerror = () => resolve(null)
-    img.src = url
-  })
-}
-
-function ParfumScene({ brand, kind, details }) {
+function ParfumScene() {
   const bottleRef = useRef()
   const pointsMatRef = useRef()
-  const [labelTexture, setLabelTexture] = useState(() =>
-    createLabelTexture({ brand, kind, details, brandFont: BRAND_FONT }),
-  )
+  const [labelTexture, setLabelTexture] = useState(null)
   const [backMap, setBackMap] = useState(null)
+  const rectoSvgString = usePhoenixRectoSvg()
   const { n, basePositions, baseColors, drift, depth } = useMemo(() => buildParticles(), [])
 
+  // verso : import direct depuis pheonixVersoSvg (uniformisé avec recto)
   useEffect(() => {
     let cancelled = false
-    rasterizeBackLabel().then((tex) => {
+    svgToTexture(phoenixVersoSvg()).then((tex) => {
       if (!cancelled && tex) setBackMap(tex)
     })
     return () => {
       cancelled = true
     }
   }, [])
+
+  // recto : import direct depuis phoenixRectoSvg (uniformisé avec verso)
+  useEffect(() => {
+    let cancelled = false
+    const load = async () => {
+      if (document.fonts?.load) {
+        await document.fonts.load(`400 84px ${PHOENIX_BRAND_FONT}`).catch(() => {})
+        await document.fonts.ready.catch(() => {})
+        if (cancelled) return
+      }
+      const tex = await svgToTexture(rectoSvgString)
+      if (!cancelled && tex) {
+        setLabelTexture((prev) => {
+          if (prev) prev.dispose()
+          return tex
+        })
+      }
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [rectoSvgString])
 
   const materials = useMemo(() => {
     const uniforms = { uDissolve: { value: 0 } }
@@ -344,20 +303,6 @@ function ParfumScene({ brand, kind, details }) {
   }, [labelTexture, backMap])
 
   useEffect(() => {
-    let cancelled = false
-    if (document.fonts && typeof document.fonts.load === 'function') {
-      document.fonts.load('400 84px "Allura"').finally(() => {
-        if (!cancelled) {
-          setLabelTexture(createLabelTexture({ brand, kind, details, brandFont: BRAND_FONT }))
-        }
-      })
-    }
-    return () => {
-      cancelled = true
-    }
-  }, [brand, kind, details])
-
-  useEffect(() => {
     return () => {
       const mats = [materials.glass, materials.liquid, materials.collar, materials.stem, materials.cap, materials.fabric, materials.backFab]
       for (const m of mats) {
@@ -372,6 +317,12 @@ function ParfumScene({ brand, kind, details }) {
       if (backMap) backMap.dispose()
     }
   }, [backMap])
+
+  useEffect(() => {
+    return () => {
+      if (labelTexture) labelTexture.dispose()
+    }
+  }, [labelTexture])
 
   const particles = useMemo(() => {
     const geo = new THREE.BufferGeometry()
