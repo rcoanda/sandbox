@@ -15,10 +15,10 @@ function PhoenixLabel({ transparent }) {
         background: transparent ? 'transparent' : '#17140f',
       }}
     >
-      <div style={{ transform: 'scale(0.5)', transformOrigin: 'right' }}>
+      <div style={{ transform: 'scale(0.75)', transformOrigin: 'right' }}>
         <PhoenixRectoLabel />
       </div>
-      <div style={{ transform: 'scale(0.5)', transformOrigin: 'left' }}>
+      <div style={{ transform: 'scale(0.75)', transformOrigin: 'left' }}>
         <PhoenixVersoLabel />
       </div>
     </div>

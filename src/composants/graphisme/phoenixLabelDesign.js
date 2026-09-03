@@ -37,10 +37,6 @@ export const PHOENIX_COLORS = {
   brown: '#8a6d3b',
   dark: '#3a2e20',
   ink: '#1f1a12',
-  flameFrom: '#c1440e',
-  flameTo: '#e07a3f',
-  haloCenter: '#fdf8ea',
-  haloMid: '#f2dc9b',
 }
 
 const PHOENIX_FRAME = {

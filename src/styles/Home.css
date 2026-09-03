@@ -274,12 +274,12 @@
 
 .home-cell--graphisme:hover,
 .home-cell--graphisme.home-cell--active {
-  background: linear-gradient(135deg, rgba(253, 244, 220, 0.85) 0%, rgba(244, 220, 154, 0.85) 50%, rgba(244, 231, 199, 0.85) 100%);
+  background: linear-gradient(135deg, rgba(248, 244, 232, 0.55) 0%, rgba(235, 220, 190, 0.55) 50%, rgba(240, 233, 216, 0.55) 100%);
 }
 
 .home-cell--design:hover,
 .home-cell--design.home-cell--active {
-  background: linear-gradient(135deg, rgba(255, 237, 213, 0.85) 0%, rgba(251, 207, 145, 0.85) 50%, rgba(253, 224, 184, 0.85) 100%);
+  background: linear-gradient(135deg, rgba(252, 240, 238, 0.55) 0%, rgba(246, 222, 214, 0.55) 50%, rgba(250, 234, 229, 0.55) 100%);
 }
 
 .home-cell--geometrie:hover .home-cell-title,

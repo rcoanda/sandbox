@@ -4,82 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phénix en vol - SVG</title>
+    <title>Logo Phénix Égyptien SVG</title>
     <style>
         body {
-            background-color: #111;
+            background-color: #121214;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            font-family: 'Cinzel', 'Georgia', serif;
+        }
+
+        .logo-container {
+            text-align: center;
         }
 
         svg {
-            max-width: 100%;
-            height: auto;
+            width: 300px;
+            height: 300px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+        }
+
+        h1 {
+            color: #d4af37;
+            letter-spacing: 8px;
+            margin-top: 25px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #48cae4;
+            letter-spacing: 6px;
+            font-size: 10px;
+            margin-top: -12px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 
 <body>
 
-    <svg viewBox="0 0 800 600" width="800" height="600" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <!-- Dégradé pour les ailes et le corps (effet feu) -->
-            <linearGradient id="fireGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff4500" />
-                <stop offset="50%" stop-color="#ff8c00" />
-                <stop offset="100%" stop-color="#ffd700" />
-            </linearGradient>
+    <div class="logo-container">
+        <!-- Logo SVG Phénix / Bénou Style Égyptien -->
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="egyptianGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f39c12" />
+                    <stop offset="50%" stop-color="#f1c40f" />
+                    <stop offset="100%" stop-color="#b7950b" />
+                </linearGradient>
+                <linearGradient id="nileBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#00b4d8" />
+                    <stop offset="100%" stop-color="#03045e" />
+                </linearGradient>
+            </defs>
 
-            <!-- Dégradé pour la queue ardente -->
-            <linearGradient id="tailGradient" x1="50%" y1="0%" x2="50%" y2="100%">
-                <stop offset="0%" stop-color="#ff6347" />
-                <stop offset="50%" stop-color="#ff4500" />
-                <stop offset="100%" stop-color="#8b0000" />
-            </linearGradient>
+            <!-- Disque Solaire de Râ en arrière-plan -->
+            <circle cx="250" cy="180" r="70" fill="url(#egyptianGold)" opacity="0.2" />
+            <circle cx="250" cy="180" r="50" fill="none" stroke="url(#egyptianGold)" stroke-width="3"
+                stroke-dasharray="10 5" />
 
-            <!-- Filtre de lueur (glow) -->
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="8" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-        </defs>
+            <!-- Ailes géométriques stylisées (inspirées des fresques) -->
+            <polygon points="250,160 120,100 80,180 160,240 250,220" fill="url(#egyptianGold)" />
+            <polygon points="250,160 380,100 420,180 340,240 250,220" fill="url(#egyptianGold)" />
 
-        <!-- Fond sombre pour faire ressortir les flammes -->
-        <rect width="800" height="600" fill="#111215" />
+            <!-- Corps et Coiffe du Phénix (Bénou) -->
+            <path fill="url(#egyptianGold)" d="M230,120 L250,60 L270,120 L280,260 L250,340 L220,260 Z" />
 
-        <g filter="url(#glow)">
-            <!-- Queue du Phénix (plumes de feu descendantes) -->
-            <path
-                d="M 400 320 C 380 420 340 500 300 560 C 360 480 390 420 400 360 C 410 420 440 480 500 560 C 460 500 420 420 400 320 Z"
-                fill="url(#tailGradient)" />
-            <path
-                d="M 400 340 C 390 440 370 520 350 580 C 390 500 400 440 400 380 C 400 440 410 500 450 580 C 430 520 410 440 400 340 Z"
-                fill="#ffd700" opacity="0.8" />
+            <!-- Plumes de la coiffe (type huppe) -->
+            <path fill="#00b4d8" d="M250,60 L240,20 L250,10 L260,20 Z" />
 
-            <!-- Corps et Tête -->
-            <path d="M 400 180 C 375 220 370 280 385 340 C 395 370 405 370 415 340 C 430 280 425 220 400 180 Z"
-                fill="url(#fireGradient)" />
-            <!-- Tête -->
-            <circle cx="400" cy="165" r="18" fill="url(#fireGradient)" />
-            <!-- Bec -->
-            <path d="M 400 150 L 408 160 L 400 165 Z" fill="#ff4500" />
+            <!-- Queue géométrique suspendue -->
+            <polygon points="235,340 250,440 265,340" fill="url(#nileBlue)" />
 
-            <!-- Aile Gauche (déployée vers le haut) -->
-            <path d="M 390 220 C 300 180 180 100 80 60 C 140 160 220 240 330 310 C 350 320 370 300 390 220 Z"
-                fill="url(#fireGradient)" />
-            <!-- Plumes secondaires aile gauche -->
-            <path d="M 350 260 C 270 210 180 140 110 100 C 160 180 240 250 310 305 Z" fill="#ffd700" opacity="0.7" />
+            <!-- Détails de l'or (Lignes symboliques) -->
+            <line x1="250" y1="220" x2="250" y2="340" stroke="#121214" stroke-width="4" />
+            <line x1="160" y1="150" x2="210" y2="180" stroke="#121214" stroke-width="3" />
+            <line x1="340" y1="150" x2="290" y2="180" stroke="#121214" stroke-width="3" />
+        </svg>
 
-            <!-- Aile Droite (déployée vers le haut) -->
-            <path d="M 410 220 C 500 180 620 100 720 60 C 660 160 580 240 470 310 C 450 320 430 300 410 220 Z"
-                fill="url(#fireGradient)" />
-            <!-- Plumes secondaires aile droite -->
-            <path d="M 450 260 C 530 210 620 140 690 100 C 640 180 560 250 490 305 Z" fill="#ffd700" opacity="0.7" />
-        </g>
-    </svg>
+        <h1>BENOU</h1>
+        <p>L'Immortel Solaire</p>
+    </div>
 
 </body>
 
