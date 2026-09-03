@@ -47,6 +47,7 @@ import Parfum from './pages/Design/Parfum'
 import Phoenix from './pages/Graphisme/Phoenix'
 import Cristal from './pages/Graphisme/Cristal'
 import Eau from './pages/Design/Eau'
+import Hamburger from './pages/Design/Hamburger'
 
 function App() {
   return (
@@ -97,6 +98,7 @@ function App() {
         <Route path="/aquatique" element={<Aquatique />} />
         <Route path="/parfum" element={<Parfum />} />
         <Route path="/eau" element={<Eau />} />
+        <Route path="/hamburger" element={<Hamburger />} />
         <Route path="/phoenix" element={<Phoenix />} />
         <Route path="/cristal" element={<Cristal />} />
       </Routes>

@@ -75,7 +75,7 @@ export const categories = [
   {
     id: 'design',
     label: '09',
-    routes: ['/parfum', '/eau'],
+    routes: ['/parfum', '/eau', '/hamburger'],
     Scene: ParfumScene,
     bgClass: 'home-cell--design',
   },
