@@ -75,9 +75,15 @@ export const categories = [
   {
     id: 'design',
     label: '09',
-    routes: ['/parfum'],
+    routes: ['/parfum', '/eau'],
     Scene: ParfumScene,
     bgClass: 'home-cell--design',
+  },
+  {
+    id: 'portfolios',
+    label: '10',
+    routes: [],
+    bgClass: 'home-cell--portfolios',
   },
 ]
 

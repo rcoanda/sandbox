@@ -282,6 +282,11 @@
   background: linear-gradient(135deg, rgba(252, 240, 238, 0.55) 0%, rgba(246, 222, 214, 0.55) 50%, rgba(250, 234, 229, 0.55) 100%);
 }
 
+.home-cell--portfolios:hover,
+.home-cell--portfolios.home-cell--active {
+  background: linear-gradient(135deg, rgba(240, 244, 248, 0.55) 0%, rgba(214, 225, 237, 0.55) 50%, rgba(229, 236, 243, 0.55) 100%);
+}
+
 .home-cell--geometrie:hover .home-cell-title,
 .home-cell--geometrie.home-cell--active .home-cell-title,
 .home-cell--3d:hover .home-cell-title,
@@ -299,7 +304,9 @@
 .home-cell--graphisme:hover .home-cell-title,
 .home-cell--graphisme.home-cell--active .home-cell-title,
 .home-cell--design:hover .home-cell-title,
-.home-cell--design.home-cell--active .home-cell-title {
+.home-cell--design.home-cell--active .home-cell-title,
+.home-cell--portfolios:hover .home-cell-title,
+.home-cell--portfolios.home-cell--active .home-cell-title {
   color: #1a1a1a;
 }
 
@@ -320,7 +327,9 @@
 .home-cell--graphisme:hover .home-cell-footer,
 .home-cell--graphisme.home-cell--active .home-cell-footer,
 .home-cell--design:hover .home-cell-footer,
-.home-cell--design.home-cell--active .home-cell-footer {
+.home-cell--design.home-cell--active .home-cell-footer,
+.home-cell--portfolios:hover .home-cell-footer,
+.home-cell--portfolios.home-cell--active .home-cell-footer {
   color: rgba(0, 0, 0, 0.5);
 }
 

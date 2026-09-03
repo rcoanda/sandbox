@@ -122,11 +122,12 @@ function Home() {
     else setActiveId(id)
   }, [navigate])
 
-  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.id !== 'graphisme' && c.id !== 'design')
+  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.id !== 'graphisme' && c.id !== 'design' && c.id !== 'portfolios')
   const col1 = gridCats.filter((_, i) => i % 2 === 0)
   const col2 = gridCats.filter((_, i) => i % 2 === 1)
   const bottomCats = categories.filter((c) => c.id === 'galeriesApi' || c.id === 'graphisme' || c.id === 'design')
   const galeriesApiCat = categories.find((c) => c.id === 'galeriesApi')
+  const portfoliosCat = categories.find((c) => c.id === 'portfolios')
 
   return (
     <div className="home-page">
@@ -179,6 +180,16 @@ function Home() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="home-row-full">
+          <div key={portfoliosCat.id} className={`home-cell home-cell--full ${portfoliosCat.bgClass}${activeId === portfoliosCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(portfoliosCat.id)} onMouseEnter={() => setActiveId(portfoliosCat.id)}>
+            <h2 className="home-cell-title">{commonJson?.categories?.[portfoliosCat.id]}</h2>
+            <div className="home-cell-footer">
+              <span>{commonJson?.subtitle?.[portfoliosCat.id]}</span>
+              <span>{portfoliosCat.label}</span>
+            </div>
+          </div>
+          <div className="home-diagonal" />
         </div>
       </div>
     </div>

@@ -13,7 +13,8 @@
     "structures": "Structures",
     "galeriesApi": "API Galleries",
     "graphisme": "Graphisme",
-    "design": "Design"
+    "design": "Design",
+    "portfolios": "Portfolios"
   },
   "loading": "Loading...",
   "loadingError": "API is not responding. Retry your request.",
@@ -26,6 +27,7 @@
     "structures": "Nodes & links",
     "galeriesApi": "Images & data",
     "graphisme": "Type & labels",
-    "design": "Objects & 3D scenes"
+    "design": "Objects & 3D scenes",
+    "portfolios": "Selected projects"
   }
 }
