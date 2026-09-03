@@ -46,6 +46,7 @@ import Aquatique from './pages/GaleriesApi/Aquatique'
 import Parfum from './pages/Design/Parfum'
 import Phoenix from './pages/Graphisme/Phoenix'
 import Cristal from './pages/Graphisme/Cristal'
+import Eau from './pages/Design/Eau'
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
         <Route path="/cooper" element={<Cooper />} />
         <Route path="/aquatique" element={<Aquatique />} />
         <Route path="/parfum" element={<Parfum />} />
+        <Route path="/eau" element={<Eau />} />
         <Route path="/phoenix" element={<Phoenix />} />
         <Route path="/cristal" element={<Cristal />} />
       </Routes>
