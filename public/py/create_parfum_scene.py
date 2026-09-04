@@ -602,18 +602,18 @@ def build_scene():
     _add_ash_particles(glass, mat_ash)
 
     # ── Lighting — faithful to the JSX lights ─────────────────────
-    bpy.ops.object.light_add(type="SUN", location=(5, 6, 4),
-                             rotation=_aim_at_origin((5, 6, 4)))
+    bpy.ops.object.light_add(type="SUN", location=(5, 6, 4))
     key = bpy.context.active_object
     key.name = "Key_Sun"
     key.data.energy = 2.0
+    _aim_at(key, (0, 0, 0))
 
-    bpy.ops.object.light_add(type="SUN", location=(-4, -3, -2),
-                             rotation=_aim_at_origin((-4, -3, -2)))
+    bpy.ops.object.light_add(type="SUN", location=(-4, -3, -2))
     fill = bpy.context.active_object
     fill.name = "Fill_Sun"
     fill.data.energy = 0.7
     fill.data.color = (0.647, 0.839, 1.0)                  # #a5d6ff
+    _aim_at(fill, (0, 0, 0))
 
     bpy.ops.object.light_add(type="POINT", location=(0, 2.5, 3))
     rim = bpy.context.active_object
@@ -626,13 +626,18 @@ def build_scene():
     amb.name = "Ambient_Point"
     amb.data.energy = 20
 
-    # ── Camera ────────────────────────────────────────────────────
-    bpy.ops.object.camera_add(location=(3.5, 2.5, 2.5))
+    # ── Camera — frontal product shot ──────────────────────────────
+    # The bottle stands upright along Y, its front label faces +Z.
+    # Place the camera at eye level on the +Z axis, looking straight at
+    # the front of the bottle (label plane at z = +0.37).
+    cam_loc = (0.0, 0.0, 7.5)
+    cam_target = (0.0, -0.03, 0.0)                 # centre of the bottle
+    bpy.ops.object.camera_add(location=cam_loc)
     cam = bpy.context.active_object
     cam.name = "Main_Camera"
     cam.data.lens = 50
     scn.camera = cam
-    _aim_at(cam, (0, 0, 0))
+    _aim_at(cam, cam_target)
 
     # ── World (dark studio backdrop) ──────────────────────────────
     world = scn.world or bpy.data.worlds.new("World")
@@ -647,17 +652,30 @@ def build_scene():
     print("✅  ParfumScene built — faithful to src/composants/design/ParfumScene.jsx")
 
 
-def _aim_at_origin(loc):
-    """Euler that makes an object's -Z axis point toward the origin."""
-    from mathutils import Vector
-    d = -Vector(loc).normalized()
-    return d.to_track_quat("-Z", "Y").to_euler()
+def _aim_at(obj, target, up_world=(0, 1, 0)):
+    """
+    Point obj at `target` with an upright camera (screen up = +Y world, so a
+    bottle standing along Y appears vertical).
 
-
-def _aim_at(obj, target):
-    from mathutils import Vector
-    d = Vector(target) - Vector(obj.location)
-    obj.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+    NOTE: `direction.to_track_quat('-Z', 'Y')` flips the camera upside‑down
+    in recent Blender versions, which is why we build the look‑at matrix by
+    hand (camera looks along its local −Z; local +Y = screen up).
+    """
+    from mathutils import Matrix, Vector
+    loc = Vector(obj.location)
+    fwd = (Vector(target) - loc).normalized()     # camera −Z points at target
+    z = -fwd                                      # local +Z (behind the camera)
+    up = Vector(up_world)
+    if abs(up.dot(z)) > 0.9999:                   # avoid degenerate case
+        up = Vector((1, 0, 0))
+    y = (up - up.dot(z) * z).normalized()         # screen up
+    x = y.cross(z)                                # screen right
+    obj.matrix_world = Matrix((
+        (x.x, y.x, z.x, loc.x),
+        (x.y, y.y, z.y, loc.y),
+        (x.z, y.z, z.z, loc.z),
+        (0.0, 0.0, 0.0, 1.0),
+    ))
 
 
 if __name__ == "__main__":
