@@ -1,3 +1,32 @@
+/* ---------- projection space (curved band) ---------- */
+
+.p-stage {
+  position: relative;
+  width: max-content;
+  perspective: 1000px;
+}
+
+.p-stage::before,
+.p-stage::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  bottom: -40px;
+  width: 320px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.p-stage::before {
+  left: -6px;
+  background: linear-gradient(90deg, #060608, rgba(8, 8, 10, 0));
+}
+
+.p-stage::after {
+  right: -6px;
+  background: linear-gradient(270deg, #060608, rgba(8, 8, 10, 0));
+}
+
 /* ---------- site rectangles ---------- */
 
 .p-reel {
@@ -5,8 +34,10 @@
   flex-direction: row;
   align-items: center;
   gap: 44px;
-  padding: 24px 0;
+  padding: 60px 0;
   width: max-content;
+  transform: rotateX(11deg);
+  transform-style: preserve-3d;
 }
 
 .p-frame {
