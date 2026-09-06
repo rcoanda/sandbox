@@ -53,6 +53,24 @@
   overflow: hidden;
 }
 
+.home-preview--portfolios {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-preview--portfolios .p-reel {
+  gap: 18px;
+  padding: 0;
+  transform: scale(0.5);
+}
+
+.home-preview--portfolios .p-screen__play,
+.home-preview--portfolios .p-screen__url,
+.home-preview--portfolios .p-screen__arrow {
+  display: none;
+}
+
 .home-grid {
   display: flex;
   flex-wrap: wrap;

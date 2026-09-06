@@ -2,15 +2,17 @@
 
 .p-reel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 44px;
+  padding: 24px 0;
+  width: max-content;
 }
 
 .p-frame {
   position: relative;
   display: block;
-  width: min(840px, 86vw);
+  width: min(560px, calc((80vh - 170px) * 16 / 9));
   background: #151517;
   border: 1px solid #28282e;
   border-radius: 3px;

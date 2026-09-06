@@ -7,6 +7,7 @@ import ReseauxScene from '../composants/structures/ReseauxScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import ParfumWebGLScene from '../composants/design/ParfumWebGLScene'
 import PhoenixLabel from '../composants/graphisme/PhoenixLabel'
+import PortfoliosScene from '../composants/portfolios/PortfoliosScene'
 
 export const categories = [
   {
@@ -83,7 +84,9 @@ export const categories = [
     id: 'portfolios',
     label: '10',
     routes: ['/portfolios'],
+    Scene: PortfoliosScene,
     bgClass: 'home-cell--portfolios',
+    is2D: true,
   },
 ]
 

@@ -29,7 +29,10 @@ function Preview({ activeCat }) {
         {!is2D && <Scene />}
       </Canvas>
       {is2D && (
-        <div style={{ position: 'absolute', inset: 0 }}>
+        <div
+          style={{ position: 'absolute', inset: 0 }}
+          className={id === 'portfolios' ? 'home-preview--portfolios' : undefined}
+        >
           <Scene transparent={transparent} />
         </div>
       )}

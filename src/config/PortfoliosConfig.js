@@ -17,6 +17,42 @@ export const portfolios = [
     url: 'https://www.amazon.com',
     accent: '#ff9900',
   },
+  {
+    id: 'github',
+    name: 'GitHub',
+    url: 'https://github.com',
+    accent: '#6e40c9',
+  },
+  {
+    id: 'vercel',
+    name: 'Vercel',
+    url: 'https://vercel.com',
+    accent: '#ffffff',
+  },
+  {
+    id: 'canalplus',
+    name: 'Canal+',
+    url: 'https://www.canalplus.com',
+    accent: '#ff5f00',
+  },
+  {
+    id: 'metropolitan',
+    name: 'Metropolitan Museum',
+    url: 'https://www.metmuseum.org',
+    accent: '#b7712d',
+  },
+  {
+    id: 'nasa',
+    name: 'NASA',
+    url: 'https://www.nasa.gov',
+    accent: '#0b3d91',
+  },
+  {
+    id: 'google',
+    name: 'Google',
+    url: 'https://www.google.com',
+    accent: '#4285f4',
+  },
 ]
 
 export function reelCode(name) {
