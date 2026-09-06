@@ -15,6 +15,7 @@ import Oscillation from './pages/3D/Oscillation'
 import Levitation from './pages/3D/Levitation'
 import Satelite from './pages/3D/Satelite'
 import Random from './pages/Geometrie/Random'
+import Portfolios from './pages/Portfolios/Portfolios'
 import Lissajous from './pages/Trajectoires/Lissajous'
 import Spirale from './pages/Trajectoires/Spirale'
 import Hypocycloide from './pages/Trajectoires/Hypocycloide'
@@ -107,6 +108,7 @@ function App() {
         <Route path="/hamburger" element={<Hamburger />} />
         <Route path="/phoenix" element={<Phoenix />} />
         <Route path="/cristal" element={<Cristal />} />
+        <Route path="/portfolios" element={<Portfolios />} />
       </Routes>
     </DicoProvider>
   )

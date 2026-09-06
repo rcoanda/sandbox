@@ -82,7 +82,7 @@ export const categories = [
   {
     id: 'portfolios',
     label: '10',
-    routes: [],
+    routes: ['/portfolios'],
     bgClass: 'home-cell--portfolios',
   },
 ]

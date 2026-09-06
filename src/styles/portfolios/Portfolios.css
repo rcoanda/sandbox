@@ -1,0 +1,196 @@
+/* ---------- site rectangles ---------- */
+
+.p-reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+.p-frame {
+  position: relative;
+  display: block;
+  width: min(840px, 86vw);
+  background: #151517;
+  border: 1px solid #28282e;
+  border-radius: 3px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.p-frame:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent);
+}
+
+/* sprocket holes along both film edges */
+
+.p-perf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background-image: radial-gradient(circle at 50% 7px, rgba(255, 255, 255, 0.1) 4.5px, rgba(255, 255, 255, 0) 6px);
+  background-size: 100% 22px;
+  background-repeat: repeat-y;
+}
+
+.p-perf--left {
+  left: 0;
+  border-right: 1px solid #26262b;
+}
+
+.p-perf--right {
+  right: 0;
+  border-left: 1px solid #26262b;
+}
+
+.p-frame__body {
+  padding: 12px 30px 14px;
+}
+
+.p-frame__head {
+  display: flex;
+  justify-content: space-between;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #a29a9c;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #2e2e34;
+  margin-bottom: 12px;
+}
+
+/* ---------- screen ---------- */
+
+.p-screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #050507;
+  border: 1px solid #2c2c32;
+}
+
+.p-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1000px 320px at 50% 118%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 55%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.p-frame:hover .p-screen::before {
+  opacity: 1;
+}
+
+.p-screen__arrow {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  animation: p-flicker 4.5s steps(2, end) infinite;
+}
+
+.p-screen__name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: clamp(44px, 12vw, 132px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 4px 26px rgba(0, 0, 0, 0.75);
+  filter: drop-shadow(0 0 34px currentColor);
+}
+
+.p-screen__play {
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(5, 5, 7, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: #fff;
+  opacity: 0.9;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.p-frame:hover .p-screen__play {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.p-screen__url {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- caption ---------- */
+
+.p-frame__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 2px 11px;
+}
+
+.p-frame__name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px;
+  color: #f4f0f0;
+}
+
+.p-frame__reel {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+/* ---------- edge code + SMPTE bars ---------- */
+
+.p-frame__edge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 9px;
+  border-top: 1px dashed #2e2e34;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: #8d8285;
+}
+
+.p-smpte {
+  width: 88px;
+  height: 8px;
+  flex-shrink: 0;
+  background-image: linear-gradient(
+    90deg,
+    #bdbdbd 0 14.28%, #c0c000 14.28% 28.57%, #00c0c0 28.57% 42.85%,
+    #00c000 42.85% 57.14%, #c000c0 57.14% 71.42%, #c00000 71.42% 85.71%, #0000c0 85.71% 100%
+  );
+  opacity: 0.9;
+}
+
+@keyframes p-flicker {
+  0%, 48% { opacity: 0.55; }
+  50% { opacity: 0.25; }
+  52% { opacity: 0.6; }
+  54% { opacity: 0.3; }
+  56%, 100% { opacity: 0.55; }
+}
