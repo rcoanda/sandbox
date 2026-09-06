@@ -2,10 +2,10 @@ import { useRef, useEffect } from 'react'
 import BackArrow from '../../composants/globals/BackArrow'
 import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Informations from '../../composants/globals/Informations'
-import PortfoliosScene from '../../composants/portfolios/PortfoliosScene'
-import '../../styles/portfolios/Portfolios.css'
+import Expo2DScene from '../../composants/portfolios/Expo2DScene'
+import '../../styles/portfolios/Expo2D.css'
 
-function Portfolios() {
+function Expo2D() {
   const containerRef = useRef(null)
 
   useEffect(() => {
@@ -37,9 +37,9 @@ function Portfolios() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="portfolios" />
-      <PortfoliosScene />
+      <Expo2DScene />
     </div>
   )
 }
 
-export default Portfolios
+export default Expo2D
