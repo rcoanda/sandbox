@@ -1,22 +1,43 @@
-import { useEffect } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import { useEffect, useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
 import parfumGltf from '/assets/design/parfum.glb?url'
+import {
+  ROTATION_SPEED,
+  applyDissolveToObject,
+  phaseParams,
+  useParfumTiming,
+} from './parfumCommon'
 
 function ParfumGLBScene() {
-  const { scene, animations } = useGLTF(parfumGltf)
-  const { ref, actions } = useAnimations(animations)
+  const groupRef = useRef()
+  const { scene } = useGLTF(parfumGltf)
+  const { getT, groupProps } = useParfumTiming()
+  const uniformsRef = useRef({ uDissolve: { value: 0 } })
 
   useEffect(() => {
-    const list = Object.values(actions)
-    if (list.length) list[0].play()
-  }, [actions])
+    applyDissolveToObject(scene, uniformsRef.current)
+  }, [scene])
+
+  useFrame(({ clock }) => {
+    const t = getT(clock.getElapsedTime())
+    const { s } = phaseParams(t)
+
+    uniformsRef.current.uDissolve.value = s
+
+    if (groupRef.current) {
+      groupRef.current.rotation.y = t * ROTATION_SPEED
+    }
+  })
 
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[5, 6, 4]} intensity={1.5} />
-      <directionalLight position={[-4, -3, -2]} intensity={0.4} color="#a5d6ff" />
-      <primitive ref={ref} object={scene} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 6, 4]} intensity={1.6} />
+      <directionalLight position={[-4, -3, -2]} intensity={0.5} color="#a5d6ff" />
+      <group ref={groupRef} {...groupProps}>
+        <primitive object={scene} />
+      </group>
     </>
   )
 }

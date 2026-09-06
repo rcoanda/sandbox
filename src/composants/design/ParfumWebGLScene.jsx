@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 import {
@@ -9,17 +9,12 @@ import {
 } from '../graphisme/phoenixLabelDesign.js'
 import { usePhoenixRectoSvg } from '../graphisme/phoenixRectoSvg'
 import { phoenixVersoSvg } from '../graphisme/pheonixVersoSvg'
-
-const ROTATION_SPEED = 0.5
-const TURN_TIME = (2 * Math.PI) / ROTATION_SPEED
-const COHESIVE_TIME = TURN_TIME
-const DISSOLVE_TIME = 3
-const ASH_TIME = 4
-const REFORM_TIME = 3
-const PERIOD = COHESIVE_TIME + DISSOLVE_TIME + ASH_TIME + REFORM_TIME
-
-const MIN_Y = -1.3
-const MAX_Y = 1.7
+import {
+  ROTATION_SPEED,
+  applyDissolve,
+  phaseParams,
+  useParfumTiming,
+} from './parfumCommon'
 
 const GLASS = [191, 227, 255]
 const LIQUID = [244, 194, 194]
@@ -57,34 +52,6 @@ function svgToTexture(svgString, { fill } = {}) {
 }
 
 
-
-function applyDissolve(material, uniforms) {
-  material.onBeforeCompile = (shader) => {
-    shader.uniforms.uDissolve = uniforms.uDissolve
-
-    shader.vertexShader =
-      'uniform float uDissolve;\nvarying vec3 vDissolvePos;\n' +
-      shader.vertexShader.replace(
-        '#include <begin_vertex>',
-        `#include <begin_vertex>
-
-        vDissolvePos = (modelMatrix * vec4(position, 1.0)).xyz;`,
-      )
-
-    shader.fragmentShader =
-      'uniform float uDissolve;\nvarying vec3 vDissolvePos;\n' +
-      shader.fragmentShader.replace(
-        '#include <clipping_planes_fragment>',
-        `#include <clipping_planes_fragment>
-
-        vec3 parfumP = fract(vDissolvePos * 3.7 * 0.3183099 + 0.1) * 17.0;
-        float parfumH = fract(parfumP.x * parfumP.y * parfumP.z * (parfumP.x + parfumP.y + parfumP.z));
-        float dissolveY = clamp((vDissolvePos.y - ${MIN_Y.toFixed(2)}) / (${MAX_Y.toFixed(2)} - ${MIN_Y.toFixed(2)}), 0.0, 1.0);
-        if (dissolveY * 0.55 + parfumH * 0.45 < uDissolve) discard;`,
-      )
-  }
-  return material
-}
 
 function sampleBoxSurface({ cx, cy, cz, w, h, d, count, jitter = 0.03 }) {
   const pts = []
@@ -189,38 +156,10 @@ function buildParticles() {
   return { n, basePositions, baseColors, drift, depth }
 }
 
-function phaseParams(t) {
-  const p = (t % PERIOD)
-  let s
-  let a
-
-  if (p < COHESIVE_TIME) {
-    s = 0
-    a = 0
-  } else if (p < COHESIVE_TIME + DISSOLVE_TIME) {
-    const k = (p - COHESIVE_TIME) / DISSOLVE_TIME
-    s = k
-    a = k
-  } else if (p < COHESIVE_TIME + DISSOLVE_TIME + ASH_TIME) {
-    s = 1
-    a = Math.max(0, 1 - (p - COHESIVE_TIME - DISSOLVE_TIME) / ASH_TIME)
-  } else {
-    const k = (p - (PERIOD - REFORM_TIME)) / REFORM_TIME
-    s = 1 - k
-    a = Math.sin(k * Math.PI)
-  }
-
-  return { s, a }
-}
-
 function ParfumWebGLScene() {
   const bottleRef = useRef()
   const pointsMatRef = useRef()
-  const [hovered, setHovered] = useState(false)
-  const { camera, gl } = useThree()
-  const frozenAtRef = useRef(null)
-  const lastTRef = useRef(0)
-  const timeOffsetRef = useRef(0)
+  const { getT, groupProps } = useParfumTiming()
   const [labelTexture, setLabelTexture] = useState(null)
   const [backMap, setBackMap] = useState(null)
   const rectoSvgString = usePhoenixRectoSvg()
@@ -349,43 +288,14 @@ function ParfumWebGLScene() {
     dissolveRef.current = materials.uniforms.uDissolve
   }, [materials])
 
-  useEffect(() => {
-    const onWheel = (e) => {
-      if (!hovered) return
-      const next = camera.position.z + e.deltaY * 0.003
-      camera.position.z = Math.min(7, Math.max(2.2, next))
-    }
-    const el = gl.domElement
-    el.addEventListener('wheel', onWheel, { passive: true })
-    return () => el.removeEventListener('wheel', onWheel)
-  }, [hovered, camera, gl])
-
-  useEffect(() => {
-    gl.domElement.style.cursor = hovered ? 'grab' : ''
-  }, [hovered, gl])
-
   useFrame(({ clock }) => {
-    const raw = clock.getElapsedTime()
-    const wasFrozen = frozenAtRef.current !== null
-    let t
-    if (hovered) {
-      if (!wasFrozen) frozenAtRef.current = raw
-      t = lastTRef.current
-    } else {
-      if (wasFrozen) {
-        timeOffsetRef.current = raw - lastTRef.current
-        frozenAtRef.current = null
-      }
-      t = raw - timeOffsetRef.current
-      lastTRef.current = t
-    }
-
+    const t = getT(clock.getElapsedTime())
     const { s, a } = phaseParams(t)
 
     if (dissolveRef.current) dissolveRef.current.value = s
 
     if (bottleRef.current) {
-      bottleRef.current.rotation.y = t * 0.5
+      bottleRef.current.rotation.y = t * ROTATION_SPEED
     }
 
     const posAttr = posAttrRef.current
@@ -421,8 +331,7 @@ function ParfumWebGLScene() {
       <group
         ref={bottleRef}
         position={[0, -0.35, 0]}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
+        {...groupProps}
       >
         <RoundedBox
           args={[1.4, 1.9, 0.72]}

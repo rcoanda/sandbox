@@ -1,4 +1,4 @@
 {
   "title": "Parfum Blender/GLB",
-  "description": "3D perfume bottle modelled in Blender and exported to GLB: the model is rendered in real time in a WebGL canvas and spins using its built-in animation."
+  "description": "3D perfume bottle modelled in Blender and exported to GLB: the model is rendered in real time in a WebGL canvas. The rotation around the vertical axis and the dissolve/re-form cycle are applied on the WebGL side, reusing the behaviors from the Parfum WebGL version. Hovering over the bottle freezes the effects and the mouse wheel zooms."
 }

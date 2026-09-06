@@ -1,4 +1,4 @@
 {
   "title": "Parfum Blender/GLB",
-  "description": "Flacon de parfum 3D modélisé dans Blender et exporté au format GLB : le modèle s'affiche en temps réel dans un canvas WebGL et tourne sur lui-même grâce à son animation intégrée."
+  "description": "Flacon de parfum 3D modélisé dans Blender et exporté au format GLB : le modèle s'affiche en temps réel dans un canvas WebGL. La rotation autour de l'axe vertical et le cycle de dissolution/reformation sont appliqués côté WebGL, réutilisant les comportements de la version Parfum WebGL. Au survol du flacon, les effets se figent et la molette de la souris permet de zoomer."
 }
