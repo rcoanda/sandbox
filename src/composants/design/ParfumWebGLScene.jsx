@@ -1,19 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
-import {
-  PHOENIX_BRAND_FONT,
-  PHOENIX_HEIGHT,
-  PHOENIX_WIDTH,
-} from '../graphisme/phoenixLabelDesign.js'
-import { usePhoenixRectoSvg } from '../graphisme/phoenixRectoSvg'
-import { phoenixVersoSvg } from '../graphisme/pheonixVersoSvg'
 import {
   ROTATION_SPEED,
   applyDissolve,
   phaseParams,
   useParfumTiming,
+  usePhoenixLabelTextures,
 } from './parfumCommon'
 
 const GLASS = [191, 227, 255]
@@ -21,37 +15,6 @@ const LIQUID = [244, 194, 194]
 const METAL = [232, 200, 107]
 const GOLD = [212, 175, 55]
 const GREY = [0.55, 0.53, 0.5]
-
-const LABEL_W = PHOENIX_WIDTH
-const LABEL_H = PHOENIX_HEIGHT
-
-function svgToTexture(svgString, { fill } = {}) {
-  return new Promise((resolve) => {
-    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString)
-    const img = new Image()
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      canvas.width = LABEL_W
-      canvas.height = LABEL_H
-      const ctx = canvas.getContext('2d')
-      if (fill) {
-        ctx.fillStyle = fill
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-      } else {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-      }
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      const texture = new THREE.CanvasTexture(canvas)
-      texture.colorSpace = THREE.SRGBColorSpace
-      texture.anisotropy = 8
-      resolve(texture)
-    }
-    img.onerror = () => resolve(null)
-    img.src = url
-  })
-}
-
-
 
 function sampleBoxSurface({ cx, cy, cz, w, h, d, count, jitter = 0.03 }) {
   const pts = []
@@ -160,44 +123,8 @@ function ParfumWebGLScene() {
   const bottleRef = useRef()
   const pointsMatRef = useRef()
   const { getT, groupProps } = useParfumTiming()
-  const [labelTexture, setLabelTexture] = useState(null)
-  const [backMap, setBackMap] = useState(null)
-  const rectoSvgString = usePhoenixRectoSvg()
+  const { rectoTexture: fabricMap, versoTexture: backMap } = usePhoenixLabelTextures()
   const { n, basePositions, baseColors, drift, depth } = useMemo(() => buildParticles(), [])
-
-  // verso : import direct depuis pheonixVersoSvg (uniformisé avec recto)
-  useEffect(() => {
-    let cancelled = false
-    svgToTexture(phoenixVersoSvg()).then((tex) => {
-      if (!cancelled && tex) setBackMap(tex)
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  // recto : import direct depuis phoenixRectoSvg (uniformisé avec verso)
-  useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      if (document.fonts?.load) {
-        await document.fonts.load(`400 84px ${PHOENIX_BRAND_FONT}`).catch(() => { })
-        await document.fonts.ready.catch(() => { })
-        if (cancelled) return
-      }
-      const tex = await svgToTexture(rectoSvgString)
-      if (!cancelled && tex) {
-        setLabelTexture((prev) => {
-          if (prev) prev.dispose()
-          return tex
-        })
-      }
-    }
-    load()
-    return () => {
-      cancelled = true
-    }
-  }, [rectoSvgString])
 
   const materials = useMemo(() => {
     const uniforms = { uDissolve: { value: 0 } }
@@ -236,7 +163,7 @@ function ParfumWebGLScene() {
       uniforms,
     )
     const fabric = applyDissolve(
-      new THREE.MeshBasicMaterial({ map: labelTexture, transparent: true }),
+      new THREE.MeshBasicMaterial({ map: fabricMap, transparent: true }),
       uniforms,
     )
     const backFab = applyDissolve(
@@ -244,7 +171,7 @@ function ParfumWebGLScene() {
       uniforms,
     )
     return { uniforms, glass, liquid, collar, stem, cap, fabric, backMap, backFab }
-  }, [labelTexture, backMap])
+  }, [fabricMap, backMap])
 
   useEffect(() => {
     return () => {
@@ -255,18 +182,6 @@ function ParfumWebGLScene() {
       }
     }
   }, [materials])
-
-  useEffect(() => {
-    return () => {
-      if (backMap) backMap.dispose()
-    }
-  }, [backMap])
-
-  useEffect(() => {
-    return () => {
-      if (labelTexture) labelTexture.dispose()
-    }
-  }, [labelTexture])
 
   const particles = useMemo(() => {
     const geo = new THREE.BufferGeometry()
