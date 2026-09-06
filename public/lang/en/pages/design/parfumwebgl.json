@@ -1,4 +1,4 @@
 {
-  "title": "Parfum",
-  "description": "3D WebGL perfume bottle: rounded tinted glass body with amber liquid inside, metallic collar and cap, slowly rotating around the vertical axis."
+  "title": "Parfum WebGL",
+  "description": "3D WebGL perfume bottle: rounded tinted glass body with amber liquid inside, metallic collar and cap, slowly rotating around the vertical axis. Hovering over the bottle freezes the rotation and the mouse wheel zooms."
 }

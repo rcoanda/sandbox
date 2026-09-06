@@ -1,0 +1,4 @@
+{
+  "title": "Parfum Blender/GLB",
+  "description": "Flacon de parfum 3D modélisé dans Blender et exporté au format GLB : le modèle s'affiche en temps réel dans un canvas WebGL et tourne sur lui-même grâce à son animation intégrée."
+}

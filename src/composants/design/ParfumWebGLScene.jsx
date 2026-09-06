@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 import {
@@ -213,9 +213,14 @@ function phaseParams(t) {
   return { s, a }
 }
 
-function ParfumScene() {
+function ParfumWebGLScene() {
   const bottleRef = useRef()
   const pointsMatRef = useRef()
+  const [hovered, setHovered] = useState(false)
+  const { camera, gl } = useThree()
+  const frozenAtRef = useRef(null)
+  const lastTRef = useRef(0)
+  const timeOffsetRef = useRef(0)
   const [labelTexture, setLabelTexture] = useState(null)
   const [backMap, setBackMap] = useState(null)
   const rectoSvgString = usePhoenixRectoSvg()
@@ -344,8 +349,37 @@ function ParfumScene() {
     dissolveRef.current = materials.uniforms.uDissolve
   }, [materials])
 
+  useEffect(() => {
+    const onWheel = (e) => {
+      if (!hovered) return
+      const next = camera.position.z + e.deltaY * 0.003
+      camera.position.z = Math.min(7, Math.max(2.2, next))
+    }
+    const el = gl.domElement
+    el.addEventListener('wheel', onWheel, { passive: true })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [hovered, camera, gl])
+
+  useEffect(() => {
+    gl.domElement.style.cursor = hovered ? 'grab' : ''
+  }, [hovered, gl])
+
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime()
+    const raw = clock.getElapsedTime()
+    const wasFrozen = frozenAtRef.current !== null
+    let t
+    if (hovered) {
+      if (!wasFrozen) frozenAtRef.current = raw
+      t = lastTRef.current
+    } else {
+      if (wasFrozen) {
+        timeOffsetRef.current = raw - lastTRef.current
+        frozenAtRef.current = null
+      }
+      t = raw - timeOffsetRef.current
+      lastTRef.current = t
+    }
+
     const { s, a } = phaseParams(t)
 
     if (dissolveRef.current) dissolveRef.current.value = s
@@ -384,7 +418,12 @@ function ParfumScene() {
       <directionalLight position={[-4, -3, -2]} intensity={0.5} color="#a5d6ff" />
       <pointLight position={[0, 2.5, 3]} intensity={0.6} color="#ffffff" />
 
-      <group ref={bottleRef} position={[0, -0.35, 0]}>
+      <group
+        ref={bottleRef}
+        position={[0, -0.35, 0]}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
         <RoundedBox
           args={[1.4, 1.9, 0.72]}
           radius={0.16}
@@ -444,4 +483,4 @@ function ParfumScene() {
   )
 }
 
-export default ParfumScene
+export default ParfumWebGLScene

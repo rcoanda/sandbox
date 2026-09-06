@@ -43,12 +43,14 @@ import Cleveland from './pages/GaleriesApi/Cleveland'
 import Chicago from './pages/GaleriesApi/Chicago'
 import Cooper from './pages/GaleriesApi/Cooper'
 import Aquatique from './pages/GaleriesApi/Aquatique'
-import Parfum from './pages/Design/Parfum'
+import ParfumWebGL from './pages/Design/ParfumWebGL'
 import Phoenix from './pages/Graphisme/Phoenix'
 import Cristal from './pages/Graphisme/Cristal'
 import Eau from './pages/Design/Eau'
 import Hamburger from './pages/Design/Hamburger'
 import Capsule from './pages/Design/Capsule'
+import ParfumWebM from './pages/Design/ParfumWebM'
+import ParfumGLB from './pages/Design/ParfumGLB'
 
 function App() {
   return (
@@ -97,9 +99,11 @@ function App() {
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/cooper" element={<Cooper />} />
         <Route path="/aquatique" element={<Aquatique />} />
-        <Route path="/parfum" element={<Parfum />} />
+        <Route path="/parfumwebgl" element={<ParfumWebGL />} />
         <Route path="/eau" element={<Eau />} />
         <Route path="/capsule" element={<Capsule />} />
+        <Route path="/parfumwebm" element={<ParfumWebM />} />
+        <Route path="/parfumglb" element={<ParfumGLB />} />
         <Route path="/hamburger" element={<Hamburger />} />
         <Route path="/phoenix" element={<Phoenix />} />
         <Route path="/cristal" element={<Cristal />} />

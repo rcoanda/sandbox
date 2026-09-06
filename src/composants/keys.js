@@ -5,7 +5,7 @@ import TerreLuneScene from './cosmos/TerreLuneScene'
 import Abstrait2DScene from './abstrait/Abstrait2DScene'
 import ReseauxScene from './structures/ReseauxScene'
 import ApiScene from './galeriesApi/ApiScene'
-import ParfumScene from './design/ParfumScene'
+import ParfumWebGLScene from './design/ParfumWebGLScene'
 import PhoenixLabel from './graphisme/PhoenixLabel'
 
 export const categories = [
@@ -75,8 +75,8 @@ export const categories = [
   {
     id: 'design',
     label: '09',
-    routes: ['/parfum', '/capsule', '/eau', '/hamburger'],
-    Scene: ParfumScene,
+    routes: ['/parfumwebgl', '/parfumwebm', '/parfumglb', '/capsule', '/eau', '/hamburger'],
+    Scene: ParfumWebGLScene,
     bgClass: 'home-cell--design',
   },
   {

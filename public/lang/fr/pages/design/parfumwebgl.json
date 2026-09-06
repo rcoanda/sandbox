@@ -1,4 +1,4 @@
 {
-  "title": "Parfum",
-  "description": "Flacon de parfum 3D en WebGL : corps de verre arrondi teinté avec liquide ambré à l'intérieur, collier et bouchon métalliques, le tout en rotation lente autour de l'axe vertical."
+  "title": "Parfum WebGL",
+  "description": "Flacon de parfum 3D en WebGL : corps de verre arrondi teinté avec liquide ambré à l'intérieur, collier et bouchon métalliques, le tout en rotation lente autour de l'axe vertical. Au survol du flacon, la rotation se fige et la molette de la souris permet de zoomer."
 }

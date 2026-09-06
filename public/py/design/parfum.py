@@ -1,8 +1,8 @@
 """
-Blender Python script — ParfumScene (faithful to the React Three Fiber scene)
+Blender Python script — ParfumWebGLScene (faithful to the React Three Fiber scene)
 ==============================================================================
 This script rebuilds, **inside Blender**, the exact scene described by the
-React component  `src/composants/design/ParfumScene.jsx` :
+React component  `src/composants/design/ParfumWebGLScene.jsx` :
 
   — a perfume bottle:  rounded glass body, liquid fill, golden collar + stem,
     golden cap, front & back labels;
@@ -26,7 +26,7 @@ React component  `src/composants/design/ParfumScene.jsx` :
 It does **NOT** export any JSX — it is the Blender‑only twin of the Web scene.
 
 Run inside Blender (≥ 3.6, tested on 3.6 & 4.2):
-    blender --background --python create_parfum_scene.py
+    blender --background --python create_parfumwebgl_scene.py
 or open Blender → Scripting → Load this file → Run Script.
 """
 
@@ -37,7 +37,7 @@ import math
 import random
 
 # ══════════════════════════════════════════════════════════════════════
-#  PARAMETERS — copied straight from src/composants/design/ParfumScene.jsx
+#  PARAMETERS — copied straight from src/composants/design/ParfumWebGLScene.jsx
 # ══════════════════════════════════════════════════════════════════════
 ROTATION_SPEED = 0.5                      # rad / s
 TURN_TIME = (2 * math.pi) / ROTATION_SPEED
@@ -649,7 +649,7 @@ def build_scene():
         bg.inputs["Strength"].default_value = 0.6
 
     scn.frame_set(1)
-    print("✅  ParfumScene built — faithful to src/composants/design/ParfumScene.jsx")
+    print("✅  ParfumWebGLScene built — faithful to src/composants/design/ParfumWebGLScene.jsx")
 
 
 def _aim_at(obj, target, up_world=(0, 1, 0)):
