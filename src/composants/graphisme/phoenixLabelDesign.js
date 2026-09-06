@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import usePageDico from '../Dico'
+import usePageDico from '../globals/Dico'
 
 let cachedFontFace = ''
 

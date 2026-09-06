@@ -1,5 +1,5 @@
-import usePageDico from '../composants/Dico'
-import BackArrow from '../composants/BackArrow'
+import usePageDico from '../../composants/globals/Dico'
+import BackArrow from '../../composants/globals/BackArrow'
 
 function Contact() {
   const dico = usePageDico('contact')

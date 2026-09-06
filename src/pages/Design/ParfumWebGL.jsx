@@ -1,9 +1,9 @@
 import { Canvas } from '@react-three/fiber'
 import ParfumWebGLScene from '../../composants/design/ParfumWebGLScene'
-import usePageDico from '../../composants/Dico'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import Informations from '../../composants/Informations'
+import usePageDico from '../../composants/globals/Dico'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
+import Informations from '../../composants/globals/Informations'
 
 function ParfumWebGL() {
   const dico = usePageDico('parfumwebgl')

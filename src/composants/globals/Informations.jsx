@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import usePageDico from './Dico'
-import '../styles/Informations.css'
+import '../../styles/globals/Informations.css'
 
 function Informations() {
   const location = useLocation()

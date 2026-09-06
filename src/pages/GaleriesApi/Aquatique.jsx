@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import AquatiqueScene, { setPaused } from '../../composants/galeriesApi/AquatiqueScene'
-import Overlay from '../../composants/Overlay'
+import Overlay from '../../composants/globals/Overlay'
 import '../../styles/galeriesApi/Aquatique.css'
-import Informations from '../../composants/Informations'
-import Loading from '../../composants/Loading'
+import Informations from '../../composants/globals/Informations'
+import Loading from '../../composants/globals/Loading'
 import useAquatiqueData from '../../composants/data/api/AquatiqueData'
 
 function Aquatique() {

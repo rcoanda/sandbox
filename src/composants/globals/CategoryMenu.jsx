@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDico } from './Dico'
-import { pageToPath } from './keys'
-import { categoryLinks } from './keys'
+import { pageToPath } from '../../config/keys'
+import { categoryLinks } from '../../config/keys'
 
 function CategoryMenu({ category }) {
   const { lang } = useDico()

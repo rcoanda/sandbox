@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react'
-import { fallback, pageToPath } from './keys'
+import { fallback, pageToPath } from '../../config/keys'
 
 const DicoContext = createContext()
 const STORAGE_KEY = 'app-lang'

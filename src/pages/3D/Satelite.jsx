@@ -1,10 +1,10 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import SateliteScene from '../../composants/3d/SateliteScene'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import Informations from '../../composants/Informations'
-import { useDragPan, DragHandle } from '../../composants/DragHandle'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
+import Informations from '../../composants/globals/Informations'
+import { useDragPan, DragHandle } from '../../composants/globals/DragHandle'
 import '../../styles/cosmos/Satelite.css'
 
 function Satelite() {

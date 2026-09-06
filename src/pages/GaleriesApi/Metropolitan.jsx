@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import MetropolitanLayout from '../../composants/galeriesApi/MetropolitanLayout'
-import OverlayGrid from '../../composants/OverlayGrid'
+import OverlayGrid from '../../composants/globals/OverlayGrid'
 import '../../styles/galeriesApi/Metropolitan.css'
-import Informations from '../../composants/Informations'
-import Loading from '../../composants/Loading'
+import Informations from '../../composants/globals/Informations'
+import Loading from '../../composants/globals/Loading'
 import useMetropolitanData from '../../composants/data/api/MetropolitanData'
 
 function Metropolitan() {

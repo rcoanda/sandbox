@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import EuropeScene, { setPaused } from '../../composants/galeriesApi/EuropeScene'
-import Overlay from '../../composants/Overlay'
+import Overlay from '../../composants/globals/Overlay'
 import '../../styles/galeriesApi/Europe.css'
-import Informations from '../../composants/Informations'
-import Loading from '../../composants/Loading'
+import Informations from '../../composants/globals/Informations'
+import Loading from '../../composants/globals/Loading'
 import useEuropeData from '../../composants/data/api/EuropeData'
 
 function Europe() {

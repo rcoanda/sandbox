@@ -1,8 +1,8 @@
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import HuitScene from '../../composants/trajectoires/HuitScene'
 import { Canvas } from '@react-three/fiber'
-import Informations from '../../composants/Informations'
+import Informations from '../../composants/globals/Informations'
 
 function Huit() {
   return (

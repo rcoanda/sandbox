@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Canvas, useThree } from '@react-three/fiber'
-import { categories, defaultRoute } from '../composants/keys'
-import { useDico } from '../composants/Dico'
-import Navigation from '../composants/Navigation'
+import { categories, defaultRoute } from '../../config/keys'
+import { useDico } from '../../composants/globals/Dico'
+import Navigation from '../../composants/globals/Navigation'
 import gsap from 'gsap'
-import '../styles/Home.css'
+import '../../styles/globals/Home.css'
 
 function CameraController({ id }) {
   const { camera } = useThree()

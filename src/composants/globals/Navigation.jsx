@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useDico } from './Dico'
-import { navigation } from './keys'
+import { navigation } from '../../config/keys'
 
 function Navigation() {
   const navigate = useNavigate()

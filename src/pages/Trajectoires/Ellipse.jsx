@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import EllipseScene, { setPaused } from '../../composants/trajectoires/EllipseScene'
-import Overlay from '../../composants/Overlay'
+import Overlay from '../../composants/globals/Overlay'
 import '../../styles/trajectoires/Ellipse.css'
-import Informations from '../../composants/Informations'
+import Informations from '../../composants/globals/Informations'
 import useTextureCosmiqueData from '../../composants/data/local/TextureCosmiqueData'
 
 function Ellipse() {

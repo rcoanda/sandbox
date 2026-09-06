@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import CooperScene, { setPaused } from '../../composants/galeriesApi/CooperScene'
-import Overlay from '../../composants/Overlay'
+import Overlay from '../../composants/globals/Overlay'
 import '../../styles/galeriesApi/Cooper.css'
-import Informations from '../../composants/Informations'
-import Loading from '../../composants/Loading'
+import Informations from '../../composants/globals/Informations'
+import Loading from '../../composants/globals/Loading'
 import useCooperData from '../../composants/data/api/CooperData'
 
 function Cooper() {

@@ -1,7 +1,7 @@
 import SynchroScene from '../../composants/geometrie/SynchroScene'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import Informations from '../../composants/Informations'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
+import Informations from '../../composants/globals/Informations'
 
 function Synchro() {
   return (

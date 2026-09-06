@@ -1,7 +1,7 @@
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import PolygoneScene from '../../composants/geometrie/PolygoneScene'
-import Informations from '../../composants/Informations'
+import Informations from '../../composants/globals/Informations'
 
 function Polygone() {
   return (

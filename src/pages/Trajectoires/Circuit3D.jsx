@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import Informations from '../../composants/Informations'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
+import Informations from '../../composants/globals/Informations'
 import Circuit3DScene from '../../composants/trajectoires/Circuit3DScene'
 import '../../styles/trajectoires/Circuit3D.css'
 

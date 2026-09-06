@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Grid3DScene from '../../composants/structures/Grid3DScene'
 import '../../styles/structures/Grid3D.css'
-import Informations from '../../composants/Informations'
+import Informations from '../../composants/globals/Informations'
 
 const ROWS = 8
 const COLS = 14

@@ -1,10 +1,10 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import BackArrow from '../../composants/BackArrow'
-import CategoryMenu from '../../composants/CategoryMenu'
-import Informations from '../../composants/Informations'
+import BackArrow from '../../composants/globals/BackArrow'
+import CategoryMenu from '../../composants/globals/CategoryMenu'
+import Informations from '../../composants/globals/Informations'
 import AstronauteScene from '../../composants/cosmos/AstronauteScene'
-import { useDragPan, DragHandle } from '../../composants/DragHandle'
+import { useDragPan, DragHandle } from '../../composants/globals/DragHandle'
 
 function Astronaute() {
   const { sceneOffset, dragging, pos, handleMouseDown } = useDragPan()

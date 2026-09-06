@@ -1,18 +1,18 @@
-import SynchroScene from './geometrie/SynchroScene'
-import LevitationScene from './3d/LevitationScene'
-import HuitScene from './trajectoires/HuitScene'
-import TerreLuneScene from './cosmos/TerreLuneScene'
-import Abstrait2DScene from './abstrait/Abstrait2DScene'
-import ReseauxScene from './structures/ReseauxScene'
-import ApiScene from './galeriesApi/ApiScene'
-import ParfumWebGLScene from './design/ParfumWebGLScene'
-import PhoenixLabel from './graphisme/PhoenixLabel'
+import SynchroScene from '../composants/geometrie/SynchroScene'
+import LevitationScene from '../composants/3d/LevitationScene'
+import HuitScene from '../composants/trajectoires/HuitScene'
+import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
+import Abstrait2DScene from '../composants/abstrait/Abstrait2DScene'
+import ReseauxScene from '../composants/structures/ReseauxScene'
+import ApiScene from '../composants/galeriesApi/ApiScene'
+import ParfumWebGLScene from '../composants/design/ParfumWebGLScene'
+import PhoenixLabel from '../composants/graphisme/PhoenixLabel'
 
 export const categories = [
   {
     id: 'geometrie',
     label: '01',
-    routes: ['/synchro', '/bloc', '/suite', '/polygone'],
+    routes: ['/synchro', '/bloc', '/suite', '/polygone', '/random'],
     Scene: SynchroScene,
     bgClass: 'home-cell--geometrie',
     is2D: true,
@@ -27,7 +27,7 @@ export const categories = [
   {
     id: 'trajectoires',
     label: '03',
-    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/random', '/ruban', '/circuit2d', '/circuit3d'],
+    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/ruban', '/circuit2d', '/circuit3d'],
     Scene: HuitScene,
     bgClass: 'home-cell--trajectoires',
   },
