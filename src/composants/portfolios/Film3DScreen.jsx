@@ -1,7 +1,8 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { frameText } from './portfoliosCommon'
+import { assetUrlAvailable } from '../../config/PortfoliosConfig'
 
 const RADIUS = 5.5
 
@@ -116,6 +117,46 @@ function buildFrameTexture(site, index, total, lang) {
   return tex
 }
 
+/* ── vidéo en boucle (une par URL, pool persistant) ─────────── */
+
+function buildVideo(webm, mp4) {
+  const video = document.createElement('video')
+  video.crossOrigin = 'anonymous'
+  video.loop = true
+  video.muted = true
+  video.playsInline = true
+  video.preload = 'auto'
+
+  if (webm) {
+    const s = document.createElement('source')
+    s.src = webm
+    s.type = 'video/webm'
+    video.appendChild(s)
+  }
+  if (mp4) {
+    const s = document.createElement('source')
+    s.src = mp4
+    s.type = 'video/mp4'
+    video.appendChild(s)
+  }
+
+  const tex = new THREE.VideoTexture(video)
+  tex.minFilter = THREE.LinearFilter
+  tex.magFilter = THREE.LinearFilter
+  tex.colorSpace = THREE.SRGBColorSpace
+
+  return { video, tex }
+}
+
+const texStore = new Map()
+
+function getEntry(key, webm, mp4) {
+  if (texStore.has(key)) return texStore.get(key)
+  const entry = buildVideo(webm, mp4)
+  texStore.set(key, entry)
+  return entry
+}
+
 /* Un "petit écran" film posé sur l'équateur de la sphère 3D :
    plan 3D texturé par un canvas (mêmes informations que Film2DScreen DOM). */
 
@@ -124,6 +165,29 @@ function Film3DScreen({ site, index, total, lang }) {
   const meshRef = useRef()
   const texture = useMemo(() => buildFrameTexture(site, index, total, lang), [site, index, total, lang])
   const position = useMemo(() => equatorPoint(index, total), [index, total])
+
+  const hasVideoFields = !!(site.videoWebm || site.videoMp4)
+  const [videoReady, setVideoReady] = useState(false)
+
+  useEffect(() => {
+    let alive = true
+    const check = async () => {
+      const ok = hasVideoFields && await assetUrlAvailable(site.videoWebm || site.videoMp4)
+      if (alive) setVideoReady(ok)
+    }
+    check()
+    return () => { alive = false }
+  }, [site.videoWebm, site.videoMp4, hasVideoFields])
+
+  const entry = videoReady
+    ? getEntry(site.videoWebm || site.videoMp4, site.videoWebm, site.videoMp4)
+    : null
+
+  useEffect(() => {
+    if (!entry) return
+    entry.video.play().catch(() => {})
+    return () => entry.video.pause()
+  }, [entry])
 
   useFrame(() => {
     if (!meshRef.current) return
@@ -154,7 +218,10 @@ function Film3DScreen({ site, index, total, lang }) {
       }}
     >
       <planeGeometry args={[3.2, 2]} />
-      <meshBasicMaterial map={texture} />
+      {entry
+        ? <meshBasicMaterial map={entry.tex} />
+        : <meshBasicMaterial map={texture} />
+      }
     </mesh>
   )
 }
