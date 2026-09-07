@@ -1,59 +1,74 @@
 export const portfolios = [
   {
-    id: 'netflix',
-    name: 'Netflix',
-    url: 'https://www.netflix.com',
-    accent: '#e50914',
-  },
-  {
-    id: 'prime',
-    name: 'Prime Video',
-    url: 'https://www.primevideo.com',
-    accent: '#00a8e1',
-  },
-  {
-    id: 'amazon',
-    name: 'Amazon',
-    url: 'https://www.amazon.com',
-    accent: '#ff9900',
+    id: 'sandbox',
+    name: 'Sandbox',
+    url: 'https://rcoanda.github.io/sandbox/',
+    accent: '#ffffff',
+    img: '/sandbox/assets/portfolios/sandbox.png',
+    videoWebm: '/sandbox/assets/portfolios/sandbox.webm',
+    videoMp4: '/sandbox/assets/portfolios/sandbox.mp4',
   },
   {
     id: 'github',
     name: 'GitHub',
     url: 'https://github.com',
     accent: '#6e40c9',
+    img: '/sandbox/assets/portfolios/github.png',
+    videoWebm: '/sandbox/assets/portfolios/github.webm',
+    videoMp4: '/sandbox/assets/portfolios/github.mp4',
   },
   {
     id: 'vercel',
     name: 'Vercel',
     url: 'https://vercel.com',
     accent: '#ffffff',
-  },
-  {
-    id: 'canalplus',
-    name: 'Canal+',
-    url: 'https://www.canalplus.com',
-    accent: '#ff5f00',
+    img: '/sandbox/assets/portfolios/vercel.png',
+    videoWebm: '/sandbox/assets/portfolios/vercel.webm',
+    videoMp4: '/sandbox/assets/portfolios/vercel.mp4',
   },
   {
     id: 'metropolitan',
     name: 'Metropolitan Museum',
     url: 'https://www.metmuseum.org',
     accent: '#b7712d',
+    img: '/sandbox/assets/portfolios/metropolitan.png',
+    videoWebm: '/sandbox/assets/portfolios/metropolitan.webm',
+    videoMp4: '/sandbox/assets/portfolios/metropolitan.mp4',
   },
   {
     id: 'nasa',
     name: 'NASA',
     url: 'https://www.nasa.gov',
     accent: '#0b3d91',
+    img: '/sandbox/assets/portfolios/nasa.png',
+    videoWebm: '/sandbox/assets/portfolios/nasa.webm',
+    videoMp4: '/sandbox/assets/portfolios/nasa.mp4',
   },
   {
     id: 'google',
     name: 'Google',
     url: 'https://www.google.com',
     accent: '#4285f4',
+    img: '/sandbox/assets/portfolios/google.png',
+    videoWebm: '/sandbox/assets/portfolios/google.webm',
+    videoMp4: '/sandbox/assets/portfolios/google.mp4',
   },
 ]
+
+/* Vérifie si un fichier statique est réellement servi.
+   Le serveur renvoie index.html (text/html) pour tout chemin inconnu,
+   donc on vérifie le Content-Type : un asset réel a un type non-HTML. */
+export async function assetUrlAvailable(url) {
+  if (!url) return false
+  try {
+    const res = await fetch(url, { method: 'HEAD' })
+    if (!res.ok) return false
+    const ctype = (res.headers.get('content-type') || '').split(';')[0].toLowerCase()
+    return ctype !== '' && ctype !== 'text/html'
+  } catch {
+    return false
+  }
+}
 
 export function reelCode(name) {
   let h = 0

@@ -104,11 +104,6 @@
   aspect-ratio: 16 / 9;
   border-radius: 2px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   background-color: #050507;
   border: 1px solid #2c2c32;
 }
@@ -117,6 +112,7 @@
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: radial-gradient(1000px 320px at 50% 118%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 55%);
   opacity: 0;
   transition: opacity 0.45s ease;
@@ -125,6 +121,28 @@
 
 .p-frame:hover .p-screen::before {
   opacity: 1;
+}
+
+/* fond dégradé + légende (affiché quand pas d'image) */
+.p-screen__grad {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* capture d'écran du site (si le fichier img existe) */
+.p-screen__shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
 .p-screen__arrow {

@@ -3,6 +3,7 @@ import BackArrow from '../../composants/globals/BackArrow'
 import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Informations from '../../composants/globals/Informations'
 import Expo3DScene from '../../composants/portfolios/Expo3DScene'
+import '../../styles/portfolios/Expo2D.css'
 
 function Expo3D() {
   return (
