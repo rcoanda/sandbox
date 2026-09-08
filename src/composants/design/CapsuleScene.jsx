@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import capsuleVideo from '/assets/design/capsule.webm'
+import capsuleMp4 from '/assets/design/capsule.mp4'
+import capsuleWebm from '/assets/design/capsule.webm'
 
 function CapsuleScene() {
   const videoRef = useRef(null)
@@ -7,7 +8,6 @@ function CapsuleScene() {
   return (
     <video
       ref={videoRef}
-      src={capsuleVideo}
       autoPlay
       loop
       muted
@@ -19,7 +19,10 @@ function CapsuleScene() {
         height: '100%',
         objectFit: 'cover',
       }}
-    />
+    >
+      <source src={capsuleMp4} type="video/mp4" />
+      <source src={capsuleWebm} type="video/webm" />
+    </video>
   )
 }
 
