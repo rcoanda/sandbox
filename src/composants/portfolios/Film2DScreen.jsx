@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { frameText } from './portfoliosCommon'
-import { assetUrlAvailable } from '../../config/PortfoliosConfig'
+import { frameText, assetUrlAvailable } from './portfoliosCommon'
 
 /* Contenu commun d'un "petit écran" film, utilisé par Expo2D (DOM) et
    Expo3D (fallback quand la vidéo manque, via Html de drei). */

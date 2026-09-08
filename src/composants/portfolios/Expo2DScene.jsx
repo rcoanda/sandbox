@@ -1,10 +1,12 @@
 import { useDico } from '../../composants/globals/Dico'
-import { portfolios } from '../../config/PortfoliosConfig'
+import { usePortfolios } from './portfoliosCommon'
 import Film2DScreen from './Film2DScreen'
 import '../../styles/portfolios/Expo2D.css'
 
 function Expo2DScene() {
   const { lang } = useDico()
+  const portfolios = usePortfolios()
+  if (!portfolios) return null
   const total = portfolios.length
 
   return (

@@ -2,16 +2,16 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useDico } from '../globals/Dico'
-import { portfolios } from '../../config/PortfoliosConfig'
+import { usePortfolios } from './portfoliosCommon'
 import Film3DScreen from './Film3DScreen'
 
 const DOME = 6.6
 
 function Expo3DScene() {
   const { lang } = useDico()
+  const portfolios = usePortfolios()
   const groupRef = useRef()
   const targetRotation = useRef(0)
-  const total = portfolios.length
 
   useEffect(() => {
     const onWheel = (e) => {
@@ -28,6 +28,9 @@ function Expo3DScene() {
     }
     camera.lookAt(0, 0, 0)
   })
+
+  if (!portfolios) return null
+  const total = portfolios.length
 
   return (
     <group ref={groupRef}>

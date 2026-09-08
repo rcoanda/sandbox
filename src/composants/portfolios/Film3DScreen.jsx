@@ -1,8 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { frameText } from './portfoliosCommon'
-import { assetUrlAvailable } from '../../config/PortfoliosConfig'
+import { frameText, assetUrlAvailable } from './portfoliosCommon'
 
 const RADIUS = 5.5
 
