@@ -28,7 +28,7 @@ export const categories = [
   {
     id: 'trajectoires',
     label: '03',
-    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/ruban', '/circuit2d', '/circuit3d'],
+    routes: ['/huit', '/ellipse', '/lemniscate', '/lissajous', '/spirale', '/hypocycloide', '/epicycloide', '/sinusoide', '/bezier', '/ruban', '/circuit2d', '/circuit3d', '/circles'],
     Scene: HuitScene,
     bgClass: 'home-cell--trajectoires',
   },
@@ -58,7 +58,7 @@ export const categories = [
   {
     id: 'galeriesApi',
     label: '07',
-    routes: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
+    routes: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique', '/people'],
     Scene: ApiScene,
     bgClass: 'home-cell--galeriesApi',
     is2D: true,

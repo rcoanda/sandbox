@@ -27,6 +27,7 @@ import Ruban from './pages/Trajectoires/Ruban'
 import Huit from './pages/Trajectoires/Huit'
 import Circuit2D from './pages/Trajectoires/Circuit2D'
 import Circuit3D from './pages/Trajectoires/Circuit3D'
+import Circles from './pages/Trajectoires/Circles'
 import Reseaux from './pages/Structures/Reseaux'
 import Cube from './pages/Structures/Cube'
 import Synchro from './pages/Geometrie/Synchro'
@@ -45,6 +46,7 @@ import Cleveland from './pages/GaleriesApi/Cleveland'
 import Chicago from './pages/GaleriesApi/Chicago'
 import Cooper from './pages/GaleriesApi/Cooper'
 import Aquatique from './pages/GaleriesApi/Aquatique'
+import People from './pages/GaleriesApi/People'
 import ParfumWebGL from './pages/Design/ParfumWebGL'
 import Phoenix from './pages/Graphisme/Phoenix'
 import Cristal from './pages/Graphisme/Cristal'
@@ -85,6 +87,7 @@ function App() {
         <Route path="/ruban" element={<Ruban />} />
         <Route path="/circuit2d" element={<Circuit2D />} />
         <Route path="/circuit3d" element={<Circuit3D />} />
+        <Route path="/circles" element={<Circles />} />
         <Route path="/reseaux" element={<Reseaux />} />
         <Route path="/cube" element={<Cube />} />
         <Route path="/grid2d" element={<Grid2D />} />
@@ -101,6 +104,7 @@ function App() {
         <Route path="/chicago" element={<Chicago />} />
         <Route path="/cooper" element={<Cooper />} />
         <Route path="/aquatique" element={<Aquatique />} />
+        <Route path="/people" element={<People />} />
         <Route path="/parfumwebgl" element={<ParfumWebGL />} />
         <Route path="/eau" element={<Eau />} />
         <Route path="/capsule" element={<Capsule />} />
