@@ -145,7 +145,27 @@ function buildVideo(webm, mp4) {
   tex.magFilter = THREE.LinearFilter
   tex.colorSpace = THREE.SRGBColorSpace
 
-  return { video, tex }
+  /* Cadre noir autour de la zone de projection (mêmes coordonnées que le
+     fillRect(40, 50, 560, 242) du canvas de cadre 640x400). */
+  const overlay = document.createElement('canvas')
+  overlay.width = 640
+  overlay.height = 400
+  const octx = overlay.getContext('2d')
+  octx.strokeStyle = '#000000'
+  octx.lineWidth = 4
+  octx.strokeRect(40, 50, 560, 242)
+  const overlayTex = new THREE.CanvasTexture(overlay)
+  overlayTex.colorSpace = THREE.SRGBColorSpace
+
+  /* Périmètre de la vidéo : la zone de projection
+     fillRect(40, 50, 560, 242) du canvas de cadre 640x400, traduite en
+     géométrie locale de la planeGeometry (3.2 x 2). */
+  const panel = {
+    args: [(560 / 640) * 3.2, (242 / 400) * 2],
+    position: [0, 1 - (171 / 400) * 2, 0.01],
+  }
+
+  return { video, tex, overlayTex, panel }
 }
 
 const texStore = new Map()
@@ -185,7 +205,7 @@ function Film3DScreen({ site, index, total, lang }) {
 
   useEffect(() => {
     if (!entry) return
-    entry.video.play().catch(() => {})
+    entry.video.play().catch(() => { })
     return () => entry.video.pause()
   }, [entry])
 
@@ -218,10 +238,19 @@ function Film3DScreen({ site, index, total, lang }) {
       }}
     >
       <planeGeometry args={[3.2, 2]} />
-      {entry
-        ? <meshBasicMaterial map={entry.tex} />
-        : <meshBasicMaterial map={texture} />
-      }
+      <meshBasicMaterial map={texture} />
+      {entry && (
+        <mesh position={entry.panel.position}>
+          <planeGeometry args={entry.panel.args} />
+          <meshBasicMaterial map={entry.tex} />
+        </mesh>
+      )}
+      {entry && (
+        <mesh>
+          <planeGeometry args={[3.2, 2]} />
+          <meshBasicMaterial map={entry.overlayTex} transparent />
+        </mesh>
+      )}
     </mesh>
   )
 }

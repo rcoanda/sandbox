@@ -1,6 +1,7 @@
 import { useDico } from '../../composants/globals/Dico'
 import { portfolios } from '../../config/PortfoliosConfig'
 import Film2DScreen from './Film2DScreen'
+import '../../styles/portfolios/Expo2D.css'
 
 function Expo2DScene() {
   const { lang } = useDico()

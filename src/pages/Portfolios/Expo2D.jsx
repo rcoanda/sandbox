@@ -3,7 +3,6 @@ import BackArrow from '../../composants/globals/BackArrow'
 import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Informations from '../../composants/globals/Informations'
 import Expo2DScene from '../../composants/portfolios/Expo2DScene'
-import '../../styles/portfolios/Expo2D.css'
 
 function Expo2D() {
   const containerRef = useRef(null)
