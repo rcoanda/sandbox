@@ -58,7 +58,7 @@ export const categories = [
   {
     id: 'galeriesApi',
     label: '07',
-    routes: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique', '/people'],
+    routes: ['/people', '/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
     Scene: ApiScene,
     bgClass: 'home-cell--galeriesApi',
     is2D: true,
