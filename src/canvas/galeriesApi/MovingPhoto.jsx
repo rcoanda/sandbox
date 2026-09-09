@@ -3,13 +3,13 @@
 import { useCircularMotion } from '../../hooks/useCircularMotion'
 import { usePhotoTexture } from '../../hooks/usePhotoTexture'
 
-export default function MovingPhoto({ radius, speed, direction, phase, index, source }) {
+export default function MovingPhoto({ radius, speed, direction, phase, length, width, index, source }) {
   const ref = useCircularMotion(radius, speed, direction, phase)
   const texture = usePhotoTexture(index, source)
 
   return (
     <mesh ref={ref}>
-      <planeGeometry args={[1, 1]} />
+      <planeGeometry args={[length, width]} />
       {texture && <meshBasicMaterial map={texture} side={2} />}
     </mesh>
   )

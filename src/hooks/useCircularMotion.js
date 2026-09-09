@@ -7,6 +7,7 @@ export function useCircularMotion(radius, speed, direction, phase = 0) {
   const ref = useRef()
 
   useFrame(({ clock }) => {
+    if (!ref.current) return
     const t = clock.getElapsedTime() * speed
     const angle = t * direction + phase
     const x = radius * Math.cos(angle)
