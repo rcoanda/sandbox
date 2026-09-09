@@ -5,6 +5,7 @@ import TerreLuneScene from '../composants/cosmos/TerreLuneScene'
 import Abstrait2DScene from '../composants/abstrait/Abstrait2DScene'
 import ReseauxScene from '../composants/structures/ReseauxScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
+import PeopleScene from '../canvas/motion/PeopleScene'
 import ParfumWebGLScene from '../composants/design/ParfumWebGLScene'
 import PhoenixLabel from '../composants/graphisme/PhoenixLabel'
 import Expo2DScene from '../composants/portfolios/Expo2DScene'
@@ -58,15 +59,22 @@ export const categories = [
   {
     id: 'galeriesApi',
     label: '07',
-    routes: ['/people', '/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
+    routes: ['/terre', '/metropolitan', '/europe', '/cleveland', '/chicago', '/cooper', '/aquatique'],
     Scene: ApiScene,
     bgClass: 'home-cell--galeriesApi',
     is2D: true,
     transparent: true,
   },
   {
-    id: 'graphisme',
+    id: 'motion',
     label: '08',
+    routes: ['/people'],
+    Scene: PeopleScene,
+    bgClass: 'home-cell--motion',
+  },
+  {
+    id: 'graphisme',
+    label: '09',
     routes: ['/phoenix', '/cristal'],
     Scene: PhoenixLabel,
     bgClass: 'home-cell--graphisme',
@@ -75,14 +83,14 @@ export const categories = [
   },
   {
     id: 'design',
-    label: '09',
+    label: '10',
     routes: ['/parfumwebgl', '/parfumwebm', '/parfumglb', '/capsule', '/eau', '/hamburger'],
     Scene: ParfumWebGLScene,
     bgClass: 'home-cell--design',
   },
   {
     id: 'portfolios',
-    label: '10',
+    label: '11',
     routes: ['/expo2d', '/expo3d'],
     Scene: Expo2DScene,
     bgClass: 'home-cell--portfolios',

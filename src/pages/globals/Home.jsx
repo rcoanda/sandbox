@@ -11,7 +11,7 @@ function CameraController({ id }) {
   const { camera } = useThree()
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
-    camera.position.z = id === 'cosmos' ? 8 : 4
+    camera.position.z = id === 'cosmos' ? 8 : id === 'motion' ? 13 : 4
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
   return null
@@ -125,11 +125,12 @@ function Home() {
     else setActiveId(id)
   }, [navigate])
 
-  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.id !== 'graphisme' && c.id !== 'design' && c.id !== 'portfolios')
+  const gridCats = categories.filter((c) => c.id !== 'galeriesApi' && c.id !== 'motion' && c.id !== 'graphisme' && c.id !== 'design' && c.id !== 'portfolios')
   const col1 = gridCats.filter((_, i) => i % 2 === 0)
   const col2 = gridCats.filter((_, i) => i % 2 === 1)
   const bottomCats = categories.filter((c) => c.id === 'galeriesApi' || c.id === 'graphisme' || c.id === 'design')
   const galeriesApiCat = categories.find((c) => c.id === 'galeriesApi')
+  const motionCat = categories.find((c) => c.id === 'motion')
   const portfoliosCat = categories.find((c) => c.id === 'portfolios')
 
   return (
@@ -163,14 +164,16 @@ function Home() {
           ))}
           <div className="home-diagonal" />
         </div>
-        <div className="home-row-full">
-          <div key={galeriesApiCat.id} className={`home-cell home-cell--full ${galeriesApiCat.bgClass}${activeId === galeriesApiCat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(galeriesApiCat.id)} onMouseEnter={() => setActiveId(galeriesApiCat.id)}>
-            <h2 className="home-cell-title">{commonJson?.categories?.[galeriesApiCat.id]}</h2>
-            <div className="home-cell-footer">
-              <span>{commonJson?.subtitle?.[galeriesApiCat.id]}</span>
-              <span>{galeriesApiCat.label}</span>
+        <div className="home-row-duo">
+          {[galeriesApiCat, motionCat].map((cat) => (
+            <div key={cat.id} className={`home-cell home-cell--full ${cat.bgClass}${activeId === cat.id ? ' home-cell--active' : ''}`} onClick={() => handleCellClick(cat.id)} onMouseEnter={() => setActiveId(cat.id)}>
+              <h2 className="home-cell-title">{commonJson?.categories?.[cat.id]}</h2>
+              <div className="home-cell-footer">
+                <span>{commonJson?.subtitle?.[cat.id]}</span>
+                <span>{cat.label}</span>
+              </div>
             </div>
-          </div>
+          ))}
           <div className="home-diagonal" />
         </div>
         <div className="home-row-split">

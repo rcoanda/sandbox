@@ -12,6 +12,7 @@
     "abstrait": "Abstract",
     "structures": "Structures",
     "galeriesApi": "API Galleries (instable)",
+    "motion": "Motion & Photos",
     "graphisme": "Graphisme",
     "design": "Design",
     "portfolios": "Portfolios & Showcases"
@@ -26,6 +27,7 @@
     "abstrait": "Colors & forms",
     "structures": "Nodes & links",
     "galeriesApi": "Images & data",
+    "motion": "Photos in motion",
     "graphisme": "Type & labels",
     "design": "Objects & 3D scenes",
     "portfolios": "Selected projects"
