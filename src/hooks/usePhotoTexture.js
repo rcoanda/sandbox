@@ -9,12 +9,15 @@ const MAX_SIZE = 512
 
 function resizeToCanvas(img, maxSize) {
   const scale = Math.min(1, maxSize / Math.max(img.width, img.height))
-  const w = Math.max(1, Math.floor(img.width * scale))
-  const h = Math.max(1, Math.floor(img.height * scale))
+  const w = Math.max(1, Math.floor(img.height * scale))
+  const h = Math.max(1, Math.floor(img.width * scale))
   const canvas = document.createElement('canvas')
   canvas.width = w
   canvas.height = h
-  canvas.getContext('2d').drawImage(img, 0, 0, w, h)
+  const ctx = canvas.getContext('2d')
+  ctx.translate(w, 0)
+  ctx.rotate(Math.PI / 2)
+  ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale)
   return canvas
 }
 
