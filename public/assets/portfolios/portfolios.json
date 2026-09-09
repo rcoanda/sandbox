@@ -52,5 +52,23 @@
     "img": "/sandbox/assets/portfolios/google.png",
     "videoWebm": "/sandbox/assets/portfolios/google.webm",
     "videoMp4": "/sandbox/assets/portfolios/google.mp4"
+  },
+  {
+    "id": "rayancross",
+    "name": "Rayan Cross",
+    "url": "https://rayancross.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rayancross.png",
+    "videoWebm": "/sandbox/assets/portfolios/rayancross.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rayancross.mp4"
+  },
+  {
+    "id": "rosecarter",
+    "name": "Rose Carter",
+    "url": "https://rosecarter.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rosecarter.png",
+    "videoWebm": "/sandbox/assets/portfolios/rosecarter.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rosecarter.mp4"
   }
 ]
