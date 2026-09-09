@@ -4,7 +4,7 @@ const cache = {}
 
 function buildUrl(fileName) {
     const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-    return `https://res.cloudinary.com/${cloudName}/image/upload/${fileName}`
+    return `https://res.cloudinary.com/${cloudName}/image/upload/q_auto,w_512,c_scale/${fileName}`
 }
 
 async function fetchUrls(source) {
