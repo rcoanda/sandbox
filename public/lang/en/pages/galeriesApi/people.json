@@ -1,4 +1,4 @@
 {
   "title": "People",
-  "description": "Photo portrait gallery flowing on circular 3D trajectories, royalty-free photos retrieved from Unsplash and loaded from Cloudinary."
+  "description": "Photo portrait gallery flowing on circular 2D trajectories in the horizontal plane, royalty-free photos retrieved from Unsplash and loaded from Cloudinary."
 }
