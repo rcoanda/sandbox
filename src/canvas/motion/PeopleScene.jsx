@@ -3,7 +3,7 @@
 import MovingPhoto from './MovingPhoto'
 import { circlesTrajectory } from '../../utils/circlesTrajectory'
 
-const PEOPLE_SOURCE = 'data/galeriesApi/people.json'
+const PEOPLE_SOURCE = 'data/motion/people.json'
 
 export default function PeopleScene() {
   const trajectories = circlesTrajectory()
