@@ -9,51 +9,6 @@
     "videoMp4": "/sandbox/assets/portfolios/sandbox.mp4"
   },
   {
-    "id": "github",
-    "name": "GitHub",
-    "url": "https://github.com",
-    "accent": "#6e40c9",
-    "img": "/sandbox/assets/portfolios/github.png",
-    "videoWebm": "/sandbox/assets/portfolios/github.webm",
-    "videoMp4": "/sandbox/assets/portfolios/github.mp4"
-  },
-  {
-    "id": "vercel",
-    "name": "Vercel",
-    "url": "https://vercel.com",
-    "accent": "#ffffff",
-    "img": "/sandbox/assets/portfolios/vercel.png",
-    "videoWebm": "/sandbox/assets/portfolios/vercel.webm",
-    "videoMp4": "/sandbox/assets/portfolios/vercel.mp4"
-  },
-  {
-    "id": "metropolitan",
-    "name": "Metropolitan Museum",
-    "url": "https://www.metmuseum.org",
-    "accent": "#b7712d",
-    "img": "/sandbox/assets/portfolios/metropolitan.png",
-    "videoWebm": "/sandbox/assets/portfolios/metropolitan.webm",
-    "videoMp4": "/sandbox/assets/portfolios/metropolitan.mp4"
-  },
-  {
-    "id": "nasa",
-    "name": "NASA",
-    "url": "https://www.nasa.gov",
-    "accent": "#0b3d91",
-    "img": "/sandbox/assets/portfolios/nasa.png",
-    "videoWebm": "/sandbox/assets/portfolios/nasa.webm",
-    "videoMp4": "/sandbox/assets/portfolios/nasa.mp4"
-  },
-  {
-    "id": "google",
-    "name": "Google",
-    "url": "https://www.google.com",
-    "accent": "#4285f4",
-    "img": "/sandbox/assets/portfolios/google.png",
-    "videoWebm": "/sandbox/assets/portfolios/google.webm",
-    "videoMp4": "/sandbox/assets/portfolios/google.mp4"
-  },
-  {
     "id": "rayancross",
     "name": "Rayan Cross",
     "url": "https://rayancross.vercel.app/",
@@ -64,6 +19,60 @@
   },
   {
     "id": "rosecarter",
+    "name": "Rose Carter",
+    "url": "https://rosecarter.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rosecarter.png",
+    "videoWebm": "/sandbox/assets/portfolios/rosecarter.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rosecarter.mp4"
+  },
+  {
+    "id": "sandbox1",
+    "name": "Sandbox",
+    "url": "https://rcoanda.github.io/sandbox/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/sandbox.png",
+    "videoWebm": "/sandbox/assets/portfolios/sandbox.webm",
+    "videoMp4": "/sandbox/assets/portfolios/sandbox.mp4"
+  },
+  {
+    "id": "rayancross1",
+    "name": "Rayan Cross",
+    "url": "https://rayancross.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rayancross.png",
+    "videoWebm": "/sandbox/assets/portfolios/rayancross.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rayancross.mp4"
+  },
+  {
+    "id": "rosecarter1",
+    "name": "Rose Carter",
+    "url": "https://rosecarter.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rosecarter.png",
+    "videoWebm": "/sandbox/assets/portfolios/rosecarter.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rosecarter.mp4"
+  },
+  {
+    "id": "sandbox2",
+    "name": "Sandbox",
+    "url": "https://rcoanda.github.io/sandbox/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/sandbox.png",
+    "videoWebm": "/sandbox/assets/portfolios/sandbox.webm",
+    "videoMp4": "/sandbox/assets/portfolios/sandbox.mp4"
+  },
+  {
+    "id": "rayancross2",
+    "name": "Rayan Cross",
+    "url": "https://rayancross.vercel.app/",
+    "accent": "#ffffff",
+    "img": "/sandbox/assets/portfolios/rayancross.png",
+    "videoWebm": "/sandbox/assets/portfolios/rayancross.webm",
+    "videoMp4": "/sandbox/assets/portfolios/rayancross.mp4"
+  },
+  {
+    "id": "rosecarter2",
     "name": "Rose Carter",
     "url": "https://rosecarter.vercel.app/",
     "accent": "#ffffff",
