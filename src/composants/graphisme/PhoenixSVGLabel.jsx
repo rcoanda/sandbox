@@ -1,7 +1,7 @@
-import PhoenixRectoLabel from './PhoenixRectoLabel'
-import PhoenixVersoLabel from './PhoenixVersoLabel'
+import PhoenixSVGRectoLabel from './PhoenixSVGRectoLabel'
+import PhoenixSVGVersoLabel from './PhoenixSVGVersoLabel'
 
-function PhoenixLabel({ transparent }) {
+function PhoenixSVGLabel({ transparent }) {
   return (
     <div
       style={{
@@ -16,13 +16,13 @@ function PhoenixLabel({ transparent }) {
       }}
     >
       <div style={{ transform: 'scale(0.75)', transformOrigin: 'right' }}>
-        <PhoenixRectoLabel />
+        <PhoenixSVGRectoLabel />
       </div>
       <div style={{ transform: 'scale(0.75)', transformOrigin: 'left' }}>
-        <PhoenixVersoLabel />
+        <PhoenixSVGVersoLabel />
       </div>
     </div>
   )
 }
 
-export default PhoenixLabel
+export default PhoenixSVGLabel

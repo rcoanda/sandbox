@@ -6,8 +6,8 @@ import {
   PHOENIX_HEIGHT,
   PHOENIX_WIDTH,
 } from '../graphisme/phoenixLabelDesign.js'
-import { usePhoenixRectoSvg } from '../graphisme/phoenixRectoSvg'
-import { phoenixVersoSvg } from '../graphisme/pheonixVersoSvg'
+import { usePhoenixRectoSvg } from '../graphisme/PhoenixSVGRecto'
+import { phoenixSVGVerso } from '../graphisme/phoenixSVGVerso'
 
 // Taille du canvas sur lequel les étiquettes SVG sont rasterisées.
 const LABEL_W = PHOENIX_WIDTH
@@ -53,7 +53,7 @@ export function usePhoenixLabelTextures() {
   // Verso : contenu statique (phoenix doré, "EAU DE PARFUM", "Paris · 50 ml").
   useEffect(() => {
     let cancelled = false
-    svgToTexture(phoenixVersoSvg()).then((tex) => {
+    svgToTexture(phoenixSVGVerso()).then((tex) => {
       if (!cancelled && tex) setVersoTexture(tex)
     })
     return () => {

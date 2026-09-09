@@ -7,7 +7,7 @@ import ReseauxScene from '../composants/structures/ReseauxScene'
 import ApiScene from '../composants/galeriesApi/ApiScene'
 import PeopleScene from '../canvas/motion/PeopleScene'
 import ParfumWebGLScene from '../composants/design/ParfumWebGLScene'
-import PhoenixLabel from '../composants/graphisme/PhoenixLabel'
+import PhoenixSVGLabel from '../composants/graphisme/PhoenixSVGLabel'
 import Expo2DScene from '../composants/portfolios/Expo2DScene'
 
 export const categories = [
@@ -75,8 +75,8 @@ export const categories = [
   {
     id: 'graphisme',
     label: '09',
-    routes: ['/phoenix', '/phoenixjpg'],
-    Scene: PhoenixLabel,
+    routes: ['/phoenixsvg', '/phoenixjpg'],
+    Scene: PhoenixSVGLabel,
     bgClass: 'home-cell--graphisme',
     is2D: true,
     transparent: true,

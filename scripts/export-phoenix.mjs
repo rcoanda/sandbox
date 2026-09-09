@@ -1,12 +1,12 @@
 // Exporte les deux étiquettes Phoenix (recto = marque, verso = phénix) en JPEG
-// dans public/assets/graphisme. Pipeline : SVG partagé (phoenixSvg.js) → page
+// dans public/assets/graphisme. Pipeline : SVG partagé (phoenixSVG.js) → page
 // HTML → capture Chrome headless (PNG @2x) → conversion JPEG (sips).
 import { readFileSync, writeFileSync, unlinkSync, mkdtempSync, rmSync } from 'fs'
 import { execFileSync } from 'child_process'
 import { join, dirname } from 'path'
 import { tmpdir } from 'os'
 import { fileURLToPath } from 'url'
-import { phoenixRectoSvg, phoenixVersoSvg, PHOENIX_BRAND_FONT } from '../src/composants/graphisme/phoenixSvg.js'
+import { PhoenixSVGRecto, phoenixSVGVerso, PHOENIX_BRAND_FONT } from '../src/composants/graphisme/phoenixSVG.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -17,7 +17,7 @@ const H = 580 * SCALE
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 function readLang() {
-  return JSON.parse(readFileSync(join(ROOT, 'public', 'lang', 'fr', 'pages', 'graphisme', 'phoenix.json'), 'utf8'))
+  return JSON.parse(readFileSync(join(ROOT, 'public', 'lang', 'fr', 'pages', 'graphisme', 'phoenixsvg.json'), 'utf8'))
 }
 
 function fontFaceDataUrl() {
@@ -55,14 +55,14 @@ function toJpeg(png, jpg) {
 const dico = readLang()
 const fontFace = `<style>@font-face{font-family:'Italianno';src:url(${fontFaceDataUrl()}) format('woff2');}</style>`
 
-const rectoSvg = phoenixRectoSvg({
+const rectoSvg = PhoenixSVGRecto({
   brand: dico.marque,
   kind: dico.type,
   details: dico.details,
   brandFont: PHOENIX_BRAND_FONT,
   fontFace,
 })
-const versoSvg = phoenixVersoSvg()
+const versoSvg = phoenixSVGVerso()
 
 const jobs = [
   { name: 'phoenix-recto', svg: rectoSvg },

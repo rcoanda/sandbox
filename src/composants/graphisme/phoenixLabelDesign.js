@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import usePageDico from '../globals/Dico'
-import { PHOENIX_VIEWBOX, PHOENIX_WIDTH, PHOENIX_HEIGHT, PHOENIX_BRAND_FONT, PHOENIX_COLORS, frameOuterSvg, frameInnerSvg } from './phoenixSvg.js'
+import { PHOENIX_VIEWBOX, PHOENIX_WIDTH, PHOENIX_HEIGHT, PHOENIX_BRAND_FONT, PHOENIX_COLORS, frameOuterSvg, frameInnerSvg } from './phoenixSVG.js'
 
 export { PHOENIX_VIEWBOX, PHOENIX_WIDTH, PHOENIX_HEIGHT, PHOENIX_BRAND_FONT, PHOENIX_COLORS, frameOuterSvg, frameInnerSvg }
 
@@ -32,7 +32,7 @@ const PHOENIX_DETAILS = 'Details Parfum'
 
 // helpers SVG
 export function usePhoenixLabelDesign() {
-  const dico = usePageDico('phoenix')
+  const dico = usePageDico('phoenixsvg')
   const [fontFace, setFontFace] = useState(cachedFontFace)
 
   useEffect(() => {

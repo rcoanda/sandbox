@@ -65,7 +65,7 @@ export function phoenixRectoInner({
  `
 }
 
-export function phoenixRectoSvg(input) {
+export function PhoenixSVGRecto(input) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${PHOENIX_WIDTH}" height="${PHOENIX_HEIGHT}" viewBox="${PHOENIX_VIEWBOX}">${phoenixRectoInner(input)}</svg>`
 }
 
@@ -101,6 +101,6 @@ export function phoenixVersoInner() {
  `
 }
 
-export function phoenixVersoSvg() {
+export function phoenixSVGVerso() {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${PHOENIX_WIDTH}" height="${PHOENIX_HEIGHT}" viewBox="${PHOENIX_VIEWBOX}">${phoenixVersoInner()}</svg>`
 }

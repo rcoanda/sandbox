@@ -1,4 +1,4 @@
-import { phoenixRectoInner, phoenixRectoSvg } from './phoenixSvg.js'
+import { phoenixRectoInner, PhoenixSVGRecto } from './phoenixSVG.js'
 import { usePhoenixLabelDesign } from './phoenixLabelDesign.js'
 
 function getBrandFontSize(brand, brandFont, baseSize = 84, maxWidth = 250) {
@@ -35,5 +35,5 @@ export function usePhoenixRectoInner() {
 }
 
 export function usePhoenixRectoSvg() {
-  return phoenixRectoSvg(rectoInput(usePhoenixLabelDesign()))
+  return PhoenixSVGRecto(rectoInput(usePhoenixLabelDesign()))
 }

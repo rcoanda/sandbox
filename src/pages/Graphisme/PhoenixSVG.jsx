@@ -1,9 +1,9 @@
 import BackArrow from '../../composants/globals/BackArrow'
 import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Informations from '../../composants/globals/Informations'
-import PhoenixLabel from '../../composants/graphisme/PhoenixLabel'
+import PhoenixSVGLabel from '../../composants/graphisme/PhoenixSVGLabel'
 
-function Phoenix() {
+function PhoenixSVG() {
   return (
     <div
       style={{
@@ -20,9 +20,9 @@ function Phoenix() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="graphisme" />
-      <PhoenixLabel />
+      <PhoenixSVGLabel />
     </div>
   )
 }
 
-export default Phoenix
+export default PhoenixSVG
