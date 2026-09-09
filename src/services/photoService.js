@@ -1,4 +1,4 @@
-// Service qui récupère les noms de fichiers 
+// Service qui récupère les noms de fichiers depuis un fichier json (source)
 // et fournit les URLs Cloudinary correspondantes, avec mise en cache.
 const cache = {}
 
@@ -13,7 +13,7 @@ async function fetchUrls(source) {
     return data.files.map(buildUrl)
 }
 
-export function getPeopleUrls(source) {
+export function getPhotoUrls(source) {
     if (!cache[source]) cache[source] = fetchUrls(source)
     return cache[source]
 }
