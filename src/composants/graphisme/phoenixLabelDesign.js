@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import usePageDico from '../globals/Dico'
+import { PHOENIX_VIEWBOX, PHOENIX_WIDTH, PHOENIX_HEIGHT, PHOENIX_BRAND_FONT, PHOENIX_COLORS, frameOuterSvg, frameInnerSvg } from './phoenixSvg.js'
+
+export { PHOENIX_VIEWBOX, PHOENIX_WIDTH, PHOENIX_HEIGHT, PHOENIX_BRAND_FONT, PHOENIX_COLORS, frameOuterSvg, frameInnerSvg }
 
 let cachedFontFace = ''
 
@@ -23,38 +26,11 @@ async function loadBrandFontFace() {
 }
 
 // Design system partagé Recto / Verso — single source of truth
-export const PHOENIX_VIEWBOX = '0 0 420 580'
-export const PHOENIX_WIDTH = 420
-export const PHOENIX_HEIGHT = 580
 const PHOENIX_BRAND = 'NOM PARFUM'
 const PHOENIX_KIND = 'TYPE PARFUM'
 const PHOENIX_DETAILS = 'Details Parfum'
-export const PHOENIX_BRAND_FONT = '"Italianno", cursive'
-
-export const PHOENIX_COLORS = {
-  bg: '#f6ecd9',
-  gold: '#c9a44a',
-  brown: '#8a6d3b',
-  dark: '#3a2e20',
-  ink: '#1f1a12',
-}
-
-const PHOENIX_FRAME = {
-  outer: { x: 45, y: 45, w: 330, h: 490, rx: 40 },
-  inner: { x: 55, y: 55, w: 310, h: 470, rx: 32, strokeWidth: 7 },
-}
 
 // helpers SVG
-export function frameOuterSvg() {
-  const { x, y, w, h, rx } = PHOENIX_FRAME.outer
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${PHOENIX_COLORS.bg}" />`
-}
-
-export function frameInnerSvg() {
-  const { x, y, w, h, rx, strokeWidth } = PHOENIX_FRAME.inner
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="none" stroke="${PHOENIX_COLORS.gold}" stroke-width="${strokeWidth}" />`
-}
-
 export function usePhoenixLabelDesign() {
   const dico = usePageDico('phoenix')
   const [fontFace, setFontFace] = useState(cachedFontFace)
