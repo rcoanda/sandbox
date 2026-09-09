@@ -1,9 +1,9 @@
 import BackArrow from '../../composants/globals/BackArrow'
 import CategoryMenu from '../../composants/globals/CategoryMenu'
 import Informations from '../../composants/globals/Informations'
-import CristalLabel from '../../composants/graphisme/CristalLabel'
+import PhoenixJPGLabel from '../../composants/graphisme/PhoenixJPGLabel'
 
-function Cristal() {
+function PhoenixJPG() {
   return (
     <div
       style={{
@@ -20,9 +20,9 @@ function Cristal() {
       <BackArrow />
       <Informations />
       <CategoryMenu category="graphisme" />
-      <CristalLabel />
+      <PhoenixJPGLabel />
     </div>
   )
 }
 
-export default Cristal
+export default PhoenixJPG

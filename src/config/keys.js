@@ -75,7 +75,7 @@ export const categories = [
   {
     id: 'graphisme',
     label: '09',
-    routes: ['/phoenix', '/cristal'],
+    routes: ['/phoenix', '/phoenixjpg'],
     Scene: PhoenixLabel,
     bgClass: 'home-cell--graphisme',
     is2D: true,

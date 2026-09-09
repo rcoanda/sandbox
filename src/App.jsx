@@ -49,7 +49,7 @@ import Aquatique from './pages/GaleriesApi/Aquatique'
 import People from './pages/motion/People'
 import ParfumWebGL from './pages/Design/ParfumWebGL'
 import Phoenix from './pages/Graphisme/Phoenix'
-import Cristal from './pages/Graphisme/Cristal'
+import PhoenixJPG from './pages/Graphisme/PhoenixJPG'
 import Eau from './pages/Design/Eau'
 import Hamburger from './pages/Design/Hamburger'
 import Capsule from './pages/Design/Capsule'
@@ -112,7 +112,7 @@ function App() {
         <Route path="/parfumglb" element={<ParfumGLB />} />
         <Route path="/hamburger" element={<Hamburger />} />
         <Route path="/phoenix" element={<Phoenix />} />
-        <Route path="/cristal" element={<Cristal />} />
+        <Route path="/phoenixjpg" element={<PhoenixJPG />} />
         <Route path="/expo2d" element={<Expo2D />} />
         <Route path="/expo3d" element={<Expo3D />} />
       </Routes>
