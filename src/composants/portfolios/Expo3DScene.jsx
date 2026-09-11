@@ -6,6 +6,7 @@ import { usePortfolios } from './portfoliosCommon'
 import Film3DScreen from './Film3DScreen'
 
 const DOME = 6.6
+const KEY_STEP = 0.6
 
 function Expo3DScene() {
   const { lang } = useDico()
@@ -17,8 +18,19 @@ function Expo3DScene() {
     const onWheel = (e) => {
       targetRotation.current += (e.deltaY + e.deltaX) * 0.0018
     }
+    const onKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        targetRotation.current += KEY_STEP
+      } else if (e.key === 'ArrowLeft') {
+        targetRotation.current -= KEY_STEP
+      }
+    }
     window.addEventListener('wheel', onWheel, { passive: true })
-    return () => window.removeEventListener('wheel', onWheel)
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKeyDown)
+    }
   }, [])
 
   useFrame(({ camera }) => {

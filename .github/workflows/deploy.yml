@@ -1,7 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
@@ -13,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-  # Utilise la dernière version stable d'Ubuntu pour exécuter les tâches
+    # Utilise la dernière version stable d'Ubuntu pour exécuter les tâches
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

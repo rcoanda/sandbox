@@ -7,6 +7,8 @@ import Expo2DScene from '../../composants/portfolios/Expo2DScene'
 function Expo2D() {
   const containerRef = useRef(null)
 
+  const KEY_STEP = 640
+
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -14,8 +16,21 @@ function Expo2D() {
       e.preventDefault()
       el.scrollLeft += e.deltaY + e.deltaX
     }
+    const onKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        el.scrollLeft += KEY_STEP
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        el.scrollLeft -= KEY_STEP
+      }
+    }
     el.addEventListener('wheel', onWheel, { passive: false })
-    return () => el.removeEventListener('wheel', onWheel)
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      el.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKeyDown)
+    }
   }, [])
 
   return (
